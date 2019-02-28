@@ -1,0 +1,128 @@
+2019-02-28 13:42:52,433 p=56205 u=mford |  - downloading role 'paloaltonetworks', owned by paloaltonetworks
+2019-02-28 13:42:55,069 p=56205 u=mford |  - downloading role from https://github.com/PaloAltoNetworks/ansible-pan/archive/v2.0.1.tar.gz
+2019-02-28 13:42:56,344 p=56205 u=mford |  - extracting paloaltonetworks.paloaltonetworks to /Users/mford/Documents/github-workspace/ansible-panos/roles/paloaltonetworks.paloaltonetworks
+2019-02-28 13:42:56,521 p=56205 u=mford |  - paloaltonetworks.paloaltonetworks (v2.0.1) was installed successfully
+2019-02-28 14:03:20,383 p=56301 u=mford |  ERROR! vars file ./credentials/pan-credentials.yml was not found on the Ansible Controller.
+If you are using a module and expect the file to exist on the remote, see the remote_src option
+2019-02-28 14:04:01,346 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:04:01,354 p=56309 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:04:01,370 p=56309 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:04:03,568 p=56309 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "cmd": ["/usr/local/bin/pip2", "install", "pan-python"], "msg": "stdout: Collecting pan-python\n  Downloading https://files.pythonhosted.org/packages/50/f7/b06700852a38efc1ecea91e44dc64502bdc44d2806be40b1111e956a1c46/pan_python-0.14.0-py2.py3-none-any.whl (59kB)\nInstalling collected packages: pan-python\n\n:stderr: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/pan_python-0.14.0.dist-info'\nConsider using the `--user` option or check the permissions.\n\nYou are using pip version 18.0, however version 19.0.3 is available.\nYou should consider upgrading via the 'pip install --upgrade pip' command.\n"}
+2019-02-28 14:04:03,570 p=56309 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:04:03,571 p=56309 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:04:03,571 p=56309 u=mford |  localhost                  : ok=0    changed=0    unreachable=0    failed=1   
+2019-02-28 14:04:41,969 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:04:41,976 p=56351 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:04:41,987 p=56351 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:04:43,303 p=56351 u=mford |  ok: [localhost]
+2019-02-28 14:04:43,310 p=56351 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:04:47,397 p=56351 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "cmd": ["/usr/local/bin/pip2", "install", "pandevice"], "msg": "stdout: Collecting pandevice\n  Downloading https://files.pythonhosted.org/packages/1e/3f/5a20642798cd42f023404bcc01dfc683c66c5bd65d958203074fcaf62008/pandevice-0.6.6.tar.gz (127kB)\nRequirement already satisfied: pan-python in /Library/Python/2.7/site-packages (from pandevice) (0.14.0)\nBuilding wheels for collected packages: pandevice\n  Running setup.py bdist_wheel for pandevice: started\n  Running setup.py bdist_wheel for pandevice: finished with status 'done'\n  Stored in directory: /Users/mford/Library/Caches/pip/wheels/ab/e8/24/f7949c06432e08699f1f2133e08ee69b2882ab6fd48b5b10f7\nSuccessfully built pandevice\nInstalling collected packages: pandevice\n\n:stderr: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/pandevice'\nConsider using the `--user` option or check the permissions.\n\nYou are using pip version 18.0, however version 19.0.3 is available.\nYou should consider upgrading via the 'pip install --upgrade pip' command.\n"}
+2019-02-28 14:04:47,405 p=56351 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:04:47,405 p=56351 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:04:47,406 p=56351 u=mford |  localhost                  : ok=1    changed=0    unreachable=0    failed=1   
+2019-02-28 14:06:26,568 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:06:26,576 p=56433 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:06:26,587 p=56433 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:06:28,193 p=56433 u=mford |  ok: [localhost]
+2019-02-28 14:06:28,201 p=56433 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:06:29,299 p=56433 u=mford |  ok: [localhost]
+2019-02-28 14:06:29,308 p=56433 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:06:31,389 p=56433 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "cmd": ["/usr/local/bin/pip2", "install", "xmltodict"], "msg": "stdout: Collecting xmltodict\n  Downloading https://files.pythonhosted.org/packages/28/fd/30d5c1d3ac29ce229f6bdc40bbc20b28f716e8b363140c26eff19122d8a5/xmltodict-0.12.0-py2.py3-none-any.whl\nInstalling collected packages: xmltodict\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7.\nCould not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/xmltodict.pyc'\nConsider using the `--user` option or check the permissions.\n\n"}
+2019-02-28 14:06:31,392 p=56433 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:06:31,392 p=56433 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:06:31,392 p=56433 u=mford |  localhost                  : ok=2    changed=0    unreachable=0    failed=1   
+2019-02-28 14:07:00,656 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:07:00,663 p=56505 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:07:00,678 p=56505 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:07:01,986 p=56505 u=mford |  ok: [localhost]
+2019-02-28 14:07:01,994 p=56505 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:07:03,121 p=56505 u=mford |  ok: [localhost]
+2019-02-28 14:07:03,147 p=56505 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:07:04,264 p=56505 u=mford |  ok: [localhost]
+2019-02-28 14:07:04,270 p=56505 u=mford |  TASK [add a rule to allow HTTP] ***********************************************************************************************************************
+2019-02-28 14:07:06,778 p=56505 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "msg": "Failed \"add\" create:  security -> rules -> Web traffic -> from 'untrust' is not an allowed keyword\n security -> rules -> Web traffic -> from 'untrust' is not a valid reference\n security -> rules -> Web traffic -> from is invalid"}
+2019-02-28 14:07:06,780 p=56505 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:07:06,781 p=56505 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:07:06,781 p=56505 u=mford |  localhost                  : ok=3    changed=0    unreachable=0    failed=1   
+2019-02-28 14:16:12,241 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:16:12,250 p=56678 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:16:12,261 p=56678 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:14,070 p=56678 u=mford |  ok: [localhost]
+2019-02-28 14:16:14,077 p=56678 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:15,203 p=56678 u=mford |  ok: [localhost]
+2019-02-28 14:16:15,210 p=56678 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:16,876 p=56678 u=mford |  ok: [localhost]
+2019-02-28 14:16:16,883 p=56678 u=mford |  TASK [add zone trust] *********************************************************************************************************************************
+2019-02-28 14:16:18,864 p=56678 u=mford |  changed: [localhost]
+2019-02-28 14:16:18,870 p=56678 u=mford |  TASK [add zone untrust] *******************************************************************************************************************************
+2019-02-28 14:16:20,663 p=56678 u=mford |  changed: [localhost]
+2019-02-28 14:16:20,666 p=56678 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:16:20,667 p=56678 u=mford |  localhost                  : ok=5    changed=2    unreachable=0    failed=0   
+2019-02-28 14:16:48,824 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:16:48,832 p=56786 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:16:48,846 p=56786 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:50,349 p=56786 u=mford |  ok: [localhost]
+2019-02-28 14:16:50,357 p=56786 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:51,520 p=56786 u=mford |  ok: [localhost]
+2019-02-28 14:16:51,528 p=56786 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:16:52,738 p=56786 u=mford |  ok: [localhost]
+2019-02-28 14:16:52,744 p=56786 u=mford |  TASK [add zone trust] *********************************************************************************************************************************
+2019-02-28 14:16:54,411 p=56786 u=mford |  ok: [localhost]
+2019-02-28 14:16:54,418 p=56786 u=mford |  TASK [add zone untrust] *******************************************************************************************************************************
+2019-02-28 14:16:55,984 p=56786 u=mford |  ok: [localhost]
+2019-02-28 14:16:55,987 p=56786 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:16:55,987 p=56786 u=mford |  localhost                  : ok=5    changed=0    unreachable=0    failed=0   
+2019-02-28 14:17:01,092 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:17:01,100 p=56892 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:17:01,112 p=56892 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:17:02,416 p=56892 u=mford |  ok: [localhost]
+2019-02-28 14:17:02,422 p=56892 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:17:03,550 p=56892 u=mford |  ok: [localhost]
+2019-02-28 14:17:03,577 p=56892 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:17:04,725 p=56892 u=mford |  ok: [localhost]
+2019-02-28 14:17:04,732 p=56892 u=mford |  TASK [add a rule to allow HTTP] ***********************************************************************************************************************
+2019-02-28 14:17:09,735 p=56892 u=mford |  changed: [localhost]
+2019-02-28 14:17:09,741 p=56892 u=mford |  TASK [SSH Inbound] ************************************************************************************************************************************
+2019-02-28 14:17:11,804 p=56892 u=mford |  changed: [localhost]
+2019-02-28 14:17:11,812 p=56892 u=mford |  TASK [SSH 221 Inbound] ********************************************************************************************************************************
+2019-02-28 14:17:13,767 p=56892 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "msg": "Failed \"add\" create:  SSH 221 traffic -> service 'service-tcp-221' is not an allowed keyword\n SSH 221 traffic -> service 'service-tcp-221' is not a valid reference\n SSH 221 traffic -> service is invalid"}
+2019-02-28 14:17:13,770 p=56892 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:17:13,770 p=56892 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:17:13,770 p=56892 u=mford |  localhost                  : ok=5    changed=2    unreachable=0    failed=1   
+2019-02-28 14:20:06,349 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:20:06,357 p=57024 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:20:06,370 p=57024 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:20:07,805 p=57024 u=mford |  ok: [localhost]
+2019-02-28 14:20:07,813 p=57024 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:20:08,967 p=57024 u=mford |  ok: [localhost]
+2019-02-28 14:20:08,974 p=57024 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:20:10,088 p=57024 u=mford |  ok: [localhost]
+2019-02-28 14:20:10,094 p=57024 u=mford |  TASK [add a rule to allow HTTP] ***********************************************************************************************************************
+2019-02-28 14:20:12,075 p=57024 u=mford |  fatal: [localhost]: FAILED! => {"changed": false, "msg": "Rule 'Web traffic' already exists. Use operation: 'update' to change it."}
+2019-02-28 14:20:12,077 p=57024 u=mford |  	to retry, use: --limit @/Users/mford/Documents/github-workspace/ansible-panos/panos-create-security-policy.retry
+
+2019-02-28 14:20:12,078 p=57024 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:20:12,078 p=57024 u=mford |  localhost                  : ok=3    changed=0    unreachable=0    failed=1   
+2019-02-28 14:22:17,537 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-02-28 14:22:17,545 p=57114 u=mford |  PLAY [localhost] **************************************************************************************************************************************
+2019-02-28 14:22:17,558 p=57114 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:22:18,982 p=57114 u=mford |  ok: [localhost]
+2019-02-28 14:22:18,990 p=57114 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:22:20,148 p=57114 u=mford |  ok: [localhost]
+2019-02-28 14:22:20,155 p=57114 u=mford |  TASK [PaloAltoNetworks.paloaltonetworks : pip] ********************************************************************************************************
+2019-02-28 14:22:21,337 p=57114 u=mford |  ok: [localhost]
+2019-02-28 14:22:21,343 p=57114 u=mford |  TASK [add a rule to allow HTTP] ***********************************************************************************************************************
+2019-02-28 14:22:23,619 p=57114 u=mford |  changed: [localhost]
+2019-02-28 14:22:23,627 p=57114 u=mford |  TASK [SSH Inbound] ************************************************************************************************************************************
+2019-02-28 14:22:25,656 p=57114 u=mford |  changed: [localhost]
+2019-02-28 14:22:25,664 p=57114 u=mford |  TASK [allow all rule] *********************************************************************************************************************************
+2019-02-28 14:22:42,172 p=57114 u=mford |  changed: [localhost]
+2019-02-28 14:22:42,182 p=57114 u=mford |  TASK [Log default deny] *******************************************************************************************************************************
+2019-02-28 14:23:04,028 p=57114 u=mford |  changed: [localhost]
+2019-02-28 14:23:04,031 p=57114 u=mford |  PLAY RECAP ********************************************************************************************************************************************
+2019-02-28 14:23:04,031 p=57114 u=mford |  localhost                  : ok=7    changed=4    unreachable=0    failed=0   

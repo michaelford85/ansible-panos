@@ -1,0 +1,3 @@
+#Install network-engine from galaxy
+- src: ansible-network.network-engine
+- src: paloaltonetworks.paloaltonetworks
