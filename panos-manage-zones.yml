@@ -39,7 +39,7 @@
           mode: layer3
           state: present
         loop: "{{ pan_mgmt_ips }}"
-      when: not erase
+      when: not erase|bool
 
     - block:
       - name: remove zone trust
@@ -61,4 +61,4 @@
           mode: layer3
           state: absent
         loop: "{{ pan_mgmt_ips }}"
-      when: erase
+      when: erase|bool

@@ -78,7 +78,7 @@
           action: 'deny'
           commit: "True"
         loop: "{{ pan_mgmt_ips }}"
-      when: not erase
+      when: not erase|bool
 
     - block:
       - name: remove a rule to allow HTTP
@@ -143,4 +143,4 @@
           commit: "True"
           state: absent
         loop: "{{ pan_mgmt_ips }}"
-      when: erase
+      when: erase|bool
