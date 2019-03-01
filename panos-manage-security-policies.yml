@@ -1,0 +1,146 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    erase: false
+  vars_files:
+    - default_vars.yml
+    - ./credentials/pan_credentials.yml
+    - ./vars/pan_mgmt_ips.yml
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+
+  tasks:
+
+    - block:
+      - name: add a rule to allow HTTP
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'Web traffic'
+          application: 'web-browsing'
+          description: 'Allow HTTP traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'allow'
+          commit: "False"
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: SSH Inbound
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'SSH traffic'
+          application: ['ping','ssh']
+          description: 'Allow SSH traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'allow'
+          commit: "False"
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: allow all rule
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'allow-out-all'
+          application: 'any'
+          description: 'allow all outbound'
+          source_zone: ['trust']
+          destination_zone: ['untrust']
+          action: 'allow'
+          commit: "False"
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: Log default deny
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'Log default deny'
+          description: 'Allow SSH traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'deny'
+          commit: "True"
+        loop: "{{ pan_mgmt_ips }}"
+      when: not erase
+
+    - block:
+      - name: remove a rule to allow HTTP
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'Web traffic'
+          application: 'web-browsing'
+          description: 'Allow HTTP traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'allow'
+          commit: "False"
+          state: absent
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: remove SSH Inbound
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'SSH traffic'
+          application: ['ping','ssh']
+          description: 'Allow SSH traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'allow'
+          commit: "False"
+          state: absent
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: remove allow all rule
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'allow-out-all'
+          application: 'any'
+          description: 'allow all outbound'
+          source_zone: ['trust']
+          destination_zone: ['untrust']
+          action: 'allow'
+          commit: "False"
+          state: absent
+        loop: "{{ pan_mgmt_ips }}"
+
+      - name: remove Log default deny
+        panos_security_rule:
+          ip_address: "{{ item }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          operation: 'add'
+          rule_name: 'Log default deny'
+          description: 'Allow SSH traffic'
+          source_zone: ['untrust']
+          destination_zone: ['trust']
+          action: 'deny'
+          commit: "True"
+          state: absent
+        loop: "{{ pan_mgmt_ips }}"
+      when: erase
