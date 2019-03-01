@@ -21,7 +21,6 @@
 
     - name: Turn off Certificate Verification
       shell: export PYTHONHTTPSVERIFY=0
-      become: yes
 
     - block:
       - name: add zone trust
