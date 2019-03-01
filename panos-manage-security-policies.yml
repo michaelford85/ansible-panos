@@ -15,7 +15,7 @@
     - ./credentials/pan_credentials.yml
     - ./vars/pan_mgmt_ips.yml
   roles:
-    - role: PaloAltoNetworks.paloaltonetworks
+    - role: paloaltonetworks.paloaltonetworks
 
   tasks:
 
