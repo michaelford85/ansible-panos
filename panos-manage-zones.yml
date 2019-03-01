@@ -3,6 +3,8 @@
 # pip install pandevice
 # pip install xmltodict
 # ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
 
 ---
 - hosts: localhost
@@ -18,9 +20,6 @@
     - role: PaloAltoNetworks.paloaltonetworks
 
   tasks:
-
-    - name: Turn off Certificate Verification
-      shell: export PYTHONHTTPSVERIFY=0
 
     - block:
       - name: add zone trust
