@@ -19,6 +19,9 @@
 
   tasks:
 
+    - name: Turn off Certificate Verification
+      shell: export PYTHONHTTPSVERIFY=0
+      
     - block:
       - name: add a rule to allow HTTP
         panos_security_rule:

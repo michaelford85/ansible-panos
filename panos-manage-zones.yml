@@ -19,6 +19,9 @@
 
   tasks:
 
+    - name: Turn off Certificate Verification
+      shell: export PYTHONHTTPSVERIFY=0
+
     - block:
       - name: add zone trust
         panos_zone:
