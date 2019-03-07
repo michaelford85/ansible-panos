@@ -14,10 +14,10 @@
 
   tasks:
 
-    - name: Get pan_hosts csv file from SCP server
+    - name: Get acl_entries csv file from SCP server
       fetch:
-         src: "/home/{{ ansible_user }}/csvfiles/pan_hosts.csv"
-         dest: "{{ playbook_dir }}/csvfiles/pan_hosts.csv"
+         src: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+         dest: "{{ playbook_dir }}/csvfiles/acl_entries.csv"
          flat: yes
 
 
