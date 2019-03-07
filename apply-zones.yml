@@ -7,15 +7,15 @@
 #   set verify to disable in the virtual environment
 
 ---
-- hosts: localhost
+- hosts: panos
   connection: local
-  gather_facts: False
+  gather_facts: no
   vars:
     erase: false
   vars_files:
-    - default_vars.yml
+    - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
-    - ./vars/pan_mgmt_ips.yml
+
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
@@ -24,43 +24,39 @@
     - block:
       - name: add zone trust
         panos_zone:
-          ip_address: "{{ item }}"
+          ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           zone: trust
           mode: layer3
           state: present
-        loop: "{{ pan_mgmt_ips }}"
 
       - name: add zone untrust
         panos_zone:
-          ip_address: "{{ item }}"
+          ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           zone: untrust
           mode: layer3
           state: present
-        loop: "{{ pan_mgmt_ips }}"
       when: not erase|bool
 
     - block:
       - name: remove zone trust
         panos_zone:
-          ip_address: "{{ item }}"
+          ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           zone: trust
           mode: layer3
           state: absent
-        loop: "{{ pan_mgmt_ips }}"
 
       - name: remove zone untrust
         panos_zone:
-          ip_address: "{{ item }}"
+          ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           zone: untrust
           mode: layer3
           state: absent
-        loop: "{{ pan_mgmt_ips }}"
       when: erase|bool

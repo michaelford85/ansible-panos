@@ -1,0 +1,42 @@
+---
+acl_entries:
+  - rule_name: Test Rule 1
+    description: Test Rule 1
+    source_ip: any
+    destination_ip: any
+    source_zone: 
+    destination_zone: 
+    action: deny
+    type: ip
+  - rule_name: Test Rule 2
+    description: Test Rule 2
+    source_ip: 192.168.1.0-192.168.1.255
+    destination_ip: any
+    source_zone: 
+    destination_zone: 
+    action: allow
+    type: ip
+  - rule_name: Test Rule 3
+    description: Test Rule 3
+    source_ip: any
+    destination_ip: 10.10.10.1-10.10.10.255
+    source_zone: 
+    destination_zone: 
+    action: allow
+    type: ip
+  - rule_name: Test Rule 4
+    description: Test Rule 4
+    source_ip: 
+    destination_ip: 
+    source_zone: ['untrust']
+    destination_zone: ['trust']
+    action: allow
+    type: zone
+  - rule_name: Test Rule 5
+    description: Test Rule 5
+    source_ip: 
+    destination_ip: 
+    source_zone: ['trust']
+    destination_zone: ['untrust']
+    action: deny
+    type: zone

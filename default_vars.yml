@@ -1,4 +1,0 @@
----
-mgmt_ip: 3.93.70.25
-PAN_USERNAME: "{{ vaulted_pan_username }}"
-PAN_PASSWORD: "{{ vaulted_pan_password }}"

@@ -1,0 +1,15 @@
+---
+acl_entries:
+{% for item in csvfile.split("\n") %}
+{%   if loop.index != 1 %}
+{%     set list = item.split(",") %}
+  - rule_name: {{ list[0]|trim() }}
+    description: {{ list[1]|trim() }}
+    source_ip: {{ list[2]|trim() }}
+    destination_ip: {{ list[3]|trim() }}
+    source_zone: {{ list[4]|trim() }}
+    destination_zone: {{ list[5]|trim() }}
+    action: {{ list[6]|trim() }}
+    type: {{ list[7]|trim() }}
+{%   endif %}
+{% endfor %}
