@@ -24,7 +24,7 @@
     - block:
       - name: Add an IP address ACL entry
         panos_security_rule:
-          ip_address: "{{ inventory_hostname }}"
+          ip_address: "{{ ansible_host }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
@@ -39,7 +39,7 @@
 
       - name: Add a zone ACL entry
         panos_security_rule:
-          ip_address: "{{ inventory_hostname }}"
+          ip_address: "{{ ansible_host }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
@@ -56,7 +56,7 @@
     - block:
       - name: Remove ACL entries
         panos_security_rule:
-          ip_address: "{{ inventory_hostname }}"
+          ip_address: "{{ ansible_host }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
