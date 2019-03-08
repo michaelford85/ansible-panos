@@ -1,0 +1,34 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- hosts: panos
+  connection: local
+  gather_facts: False
+  vars_files:
+    - ./vars/default_vars.yml
+    - ./credentials/pan_credentials.yml
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+
+    - name: Query ACL entries
+      panos_query_rules:
+        ip_address: "{{ ansible_host }}"
+        username: "{{ PAN_USERNAME }}"
+        password: "{{ PAN_PASSWORD }}"
+      register: query_output
+
+    - name: Print out rules
+      debug:
+        var: query_output
+
+    - name: Print out rule_name
+      debug:
+        var: query_output.msg

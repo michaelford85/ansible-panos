@@ -1,0 +1,28 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- hosts: webserver
+  gather_facts: False
+
+  tasks:
+    - name: Check to see if acl_entries.csv exists
+      stat:
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+      register: acl_entries_output
+
+    - name: Create new file and add new ACL entry
+      copy:
+        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action,type"
+        dest: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+      when: acl_entries_output.stat.exists == False
+
+    - name: Insert new ACL entry at the end of the file.
+      lineinfile:
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        line: "{{rule_name}},{{description}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['destination_zone'],{{action}},{{type}}"

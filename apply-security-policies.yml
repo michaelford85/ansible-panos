@@ -36,6 +36,7 @@
           state: present
         when: item.type is match("ip")
         loop: "{{ acl_entries }}"
+        ignore_errors: True
 
       - name: Add a zone ACL entry
         panos_security_rule:
@@ -52,6 +53,7 @@
         when: item.type is match("zone")
         loop: "{{ acl_entries }}"
       when: not erase|bool
+      ignore_errors: True
 
     - block:
       - name: Remove ACL entries

@@ -1,0 +1,24 @@
+# Adding ACL entries: https://raymii.org/s/tutorials/Ansible_-_Only_if_a_file_exists_or_does_not_exist.html
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- name: Generate current ACL entries HTML
+  hosts: webserver
+  become: yes
+  gather_facts: no
+  vars:
+    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
+
+  tasks:
+
+    - name: Create ACL HTML file
+      template:
+        src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
+        dest: "/var/www/html/current_acl_entries.html"
+    

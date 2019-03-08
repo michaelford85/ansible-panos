@@ -1,8 +1,8 @@
 [control]
-ansible ansible_host=ansible-tower ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/mford-useast-1-key.pem
+ansible ansible_host=ansible-tower.michaelanthonyford.com ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/mford-useast-1-key.pem
 
 [servers]
-webserver ansible_host=webserver ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/mford-useast-1-key.pem
+webserver ansible_host=webserver.michaelanthonyford.com ansible_user=ec2-user ansible_ssh_private_key_file=~/.ssh/mford-useast-1-key.pem
 
 [panos]
 34.229.208.38 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/maf-tiger-team-private.pem
