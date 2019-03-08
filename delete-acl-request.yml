@@ -7,7 +7,7 @@
 #   set verify to disable in the virtual environment
 
 ---
-- name: Create new ACL entry request
+- name: Delete ACL entry Request
   hosts: webserver
   gather_facts: False
 
@@ -17,13 +17,9 @@
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
       register: acl_entries_output
 
-    - name: Create new file and add new ACL entry
-      copy:
-        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action,type"
-        dest: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
-      when: acl_entries_output.stat.exists == False
-
-    - name: Insert new ACL entry at the end of the file.
+    - name: Delete specified ACL entry.
       lineinfile:
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
-        line: "{{rule_name}},{{description}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}},{{type}}"
+        regexp: "{{rule_name}}*"
+        state: absent
+      when: acl_entries_output.stat.exists == True
