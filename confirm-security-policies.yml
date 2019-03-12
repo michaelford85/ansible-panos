@@ -38,9 +38,9 @@
       register: security_rule_output
 
 
-    - name: Print Security Rules
-      debug:
-        var: security_rule_output.json
+    # - name: Print Security Rules
+    #   debug:
+    #     var: security_rule_output.json
 
     - name: Print Security Rule Names
       debug:
@@ -48,12 +48,11 @@
       vars:
         msg: |
           The RULE NAME is {{ item.description }}
-          The DESTINATION ZONE is {{ item.destination.member[0] }}
+          The SOURCE IP ADDRESS is {{ item.source.member[0] }}
+          The DESTINATION IP ADDRESS is {{ item.destination.member[0] }}
+          The SOURCE ZONE is {{ from.member[0] }}
+          The DESTINATION ZONE is {{ to.member[0] }}
           The ACTION is {{ item.action }}
       loop: "{{security_rule_output.json.result.entry}}"
       loop_control:
         label: "{{ item.description }}"
-
-      # The SOURCE IP ADDRESS is {{ item.action }}
-      # The DESTINATION IP ADDRESS is {{ item.action }}
-      # The SOURCE IP ZONE is {{ item.action }}
