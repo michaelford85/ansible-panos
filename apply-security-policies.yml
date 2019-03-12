@@ -47,6 +47,7 @@
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
+          description: "{{item.rule_name}}"
           source_ip: any
           destination_ip: any
           source_zone: "{{item.source_zone}}"
