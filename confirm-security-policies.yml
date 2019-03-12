@@ -31,7 +31,7 @@
         method: GET
         headers:
           Accept: "application/json"
-        body: "{{ lookup('file','issue.json') }}"
+        # body: "{{ lookup('file','issue.json') }}"
         force_basic_auth: yes
         status_code: 201
         body_format: json
