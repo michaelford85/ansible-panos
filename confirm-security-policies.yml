@@ -33,6 +33,7 @@
           Accept: "application/json"
         force_basic_auth: yes
         body_format: json
+        return_content: yes
         validate_certs: False
       register: security_rule_output
 
@@ -40,3 +41,7 @@
     - name: Print Security Rules
       debug:
         var: security_rule_output.json
+
+    # - name: Print Security Rule Names
+    #   debug:
+    #     var: security_rule_output.json
