@@ -45,7 +45,7 @@
     - name: Print Security Rule Names
       debug:
         # var: security_rule_output.json.result.entry[0].action
-        msg: "The RULE NAME is {{item.'@'name}}"
+        msg: "The RULE NAME is {{item.\@name}}"
       loop: "{{security_rule_output.json.result.entry}}"
       loop_control:
         label: "{{ item.action }}"
