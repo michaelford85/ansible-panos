@@ -47,7 +47,7 @@
         msg: "{{ msg.split('\n') }}"
       vars:
         msg: |
-          "The RULE NAME is {{ item.description }}
+          "The RULE NAME is {{ item.description }}"
           "The ACTION is {{ item.action }}"
       loop: "{{security_rule_output.json.result.entry}}"
       loop_control:
