@@ -24,7 +24,7 @@
 
     - name: Query ACL IP Rules
       uri:
-        url: https://your.jira.example.com/rest/api/2/issue/
+        url: https://{{ ansible_host }}/restapi/9.0/Policies/SecurityRules?location=vsys&vsys=vsys1
         method: GET
         user: "{{ PAN_USERNAME }}"
         password: "{{ PAN_PASSWORD }}"
@@ -33,7 +33,7 @@
           Accept: "application/json"
         # body: "{{ lookup('file','issue.json') }}"
         force_basic_auth: yes
-        status_code: 201
+        # status_code: 201
         body_format: json
       register: security_rule_output
 
