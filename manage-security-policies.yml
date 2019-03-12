@@ -14,7 +14,7 @@
 
   tasks:
 
-    - name: Get acl_entries csv file from SCP server
+    - name: Get acl_entries csv file from webserver
       fetch:
          src: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
          dest: "{{ playbook_dir }}/csvfiles/acl_entries.csv"
