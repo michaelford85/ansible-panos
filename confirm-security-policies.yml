@@ -39,14 +39,14 @@
 
 
     - name: Print Security Rules
-      set_fact:
-        rule_output: "{{  security_rule_output.json|from_json}}"
+      debug:
+        var: security_rule_output.json
 
     - name: Print Security Rule Names
       debug:
-        # var: security_rule_output.json.result.entry[0].action
-        # msg: "The RULE NAME is {{item.\@name}}"
-        var: rule_output
-      # loop: "{{security_rule_output.json.result.entry}}"
-      # loop_control:
-      #   label: "{{ item.action }}"
+        msg:
+          - "The RULE NAME is {{ item.description }}
+          - "The TAG is {{item.tag[0].member}}"
+      loop: "{{security_rule_output.json.result.entry}}"
+      loop_control:
+        label: "{{ item.description }}"
