@@ -44,4 +44,4 @@
 
     - name: Print Security Rule Names
       debug:
-        var: security_rule_output.json.result.entry[0].name
+        var: security_rule_output.json.result.entry[0].action
