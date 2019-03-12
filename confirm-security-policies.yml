@@ -31,10 +31,9 @@
         method: GET
         headers:
           Accept: "application/json"
-        # body: "{{ lookup('file','issue.json') }}"
         force_basic_auth: yes
-        # status_code: 201
         body_format: json
+        validate_certs: False
       register: security_rule_output
 
 
