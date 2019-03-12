@@ -24,7 +24,7 @@
 
     - name: Query ACL IP Rules
       uri:
-        url: https://{{ ansible_host }}/restapi/9.0/Policies/SecurityRules?location=vsys&vsys=vsys1
+        url: https://{{ ansible_host }}/restapi/9.0/Policies/SecurityRules?location=vsys&vsys={{ vsys }}
         method: GET
         user: "{{ PAN_USERNAME }}"
         password: "{{ PAN_PASSWORD }}"
