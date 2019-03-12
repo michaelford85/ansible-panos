@@ -47,3 +47,5 @@
         # var: security_rule_output.json.result.entry[0].action
         var: item.action
       loop: "{{security_rule_output.json.result.entry}}"
+      loop_control:
+        label: "{{ item.action }}"
