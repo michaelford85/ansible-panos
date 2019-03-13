@@ -31,16 +31,16 @@
     csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
 
   tasks:
-    
+
     - name: Check to see if acl_entries_to_apply.html exists
       stat:
-        path: "/home/www/html/acl_entries_to_apply.html"
+        path: "/var/www/html/acl_entries_to_apply.html"
       register: acl_entries_to_apply_output
       become: yes
 
     - name: Delete acl_entries_to_apply.html if it does exist
       file:
-        path: "/home/www/html/acl_entries_to_apply.html"
+        path: "/var/www/html/acl_entries_to_apply.html"
         state: absent
       when: acl_entries_output.stat.exists == True
       become: yes
@@ -48,5 +48,5 @@
     - name: Create acl_entries_to_apply.html
       template:
         src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
-        dest: "/home/www/html/acl_entries_to_apply.html"
+        dest: "/var/www/html/acl_entries_to_apply.html"
       become: yes
