@@ -31,8 +31,8 @@
         description: "{{item.rule_name}}"
         source_ip: "{{item.source_ip}}"
         destination_ip: "{{ item.destination_ip }}"
-        source_zone: ['any']
-        destination_zone: ['any']
+        source_zone: "['{{item.source_zone}}']"
+        destination_zone: "['{{item.destination_zone}}']"
         action: "{{ item.action}}"
         state: present
       loop: "{{ acl_entries }}"

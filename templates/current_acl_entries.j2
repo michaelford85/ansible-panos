@@ -18,21 +18,18 @@
             <th>Action</th>
         </tr>
     </thead>
-    {% for item in csvfile.split("\n") %}
-    {%   if loop.index != 1 %}
-    {%     set list = item.split(",") %}
+    {% for item in current_rules %}
     <tbody>
         <tr>
-            <td align='center'>{{ list[0]|trim() }}</td>
-            <td align='center'>{{ list[1]|trim() }}</td>
-            <td align='center'>{{ list[2]|trim() }}</td>
-            <td align='center'>{{ list[3]|trim() }}</td>
-            <td align='center'>{{ list[4]|trim() }}</td>
-            <td align='center'>{{ list[5]|trim() }}</td>
-            <td align='center'>{{ list[6]|trim() }}</td>
+            <td align='center'>{{ item.rule_name }}</td>
+            <td align='center'>{{ item.description }}</td>
+            <td align='center'>{{ item.source_ip }}</td>
+            <td align='center'>{{ item.source_zone }}</td>
+            <td align='center'>{{ item.destination_ip }}</td>
+            <td align='center'>{{ item.destination_zone }}</td>
+            <td align='center'>{{ item.action }}</td>
         </tr>
     </tbody>
-    {%   endif %}
     {% endfor %}
 </table>
 

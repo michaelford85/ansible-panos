@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Firewall</th>
+            <th>Current ACLs</th>
+        </tr>
+    </thead>
+    {% for host in groups['panos'] %}
+    <tbody>
+        <tr>
+            <td align='center'>{{ hostvars[host]['inventory_hostname'] }}</td>
+            <td align='center'><a href="http://{{ webserver}}/{{ hostvars[host]['inventory_hostname'] }}.html">Rules Link</a></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+
+
+</body>
+</html>

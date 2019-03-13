@@ -10,13 +10,10 @@
 - name: Confirm presence of ACLs on PAN Firewalls
   hosts: panos
   connection: local
-  gather_facts: False
-  vars:
-    erase: false
+  gather_facts: no
   vars_files:
     - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
-    - ./vars/acl_entries.yml
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
@@ -38,21 +35,99 @@
       register: security_rule_output
 
 
-    - name: Print Security Rules
-      debug:
-        var: security_rule_output.json
+    # - name: Print Security Rules
+    #   debug:
+    #     var: security_rule_output.json
+    #
+    # - name: Print Security Rule Names
+    #   debug:
+    #     msg: "{{ msg.split('\n') }}"
+    #   vars:
+    #     msg: |
+    #       The RULE NAME is {{ item.description }}
+    #       The SOURCE IP ADDRESS is {{ item.source.member[0] }}
+    #       The DESTINATION IP ADDRESS is {{ item.source.member[0] }}
+    #       The SOURCE ZONE is {{ item.from.member[0] }}
+    #       The DESTINATION ZONE is {{ item.to.member[0] }}
+    #       The ACTION is {{ item.action }}
+    #   loop: "{{security_rule_output.json.result.entry}}"
+    #   loop_control:
+    #     label: "{{ item.description }}"
 
-    - name: Print Security Rule Names
-      debug:
-        msg: "{{ msg.split('\n') }}"
-      vars:
-        msg: |
-          The RULE NAME is {{ item.description }}
-          The SOURCE IP ADDRESS is {{ item.source.member[0] }}
-          The DESTINATION IP ADDRESS is {{ item.destination.member[0] }}
-          The SOURCE ZONE is {{ item.from.member[0] }}
-          The DESTINATION ZONE is {{ item.to.member[0] }}
-          The ACTION is {{ item.action }}
+
+    - name: Ensure ACL file does not exist
+      file:
+        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+        state: absent
+      delegate_to: webserver
+
+    - name: Create ACL file
+      copy:
+        dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
+      delegate_to: webserver
+
+    - name: Insert new ACL entry at the end of the file.
+      lineinfile:
+        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+        line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
       loop: "{{security_rule_output.json.result.entry}}"
-      loop_control:
-        label: "{{ item.description }}"
+      delegate_to: webserver
+
+- name: Generate current ACL entries HTML
+  hosts: panos
+  gather_facts: no
+  vars_files:
+    - ./vars/default_vars.yml
+
+  tasks:
+
+
+    # - name: Print webserver hostname
+    #   debug:
+    #     var: "{{hostvars['webserver']['ansible_user']}}"
+
+    - name: Read users from CSV file and return a dictionary
+      read_csv:
+        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+      register: rules
+      delegate_to: webserver
+
+    # - name: Print users
+    #   debug:
+    #     var: rules
+    #
+    # - name: Print Rule Names
+    #   debug:
+    #     var: item.rule_name
+    #   loop: "{{ rules.list }}"
+
+    - name: Ensure there is no firewall inventory HTML file
+      file:
+        path: "/var/www/html/firewall_inventory.html"
+        state: absent
+      delegate_to: webserver
+      become: yes
+
+    - name: Ensure there are no firewall rules HTML files
+      file:
+        path: "/var/www/html/{{ inventory_hostname }}.html"
+        state: absent
+      delegate_to: webserver
+      become: yes
+
+    - name: Create new firewall inventory HTML file
+      template:
+        src: "{{ playbook_dir }}/templates/firewall_inventory.j2"
+        dest: "/var/www/html/firewall_inventory.html"
+      delegate_to: webserver
+      become: yes
+
+    - name: Create new firewall rules HTML files
+      template:
+        src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
+        dest: "/var/www/html/{{ inventory_hostname }}.html"
+      delegate_to: webserver
+      become: yes
+      vars:
+        current_rules: "{{ rules.list }}"
