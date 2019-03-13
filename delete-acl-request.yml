@@ -24,6 +24,12 @@
         state: absent
       when: acl_entries_output.stat.exists == True
 
+- name: Update ACL to apply HTML Page
+  hosts: webserver
+  gather_facts: False
+  vars:
+    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
+
     - name: Check to see if acl_entries_to_apply.html exists
       stat:
         path: "/home/www/html/acl_entries_to_apply.html"
