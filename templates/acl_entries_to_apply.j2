@@ -1,14 +1,43 @@
----
-acl_entries:
-{% for item in csvfile.split("\n") %}
-{%   if loop.index != 1 %}
-{%     set list = item.split(",") %}
-  - rule_name: {{ list[0]|trim() }}
-    description: {{ list[1]|trim() }}
-    source_ip: {{ list[2]|trim() }}
-    destination_ip: {{ list[3]|trim() }}
-    source_zone: {{ list[4]|trim() }}
-    destination_zone: {{ list[5]|trim() }}
-    action: {{ list[6]|trim() }}
-{%   endif %}
-{% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Rule Name</th>
+            <th>Description</th>
+            <th>Source IP Address</th>
+            <th>Source Zone</th>
+            <th>Destination IP Address</th>
+            <th>Destination Zone</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for item in csvfile.split("\n") %}
+    {%   if loop.index != 1 %}
+    {%     set list = item.split(",") %}
+    <tbody>
+        <tr>
+            <td align='center'>{{ item.rule_name }}</td>
+            <td align='center'>{{ item.description }}</td>
+            <td align='center'>{{ item.source_ip }}</td>
+            <td align='center'>{{ item.source_zone }}</td>
+            <td align='center'>{{ item.destination_ip }}</td>
+            <td align='center'>{{ item.destination_zone }}</td>
+            <td align='center'>{{ item.action }}</td>
+        </tr>
+    </tbody>
+    {%   endif %}
+    {% endfor %}
+</table>
+
+
+
+
+</body>
+</html>
