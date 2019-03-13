@@ -30,6 +30,8 @@
   vars:
     csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
 
+  tasks:
+    
     - name: Check to see if acl_entries_to_apply.html exists
       stat:
         path: "/home/www/html/acl_entries_to_apply.html"
