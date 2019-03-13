@@ -27,3 +27,28 @@
       lineinfile:
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
         line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
+
+    - name: Insert new ACL entry at the end of the file
+      lineinfile:
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
+
+    - name: Check to see if acl_entries_to_apply.html exists
+      stat:
+        path: "/home/www/html/acl_entries_to_apply.html"
+      register: acl_entries_to_apply_output
+      become: yes
+
+    - name: Delete acl_entries_to_apply.html if it does exist
+      file:
+        path: "/home/www/html/acl_entries_to_apply.html"
+        state: absent
+      when: acl_entries_output.stat.exists == True
+      become: yes
+
+
+    - name: Create acl_entries_to_apply.html
+      template:
+        src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
+        dest: "/home/www/html/acl_entries_to_apply.html"
+      become: yes
