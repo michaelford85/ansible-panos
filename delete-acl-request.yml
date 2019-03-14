@@ -34,7 +34,7 @@
   hosts: webserver
   gather_facts: False
   vars:
-    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv') }}"
+    csvfile: "{{ lookup('file', '/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv') }}"
   vars_files:
     - ./vars/default_vars.yml
 
