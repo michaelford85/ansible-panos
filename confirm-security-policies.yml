@@ -131,3 +131,7 @@
       become: yes
       vars:
         current_rules: "{{ rules.list }}"
+
+    - name: Tell operator where to see ACLs to Apply
+      debug:
+        msg: "Operator: in order to see the current ACLs, go to http://{{ webserver_fqdn }}/firewall_inventory.html"
