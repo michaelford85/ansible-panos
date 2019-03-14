@@ -92,61 +92,32 @@
     #   debug:
     #     var: "{{hostvars['webserver']['ansible_user']}}"
 
-    - name: Read users from CSV file and return a dictionary
-      read_csv:
-        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
-      register: rules
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+    - block:
+      - name: Read users from CSV file and return a dictionary
+        read_csv:
+          path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+        register: rules
 
+      - name: Ensure there is no firewall inventory HTML file
+        file:
+          path: "/var/www/html/firewall_inventory.html"
+          state: absent
+        run_once: yes
 
-    # - name: Print users
-    #   debug:
-    #     var: rules
-    #
-    # - name: Print Rule Names
-    #   debug:
-    #     var: item.rule_name
-    #   loop: "{{ rules.list }}"
+      - name: Ensure there are no firewall rules HTML files
+        file:
+          path: "/var/www/html/{{ inventory_hostname }}.html"
+          state: absent
 
-    - name: Ensure there is no firewall inventory HTML file
-      file:
-        path: "/var/www/html/firewall_inventory.html"
-        state: absent
-      run_once: yes
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+      - name: Create new firewall inventory HTML file
+        template:
+          src: "{{ playbook_dir }}/templates/firewall_inventory.j2"
+          dest: "/var/www/html/firewall_inventory.html"
 
-    - name: Ensure there are no firewall rules HTML files
-      file:
-        path: "/var/www/html/{{ inventory_hostname }}.html"
-        state: absent
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
-
-    - name: Create new firewall inventory HTML file
-      template:
-        src: "{{ playbook_dir }}/templates/firewall_inventory.j2"
-        dest: "/var/www/html/firewall_inventory.html"
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
-
-    - name: Create new firewall rules HTML files
-      template:
-        src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
-        dest: "/var/www/html/{{ inventory_hostname }}.html"
+      - name: Create new firewall rules HTML files
+        template:
+          src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
+          dest: "/var/www/html/{{ inventory_hostname }}.html"
       delegate_to: webserver
       become: yes
       vars:
@@ -157,3 +128,4 @@
     - name: Tell operator where to see ACLs to Apply
       debug:
         msg: "Operator: in order to see the current ACLs, go to http://{{ webserver_fqdn }}/firewall_inventory.html"
+      run_once: yes
