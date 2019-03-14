@@ -12,14 +12,14 @@
   gather_facts: False
 
   tasks:
-    - name: Check to see if acl_entries.csv exists
+    - name: Check to see if acl_entries_to_apply.csv exists
       stat:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
       register: acl_entries_output
 
     - name: Delete specified ACL entry.
       lineinfile:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
         regexp: "{{rule_name}}*"
         state: absent
       when: acl_entries_output.stat.exists == True
@@ -28,7 +28,9 @@
   hosts: webserver
   gather_facts: False
   vars:
-    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
+    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv') }}"
+  vars_files:
+    - ./vars/default_vars.yml
 
   tasks:
 
@@ -50,3 +52,7 @@
         src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
         dest: "/var/www/html/acl_entries_to_apply.html"
       become: yes
+
+    - name: Tell operator where to see ACLs to Apply
+      debug:
+        msg: "Operator: in order to see the ACLs that will be applied, go to http://{{ webserver_fqdn }}/acl_entries_to_apply.html"

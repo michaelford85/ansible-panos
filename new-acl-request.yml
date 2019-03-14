@@ -10,27 +10,29 @@
 - name: Create new ACL entry request
   hosts: webserver
   gather_facts: False
+  vars_files:
+    - ./vars/default_vars.yml
 
   tasks:
-    - name: Check to see if acl_entries.csv exists
+    - name: Check to see if acl_entries_to_apply.csv exists
       stat:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
       register: acl_entries_output
 
     - name: Create new file and add new ACL entry
       copy:
         content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action,type"
-        dest: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        dest: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
       when: acl_entries_output.stat.exists == False
 
     - name: Insert new ACL entry at the end of the file.
       lineinfile:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
         line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
 
     - name: Insert new ACL entry at the end of the file
       lineinfile:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
         line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
 
     - name: Check to see if acl_entries_to_apply.html exists
@@ -46,9 +48,12 @@
       when: acl_entries_output.stat.exists == True
       become: yes
 
-
     - name: Create acl_entries_to_apply.html
       template:
         src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
         dest: "/home/www/html/acl_entries_to_apply.html"
       become: yes
+
+    - name: Tell operator where to see ACLs to Apply
+      debug:
+        msg: "Operator: in order to see the ACLs that will be applied, go to http://{{ webserver_fqdn }}/acl_entries_to_apply.html"
