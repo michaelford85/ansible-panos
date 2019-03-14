@@ -60,6 +60,8 @@
         path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
         state: absent
       delegate_to: webserver
+      vars:
+        ansible_user: ec2-user
 
     - name: Create ACL file
       copy:
