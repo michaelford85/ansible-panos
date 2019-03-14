@@ -22,7 +22,7 @@
 
   tasks:
 
-    - name: Add an IP address ACL entry
+    - name: Add an ACL entry
       panos_security_rule:
         ip_address: "{{ ansible_host }}"
         username: "{{ PAN_USERNAME }}"

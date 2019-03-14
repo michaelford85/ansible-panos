@@ -28,7 +28,7 @@
     - name: Insert new ACL entry at the end of the file.
       lineinfile:
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
-        line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
+        line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},{{source_zone}},{{destination_zone}},{{rule_action}}"
 
     - name: Check to see if acl_entries_to_apply.html exists
       stat:
