@@ -56,31 +56,23 @@
     #     label: "{{ item.description }}"
 
 
-    - name: Ensure ACL file does not exist
-      file:
-        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
-        state: absent
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+    - block:
+      - name: Ensure ACL file does not exist
+        file:
+          path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+          state: absent
 
-    - name: Create ACL file
-      copy:
-        dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
-        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+      - name: Create ACL file
+        copy:
+          dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+          content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
 
-    - name: Insert new ACL entry at the end of the file.
-      lineinfile:
-        path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
-        line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
-      loop: "{{security_rule_output.json.result.entry}}"
+      - name: Insert new ACL entry at the end of the file.
+        lineinfile:
+          path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+          line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
+        loop: "{{security_rule_output.json.result.entry}}"
+      delegate_to: webserver
       become: yes
       vars:
         ansible_user: "{{ WEBSERVER_USERNAME }}"
