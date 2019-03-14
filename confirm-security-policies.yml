@@ -116,6 +116,7 @@
       file:
         path: "/var/www/html/firewall_inventory.html"
         state: absent
+      run_once: yes
       delegate_to: webserver
       become: yes
       vars:

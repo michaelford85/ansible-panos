@@ -17,7 +17,7 @@
     <tbody>
         <tr>
             <td align='center'>{{ hostvars[host]['inventory_hostname'] }}</td>
-            <td align='center'><a href="http://{{ webserver}}/{{ hostvars[host]['inventory_hostname'] }}.html">Rules Link</a></td>
+            <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['inventory_hostname'] }}.html">Rules Link</a></td>
         </tr>
     </tbody>
     {% endfor %}
