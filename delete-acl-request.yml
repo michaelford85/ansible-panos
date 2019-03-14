@@ -51,7 +51,7 @@
       when: acl_entries_output.stat.exists == True
       become: yes
 
-    - name: Read users from CSV file and return a dictionary
+    - name: Read ACLs to apply from CSV file and return a dictionary
       read_csv:
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
       register: rules
@@ -63,12 +63,6 @@
       become: yes
       vars:
         current_rules: "{{ rules.list }}"
-
-    # - name: Create acl_entries_to_apply.html
-    #   template:
-    #     src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
-    #     dest: "/var/www/html/acl_entries_to_apply.html"
-    #   become: yes
 
     - name: Tell operator where to see ACLs to Apply
       debug:

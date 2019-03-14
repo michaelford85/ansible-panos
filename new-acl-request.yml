@@ -30,11 +30,6 @@
         path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
         line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
 
-    - name: Insert new ACL entry at the end of the file
-      lineinfile:
-        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
-        line: "{{rule_name}},{{rule_name}},{{source_ip}},{{destination_ip}},['{{source_zone}}'],['{{destination_zone}}'],{{rule_action}}"
-
     - name: Check to see if acl_entries_to_apply.html exists
       stat:
         path: "/home/www/html/acl_entries_to_apply.html"
@@ -48,11 +43,18 @@
       when: acl_entries_output.stat.exists == True
       become: yes
 
+    - name: Read ACLs to apply from CSV file and return a dictionary
+      read_csv:
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
+      register: rules
+
     - name: Create acl_entries_to_apply.html
       template:
-        src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
-        dest: "/home/www/html/acl_entries_to_apply.html"
+        src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
+        dest: "/var/www/html/acl_entries_to_apply.html"
       become: yes
+      vars:
+        current_rules: "{{ rules.list }}"
 
     - name: Tell operator where to see ACLs to Apply
       debug:
