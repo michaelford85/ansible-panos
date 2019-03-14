@@ -24,6 +24,12 @@
         state: absent
       when: acl_entries_output.stat.exists == True
 
+    - name: Create acl_entries_to_apply.csv if it does not exist
+      copy:
+        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action,type"
+        dest: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
+      when: acl_entries_output.stat.exists == False
+
 - name: Update ACL to apply HTML Page
   hosts: webserver
   gather_facts: False
