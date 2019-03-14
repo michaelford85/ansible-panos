@@ -125,7 +125,7 @@
         ansible_user: "{{ WEBSERVER_USERNAME }}"
         ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
-    - name: Tell operator where to see ACLs to Apply
+    - name: Tell operator where to see current ACLs
       debug:
         msg: "Operator: in order to see the current ACLs, go to http://{{ webserver_fqdn }}/firewall_inventory.html"
       run_once: yes
