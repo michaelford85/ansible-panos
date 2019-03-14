@@ -33,8 +33,6 @@
 - name: Update ACL to apply HTML Page
   hosts: webserver
   gather_facts: False
-  vars:
-    csvfile: "{{ lookup('file', '/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv') }}"
   vars_files:
     - ./vars/default_vars.yml
 
@@ -53,11 +51,24 @@
       when: acl_entries_output.stat.exists == True
       become: yes
 
+    - name: Read users from CSV file and return a dictionary
+      read_csv:
+        path: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
+      register: rules
+
     - name: Create acl_entries_to_apply.html
       template:
-        src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
+        src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
         dest: "/var/www/html/acl_entries_to_apply.html"
       become: yes
+      vars:
+        current_rules: "{{ rules.list }}"
+
+    # - name: Create acl_entries_to_apply.html
+    #   template:
+    #     src: "{{ playbook_dir }}/templates/acl_entries_to_apply.j2"
+    #     dest: "/var/www/html/acl_entries_to_apply.html"
+    #   become: yes
 
     - name: Tell operator where to see ACLs to Apply
       debug:
