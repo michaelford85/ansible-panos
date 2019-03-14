@@ -16,8 +16,8 @@
 
     - name: Get acl_entries csv file from webserver
       fetch:
-         src: "/home/{{ ansible_user }}/csvfiles/acl_entries.csv"
-         dest: "{{ playbook_dir }}/csvfiles/acl_entries.csv"
+         src: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
+         dest: "{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv"
          flat: yes
 
 
@@ -26,7 +26,7 @@
   gather_facts: False
   become: yes
   vars:
-    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries.csv') }}"
+    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv') }}"
 
   vars_files:
     - ./vars/default_vars.yml
