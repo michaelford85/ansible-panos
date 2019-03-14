@@ -14,6 +14,7 @@
   vars_files:
     - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
+    - ./credentials/webserver_credentials.yml
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
@@ -60,24 +61,30 @@
         path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
         state: absent
       delegate_to: webserver
+      become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Create ACL file
       copy:
         dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
         content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
       delegate_to: webserver
+      become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Insert new ACL entry at the end of the file.
       lineinfile:
         path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
         line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
       loop: "{{security_rule_output.json.result.entry}}"
+      become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
 - name: Generate current ACL entries HTML
   hosts: panos
@@ -97,8 +104,11 @@
         path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
       register: rules
       delegate_to: webserver
+      become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+
 
     # - name: Print users
     #   debug:
@@ -116,7 +126,8 @@
       delegate_to: webserver
       become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Ensure there are no firewall rules HTML files
       file:
@@ -125,7 +136,8 @@
       delegate_to: webserver
       become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Create new firewall inventory HTML file
       template:
@@ -134,7 +146,8 @@
       delegate_to: webserver
       become: yes
       vars:
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Create new firewall rules HTML files
       template:
@@ -144,7 +157,8 @@
       become: yes
       vars:
         current_rules: "{{ rules.list }}"
-        ansible_user: ec2-user
+        ansible_user: "{{ WEBSERVER_USERNAME }}"
+        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
     - name: Tell operator where to see ACLs to Apply
       debug:

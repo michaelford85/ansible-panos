@@ -55717,3 +55717,5 @@ If you are using a module and expect the file to exist on the remote, see the re
 2019-03-13 16:11:14,010 p=40552 u=mford |  PLAY RECAP ****************************************************************************************************
 2019-03-13 16:11:14,010 p=40552 u=mford |  ansible                    : ok=1    changed=0    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0   
 2019-03-13 16:11:14,010 p=40552 u=mford |  webserver                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-03-14 13:50:00,622 p=46751 u=mford |  Decryption successful
+2019-03-14 13:51:23,687 p=46761 u=mford |  Encryption successful
