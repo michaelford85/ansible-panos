@@ -67,6 +67,8 @@
           dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
           content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
 
+      #TODO: account for a situation where there are NO ACLs applied
+      #security_rule_output.json.result.entry does not exist in this case
       - name: Insert new ACL entry at the end of the file.
         lineinfile:
           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
