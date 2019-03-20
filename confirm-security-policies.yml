@@ -75,11 +75,13 @@
           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
           line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
         loop: "{{security_rule_output.json.result.entry}}"
-      delegate_to: webserver
-      become: yes
-      vars:
-        ansible_user: "{{ WEBSERVER_USERNAME }}"
-        ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+        delegate_to: webserver
+        become: yes
+        vars:
+          ansible_user: "{{ WEBSERVER_USERNAME }}"
+          ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+        when: security_rule_output.json.result.entry is defined
+
 
 - name: Generate current ACL entries HTML
   hosts: panos
