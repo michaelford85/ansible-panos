@@ -54,6 +54,7 @@
       loop: "{{security_rule_output.json.result.entry}}"
       loop_control:
         label: "{{ item.description }}"
+      when: security_rule_output.json.result.entry is defined
 
 
     - block:
