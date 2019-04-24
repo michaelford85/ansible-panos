@@ -47,7 +47,7 @@
           instance: "{{ SN_INSTANCE }}"
           state: present
           data:
-            short_description: "PAN ACLs APPLIED - see http://webserver.michaelanthonyford.com/firewall_inventory.html"
+            short_description: "PAN ACLs APPLIED"
       when: not erase|bool
 
     - block:
@@ -67,6 +67,6 @@
           instance: "{{ SN_INSTANCE }}"
           state: present
           data:
-            short_description: "PAN ACLs REMOVED - see http://webserver.michaelanthonyford.com/firewall_inventory.html"
+            short_description: "PAN ACLs REMOVED"
 
       when: erase|bool
