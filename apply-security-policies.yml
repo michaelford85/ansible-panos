@@ -66,5 +66,7 @@
           password: "{{ SN_PASSWORD }}"
           instance: "{{ SN_INSTANCE }}"
           state: present
+          data:
+            short_description: "PAN ACLs REMOVED"
 
       when: erase|bool
