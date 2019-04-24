@@ -53,7 +53,7 @@
 
       - name: Open Ticket in SNOW
         snow_record:
-          table: u_panos
+          table: incident
           username: "{{ SN_USERNAME }}"
           password: "{{ SN_PASSWORD }}"
           instance: "{{ SN_INSTANCE }}"
