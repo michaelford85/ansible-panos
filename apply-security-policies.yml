@@ -50,14 +50,4 @@
           rule_name: "{{item.rule_name}}"
           state: absent
         loop: "{{ acl_entries }}"
-
-      - name: Open Ticket in SNOW
-        snow_record:
-          table: incident
-          username: "{{ SN_USERNAME }}"
-          password: "{{ SN_PASSWORD }}"
-          instance: "{{ SN_INSTANCE }}"
-          state: present
-          data:
-            short_description: "PAN ACLs REMOVED"
       when: erase|bool
