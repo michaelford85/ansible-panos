@@ -66,5 +66,6 @@
           password: "{{ SN_PASSWORD }}"
           instance: "{{ SN_INSTANCE }}"
           state: present
+        run_once: yes
 
       when: erase|bool
