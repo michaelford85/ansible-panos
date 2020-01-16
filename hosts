@@ -1,5 +1,5 @@
 [servers]
-webserver ansible_host=webserver.michaelanthonyford.com
+webserver ansible_host=webserver.michaelanthonyford.com ansible_python_interpreter: /usr/bin/python
 
 [control]
 ansible ansible_host=ansible.michaelanthonyford.com
