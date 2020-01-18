@@ -1,0 +1,93 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- name: Retrieve pan_hosts.csv file
+  hosts: webserver
+  gather_facts: False
+
+  tasks:
+
+    - name: Get acl_entries csv file from webserver
+      fetch:
+         src: "/home/{{ ansible_user }}/csvfiles/acl_entries_to_apply.csv"
+         dest: "{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv"
+         flat: yes
+
+
+- name: Set up ACL entries
+  hosts: ansible
+  gather_facts: False
+  become: yes
+  vars:
+    csvfile: "{{ lookup('file', '{{ playbook_dir }}/csvfiles/acl_entries_to_apply.csv') }}"
+
+  vars_files:
+    - "{{ playbook_dir }}/vars/default_vars.yml"
+
+  tasks:
+    - name: Check to see if acl_entries.yml exists
+      stat:
+        path: "{{ playbook_dir }}/vars/acl_entries.yml"
+      register: acl_entries_output
+
+    - name: Delete acl_entries.yml if it already exists
+      file:
+        path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        state: absent
+      when: acl_entries_output.stat.exists == True
+
+    - name: Create acl_entries.yml file from template
+      template:
+        src: "{{ playbook_dir }}/templates/acl_entries.j2"
+        dest: "{{ playbook_dir }}/vars/acl_entries.yml"
+
+- name: Apply ACLs to PAN Firewalls
+  hosts: panos
+  connection: local
+  gather_facts: False
+  vars:
+    erase: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/default_vars.yml"
+    - "{{ playbook_dir }}/credentials/pan_credentials.yml"
+    - "{{ playbook_dir }}/credentials/servicenow_credentials.yml"
+    - "{{ playbook_dir }}/vars/acl_entries.yml"
+  roles:
+    - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+
+    - block:
+      - name: Add an ACL entry
+        panos_security_rule:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          rule_name: "{{item.rule_name}}"
+          description: "{{item.rule_name}}"
+          source_ip: "{{item.source_ip}}"
+          destination_ip: "{{ item.destination_ip }}"
+          source_zone: "['{{item.source_zone}}']"
+          destination_zone: "['{{item.destination_zone}}']"
+          action: "{{ item.action}}"
+          state: present
+        loop: "{{ acl_entries }}"
+        ignore_errors: True
+      when: not erase|bool
+
+    - block:
+      - name: Remove ACL entries
+        panos_security_rule:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          rule_name: "{{item.rule_name}}"
+          state: absent
+        loop: "{{ acl_entries }}"
+      when: erase|bool
