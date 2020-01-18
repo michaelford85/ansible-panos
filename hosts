@@ -2,7 +2,7 @@
 webserver ansible_host=webserver.michaelanthonyford.com ansible_python_interpreter=/usr/bin/python
 
 [control]
-ansible ansible_host=ansible.michaelanthonyford.com
+ansible ansible_host=ansibletower.michaelanthonyford.com
 
 [panos]
 firewall1 ansible_host=54.90.224.6
