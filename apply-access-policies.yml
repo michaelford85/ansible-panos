@@ -71,9 +71,10 @@
     - block:
       - name: Add an ACL entry
         panos_security_rule:
-          ip_address: "{{ ansible_host }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
           description: "{{item.rule_name}}"
           source_ip: "{{item.source_ip}}"
@@ -89,9 +90,10 @@
     - block:
       - name: Remove ACL entries
         panos_security_rule:
-          ip_address: "{{ ansible_host }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           rule_name: "{{item.rule_name}}"
           state: absent
         loop: "{{ acl_entries }}"
