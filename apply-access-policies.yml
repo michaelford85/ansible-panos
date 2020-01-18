@@ -57,11 +57,15 @@
     - "{{ playbook_dir }}/vars/default_vars.yml"
     - "{{ playbook_dir }}/credentials/pan_credentials.yml"
     - "{{ playbook_dir }}/credentials/servicenow_credentials.yml"
-    - "{{ playbook_dir }}/vars/acl_entries.yml"
+    # - "{{ playbook_dir }}/vars/acl_entries.yml"
   roles:
     - role: paloaltonetworks.paloaltonetworks
 
   tasks:
+
+    - name: Load acl_entries variable into the playbook
+      include_vars:
+        file: "{{ playbook_dir }}/vars/acl_entries.yml"
 
     - block:
       - name: Add an ACL entry
