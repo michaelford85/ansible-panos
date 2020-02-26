@@ -43,6 +43,7 @@
 
     - name: Delete AWS SSH Public Key
       ec2_key:
+        region: "{{ ec2_region }}"
         name: "{{ ec2_prefix }}-key"
         state: absent
 
