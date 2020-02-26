@@ -95,6 +95,21 @@
         mode: '0400'
       when: create_key.changed
 
+    - name: Update Ansible Tower AWS SSH Credential
+      tower_credential:
+        name: AWS PANOS Instances Key
+        organization: Default
+        tower_host: "{{ tower_url }}"
+        tower_username: "{{ tower_user }}"
+        tower_password: "{{ tower_pass }}"
+        kind: ssh
+        username: admin
+        ssh_key_data: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
+        tower_verify_ssl: false
+      delegate_to: localhost
+      run_once: true
+      when: create_key.changed
+
     # - name: Gather Subnet Information
     #   ec2_vpc_subnet_info:
     #     region: "{{ ec2_region }}"
