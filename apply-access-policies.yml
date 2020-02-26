@@ -33,19 +33,22 @@
   tasks:
     - name: Check to see if acl_entries.yml exists
       stat:
-        path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        path: /tmp/acl_entries.yml
       register: acl_entries_output
 
     - name: Delete acl_entries.yml if it already exists
       file:
-        path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        path: /tmp/acl_entries.yml
         state: absent
       when: acl_entries_output.stat.exists == True
 
     - name: Create acl_entries.yml file from template
       template:
         src: "{{ playbook_dir }}/templates/acl_entries.j2"
-        dest: "{{ playbook_dir }}/vars/acl_entries.yml"
+        # dest: "{{ playbook_dir }}/vars/acl_entries.yml"
+        dest: /tmp/acl_entries.yml
 
 - name: Apply ACLs to PAN Firewalls
   hosts: panos
@@ -65,7 +68,8 @@
 
     - name: Load acl_entries variable into the playbook
       include_vars:
-        file: "{{ playbook_dir }}/vars/acl_entries.yml"
+        # file: "{{ playbook_dir }}/vars/acl_entries.yml"
+        file: /tmp/acl_entries.yml
       run_once: yes
 
     - block:
