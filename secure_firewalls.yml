@@ -21,7 +21,7 @@
       paloaltonetworks.panos.panos_admpwd:
         ip_address: "{{ inventory_hostname }}"
         username: "admin"
-        key_filename: "{{ ec2_prefix }}-key-private.pem"
+        key_filename: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
         newpassword: "{{ PAN_PASSWORD }}"
       register: result
       until: not result|failed
