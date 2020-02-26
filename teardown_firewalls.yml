@@ -13,6 +13,7 @@
 
     - name: "Gather panos instance info"
       ec2_instance_info:
+        region: "{{ ec2_region }}"
         filters:
           "tag:demo": "panos"
           "instance-state-name": "running"
