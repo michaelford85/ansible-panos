@@ -15,8 +15,8 @@
     - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
     - ./credentials/webserver_credentials.yml
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
+  # roles:
+  #   - role: paloaltonetworks.paloaltonetworks
 
   tasks:
 
