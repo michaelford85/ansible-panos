@@ -58,8 +58,8 @@
     - "{{ playbook_dir }}/credentials/pan_credentials.yml"
     - "{{ playbook_dir }}/credentials/servicenow_credentials.yml"
 
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
+  # roles:
+  #   - role: paloaltonetworks.paloaltonetworks
 
   tasks:
 
@@ -70,7 +70,7 @@
 
     - block:
       - name: Add an ACL entry
-        panos_security_rule:
+        paloaltonetworks.panos.panos_security_rule:
           provider:
             ip_address: "{{ ansible_host }}"
             username: "{{ PAN_USERNAME }}"
@@ -89,7 +89,7 @@
 
     - block:
       - name: Remove ACL entries
-        panos_security_rule:
+        paloaltonetworks.panos.panos_security_rule:
           provider:
             ip_address: "{{ ansible_host }}"
             username: "{{ PAN_USERNAME }}"
