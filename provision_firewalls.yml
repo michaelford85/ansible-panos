@@ -94,7 +94,7 @@
       copy:
         content: "{{ create_key.key.private_key }}"
         dest: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
-        mode: '0400'
+        mode: '0600'
       when: create_key.changed
 
     - name: Update Ansible Tower AWS SSH Credential
@@ -106,7 +106,7 @@
         tower_password: "{{ tower_pass }}"
         kind: ssh
         username: admin
-        ssh_key_data: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
+        ssh_key_data: "{{ create_key.key.private_key }}"
         tower_verify_ssl: false
       delegate_to: localhost
       run_once: true
