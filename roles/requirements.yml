@@ -1,3 +1,7 @@
 #Install network-engine from galaxy
 - src: ansible-network.network-engine
 - src: paloaltonetworks.paloaltonetworks
+
+collections:
+# With just the collection name
+- paloaltonetworks.panos

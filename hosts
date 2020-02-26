@@ -5,10 +5,12 @@ webserver ansible_host=webserver.michaelanthonyford.com ansible_python_interpret
 ansible ansible_host=ansibletower.michaelanthonyford.com
 
 [panos]
-firewall1 ansible_host=54.90.224.6
-firewall2 ansible_host=54.166.128.113
-firewall3 ansible_host=35.175.191.237
+firewall1 ansible_host=100.25.248.126
+firewall2 ansible_host=18.208.196.90
+firewall3 ansible_host=34.237.124.148
 
 
 [panos:vars]
 vsys=vsys1
+ansible_ssh_private_key_file=/tmp/mford-panos-demo-key-private.pem
+ansible_ssh_user=admin

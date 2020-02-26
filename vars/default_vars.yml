@@ -10,4 +10,16 @@ WEBSERVER_USERNAME: "{{ vaulted_webserver_username }}"
 WEBSERVER_PASSWORD: "{{ vaulted_webserver_password }}"
 SN_USERNAME: "{{ vaulted_servicenow_username }}"
 SN_PASSWORD: "{{ vaulted_servicenow_password }}"
-SN_INSTANCE: dev71868
+SN_INSTANCE: dev59224
+
+working_dir: /tmp
+ec2_region: us-east-1
+ec2_prefix: mford-panos-demo
+application: panos
+machine_type: m5.xlarge
+num_instances: 3
+panos_image_id: ami-0ead70c8b3aa72249 #PA-VM-AWS-9.1.0
+# panos_image_id: ami-0ceaa612d0b411526 #PA-VM-AWS-9.0.0
+ec2_wait: yes #wait for newly created instances to reach desired state before returning
+ec2_vpc_subnet: "192.168.0.0/28"
+ec2_vpc_cidr: "192.168.0.0/24"

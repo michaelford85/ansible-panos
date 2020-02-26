@@ -1,0 +1,136 @@
+---
+- name: Teardown firewalls
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - ./vars/default_vars.yml
+  vars:
+    ec2_instance_ids: []
+
+  tasks:
+
+
+
+    - name: "Gather panos instance info"
+      ec2_instance_info:
+        filters:
+          "tag:demo": "panos"
+          "instance-state-name": "running"
+      register: instance_info
+
+    # - debug:
+    #     var: instance_info
+    #
+    # - debug:
+    #     var: instance_info.instances | length
+
+    # - debug:
+    #     var: instance_info | json_query('instances[*].instance_id')
+
+    - name: "Create a list of the panos Instances"
+      set_fact:
+        ec2_instance_ids: "{{ ec2_instance_ids }} + [ '{{ item }}']"
+      loop: "{{ instance_info | json_query('instances[*].instance_id')  }}"
+
+    - name: "Terminate Instances for Application panos"
+      ec2:
+        state: absent
+        instance_ids: "{{ ec2_instance_ids }}"
+        wait: "{{ ec2_wait }}"
+        region: "{{ ec2_region }}"
+      when: ec2_instance_ids | length > 0
+
+    - name: Delete AWS SSH Public Key
+      ec2_key:
+        name: "{{ ec2_prefix }}-key"
+        state: absent
+
+    - name: Delete Local Private Key
+      file:
+        path: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
+        state: absent
+
+    # VPC or Virtual Private Cloud.  The instance will be tied to a subnet that belongs to this particular VPC
+    - name: "Get the VPC ID for {{ ec2_prefix }}-vpc"
+      ec2_vpc_net_info:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:Name": "{{ ec2_prefix }}-vpc"
+          "tag:demo": "panos"
+        region: "{{ ec2_region }}"
+      register: vpc_net_facts
+
+    # - name: debug vpc_net_facts
+    #   debug:
+    #     var: vpc_net_facts
+
+    - name: "Gather panos Instance Info"
+      ec2_instance_info:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:demo": "panos"
+          "instance-state-name": "running"
+      register: instance_info
+
+    # - debug:
+    #     var: instance_info
+
+    # - debug:
+    #     var: instance_info.instances | length
+    #
+    # - debug:
+    #     var: instance_info | json_query('instances[*].instance_id')
+
+    - name: "Gather panos Route Table Information"
+      ec2_vpc_route_table_info:
+        region: "{{ ec2_region }}"
+        filters:
+          "tag:demo": "panos"
+          "tag:Name": "{{ ec2_prefix }}-route-table"
+      register: route_table_info
+
+    # - debug:
+    #     var: route_table_info.route_tables[0].id
+
+    - name: Delete Route Table
+      ec2_vpc_route_table:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ vpc_net_facts.vpcs[0].id }}"
+        route_table_id: "{{ route_table_info.route_tables[0].id }}"
+        lookup: id
+        state: absent
+      when: route_table_info.route_tables[0].id is defined
+
+    - name: Delete Internet Gateway
+      ec2_vpc_igw:
+        vpc_id: "{{ vpc_net_facts.vpcs[0].id }}"
+        region: "{{ ec2_region }}"
+        state: absent
+
+    - name: "Delete Subnet for {{ ec2_prefix }}-vpc"
+      ec2_vpc_subnet:
+        state: absent
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ vpc_net_facts.vpcs[0].id }}"
+        cidr: "{{ ec2_vpc_subnet }}"
+
+    - name: "If {{ ec2_prefix }}-vpc exists, delete it"
+      when: vpc_net_facts['vpcs']|length > 0
+      block:
+
+        - name: "Delete EC2 Security Group {{ec2_prefix }}-sg"
+          ec2_group:
+            name: "{{ ec2_prefix }}-sg"
+            region: "{{ec2_region }}"
+            vpc_id: "{{ vpc_net_facts.vpcs[0].id }}"
+            state: absent
+          register: delete_sg
+          until: delete_sg is not failed
+          retries: 50
+
+        - name: "Delete AWS VPC {{ ec2_prefix }}-vpc"
+          ec2_vpc_net:
+            region: "{{ ec2_region }}"
+            name: "{{ ec2_prefix }}-vpc"
+            cidr_block: "{{ vpc_net_facts.vpcs[0].cidr_block }}"
+            state: absent
