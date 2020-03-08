@@ -17,7 +17,7 @@
     #     timeout: 320
     #   loop: "{{  groups['panos'] }}"
 
-    - name: configure foo administrator
+    - name: Configure admin password
       paloaltonetworks.panos.panos_admpwd:
         ip_address: "{{ inventory_hostname }}"
         username: "admin"
