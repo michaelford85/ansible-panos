@@ -5,9 +5,9 @@ webserver ansible_host=webserver.michaelanthonyford.com ansible_python_interpret
 ansible ansible_host=ansibletower.michaelanthonyford.com
 
 [panos]
-firewall1 ansible_host=54.225.54.162
-firewall2 ansible_host=3.81.143.30
-firewall3 ansible_host=3.209.10.141
+firewall1 ansible_host=54.145.235.167
+firewall2 ansible_host=35.173.251.180
+firewall3 ansible_host=3.226.242.72
 
 
 [panos:vars]
