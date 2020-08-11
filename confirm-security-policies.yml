@@ -62,11 +62,15 @@
         file:
           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
           state: absent
+        delegate_to: webserver
+        run_once: yes
 
       - name: Create ACL file
         copy:
           dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
           content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
+        delegate_to: webserver
+        run_once: yes
 
       #TODO: account for a situation where there are NO ACLs applied
       #security_rule_output.json.result.entry does not exist in this case
