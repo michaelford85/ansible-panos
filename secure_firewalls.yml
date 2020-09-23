@@ -1,6 +1,6 @@
 ---
 - name: Provision AWS Resources
-  hosts: panos
+  hosts: tag_demo_panos
   gather_facts: no
   vars_files:
     - ./vars/default_vars.yml
