@@ -110,9 +110,9 @@
         tower_verify_ssl: false
       delegate_to: localhost
       run_once: true
-      when:
-        - create_key.changed
-        - tower_provision
+      # when:
+      #   - create_key.changed
+      #   - tower_provision
 
     # - name: Gather Subnet Information
     #   ec2_vpc_subnet_info:
