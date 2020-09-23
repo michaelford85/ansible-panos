@@ -1,0 +1,13 @@
+.idea/
+*.pyc
+*.bak
+*.tar.gz
+
+# MACOS
+.DS_Store
+
+# Runtime files
+*.retry
+*.swp
+
+tests/output/

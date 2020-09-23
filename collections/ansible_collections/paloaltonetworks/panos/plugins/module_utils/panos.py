@@ -35,25 +35,45 @@ import time
 _MIN_VERSION_ERROR = '{0} version ({1}) < minimum version ({2})'
 HAS_PANDEVICE = True
 try:
-    import pandevice
-    from pandevice.base import PanDevice
-    from pandevice.firewall import Firewall
-    from pandevice.panorama import DeviceGroup, Template, TemplateStack
-    from pandevice.policies import PreRulebase, PostRulebase, Rulebase
-    from pandevice.device import Vsys
-    from pandevice.errors import PanDeviceError
-    from pandevice.errors import PanCommitNotNeeded
+    import panos
+    from panos.base import PanDevice
+    from panos.firewall import Firewall
+    from panos.panorama import DeviceGroup, Template, TemplateStack
+    from panos.policies import PreRulebase, PostRulebase, Rulebase
+    from panos.device import Vsys
+    from panos.errors import PanDeviceError
+    from panos.errors import PanCommitNotNeeded
 except ImportError:
-    HAS_PANDEVICE = False
+    try:
+        import pandevice as panos
+        from pandevice.base import PanDevice
+        from pandevice.firewall import Firewall
+        from pandevice.panorama import DeviceGroup, Template, TemplateStack
+        from pandevice.policies import PreRulebase, PostRulebase, Rulebase
+        from pandevice.device import Vsys
+        from pandevice.errors import PanDeviceError
+        from pandevice.errors import PanCommitNotNeeded
+    except ImportError:
+        HAS_PANDEVICE = False
 
 
 def _vstr(val):
     return '{0}.{1}.{2}'.format(*val)
 
 
+def eltostr(obj):
+    try:
+        # Try pretty print first if pandevice supports it
+        return obj.element_str(pretty_print=True)
+    except TypeError:
+        # Fall back to normal
+        return obj.element_str()
+
+
 class ConnectionHelper(object):
     def __init__(self, min_pandevice_version, min_panos_version,
-                 error_on_shared, panorama_error, firewall_error):
+                 error_on_shared, panorama_error, firewall_error,
+                 template_is_optional):
         """Performs connection initialization and determines params."""
         # Params for AnsibleModule.
         self.argument_spec = {}
@@ -73,6 +93,7 @@ class ConnectionHelper(object):
         self.error_on_shared = error_on_shared
         self.panorama_error = panorama_error
         self.firewall_error = firewall_error
+        self.template_is_optional = template_is_optional
 
         # The PAN-OS device.
         self.device = None
@@ -95,12 +116,21 @@ class ConnectionHelper(object):
         if not HAS_PANDEVICE:
             module.fail_json(msg='Missing required library "pandevice".')
 
+        pdv = tuple(int(x) for x in panos.__version__.split('.'))
+
+        # Inform people that they should upgrade to pan-os-python instead of pandevice.
+        if pdv < (1, 0, 0):
+            lum = [
+                'Python library "pandevice" is now "pan-os-python" and is now 1.0!',
+                'Please "pip install pan-os-python" at your earliest convenience.',
+            ]
+            module.deprecate(' '.join(lum), version='3.0.0', collection_name='paloaltonetworks.panos')
+
         # Verify pandevice minimum version.
         if self.min_pandevice_version is not None:
-            pdv = tuple(int(x) for x in pandevice.__version__.split('.'))
             if pdv < self.min_pandevice_version:
                 module.fail_json(msg=_MIN_VERSION_ERROR.format(
-                    'pandevice', pandevice.__version__,
+                    'panos', panos.__version__,
                     _vstr(self.min_pandevice_version)))
 
         pan_device_auth, serial_number = None, None
@@ -122,7 +152,7 @@ class ConnectionHelper(object):
                 module.params['port'],
             )
             msg = 'Classic provider params are deprecated; use "provider" instead'
-            module.deprecate(msg, '2.12')
+            module.deprecate(msg, version='3.0.0', collection_name='paloaltonetworks.panos')
         else:
             module.fail_json(msg='Provider params are required.')
 
@@ -188,7 +218,7 @@ class ConnectionHelper(object):
                         ))
                 elif self.template is not None:
                     tmpl_required = True
-                else:
+                elif not self.template_is_optional:
                     module.fail_json(msg=pano_mia_param.format(self.template_stack))
 
             # Spec: template.
@@ -207,6 +237,8 @@ class ConnectionHelper(object):
                         module.fail_json(msg=not_found.format(
                             'Template', name,
                         ))
+                elif self.template_is_optional:
+                    pass
                 elif tmpl_required:
                     module.fail_json(msg=ts_error.format(''))
                 elif not added_template:
@@ -313,10 +345,14 @@ class ConnectionHelper(object):
 
         # Apply the state.
         changed = False
+        diff = None
         if module.params['state'] == 'present':
             for item in listing:
                 if item.uid != obj.uid:
                     continue
+                diff = dict(
+                    before=eltostr(item)
+                )
                 obj_child_types = [x.__class__ for x in obj.children]
                 other_children = []
                 for x in item.children:
@@ -327,6 +363,7 @@ class ConnectionHelper(object):
                 if not item.equal(obj, compare_children=True):
                     changed = True
                     obj.extend(other_children)
+                    diff['after'] = eltostr(obj)
                     if not module.check_mode:
                         try:
                             obj.apply()
@@ -335,6 +372,10 @@ class ConnectionHelper(object):
                 break
             else:
                 changed = True
+                diff = dict(
+                    before="",
+                    after=eltostr(obj)
+                )
                 if not module.check_mode:
                     try:
                         obj.create()
@@ -343,6 +384,10 @@ class ConnectionHelper(object):
         elif module.params['state'] == 'absent':
             if obj.uid in [x.uid for x in listing]:
                 changed = True
+                diff = dict(
+                    before=eltostr(obj),
+                    after=""
+                )
                 if not module.check_mode:
                     try:
                         obj.delete()
@@ -363,7 +408,11 @@ class ConnectionHelper(object):
                     changed = True
 
                 if changed:
+                    diff = dict(
+                        before=eltostr(item)
+                    )
                     setattr(item, enabled_disabled_param, not val)
+                    diff['after'] = eltostr(item)
                     if not module.check_mode:
                         try:
                             item.update(enabled_disabled_param)
@@ -373,7 +422,7 @@ class ConnectionHelper(object):
             else:
                 module.fail_json(msg='Cannot enable/disable non-existing obj')
 
-        return changed
+        return changed, diff
 
     def apply_position(self, obj, location, existing_rule, module):
         """Moves an object into the given location.
@@ -439,7 +488,7 @@ class ConnectionHelper(object):
                     'Cannot do relative rule placement',
                     '"{0}" does not exist.'.format(existing_rule),
                 ]
-                module.fail_json(msg='; '.format(msg))
+                module.fail_json(msg='{0}'.format(msg))
             if location == 'before':
                 if obj_index + 1 != ref_index:
                     changed = True
@@ -557,7 +606,8 @@ def get_connection(vsys=None, vsys_shared=None, device_group=None,
                    argument_spec=None, required_one_of=None,
                    min_pandevice_version=None, min_panos_version=None,
                    error_on_shared=False,
-                   panorama_error=None, firewall_error=None):
+                   panorama_error=None, firewall_error=None,
+                   template_is_optional=False):
     """Returns a helper object that handles pandevice object tree init.
 
     The `vsys`, `vsys_shared`, `device_group`, `vsys_dg`, `vsys_importable`, `rulebase`,
@@ -602,13 +652,17 @@ def get_connection(vsys=None, vsys_shared=None, device_group=None,
         error_on_shared(bool): Don't allow "shared" vsys or device group.
         panorama_error(str): The error message if the device is Panorama.
         firewall_error(str): The error message if the device is a firewall.
+        template_is_optional(bool): Set this to True if the config object could
+            be local on Panorama and not just in a template or template stack.
 
     Returns:
         ConnectionHelper
     """
     helper = ConnectionHelper(
         min_pandevice_version, min_panos_version,
-        error_on_shared, panorama_error, firewall_error)
+        error_on_shared, panorama_error, firewall_error,
+        template_is_optional,
+    )
     req = []
     spec = {
         'provider': {

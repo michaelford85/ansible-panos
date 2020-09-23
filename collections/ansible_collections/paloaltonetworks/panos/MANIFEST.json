@@ -2,7 +2,7 @@
  "collection_info": {
   "namespace": "paloaltonetworks",
   "name": "panos",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "authors": [
    "Garfield Lee Freeman"
   ],
@@ -27,7 +27,7 @@
   "name": "FILES.json",
   "ftype": "file",
   "chksum_type": "sha256",
-  "chksum_sha256": "99370b98e93c6149976ee666575e5e7fc71172a8f4f3c6b503b8440b78bfd57f",
+  "chksum_sha256": "5d64c6192c3b8242f116f76fabab2b1a3931f3d67d8c3065fa8319cf9c0deb04",
   "format": 1
  },
  "format": 1
