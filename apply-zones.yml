@@ -16,14 +16,14 @@
     - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
 
-  roles:
-    - role: paloaltonetworks.paloaltonetworks
+  # roles:
+  #   - role: paloaltonetworks.paloaltonetworks
 
   tasks:
 
     - block:
       - name: add zone trust
-        panos_zone:
+        paloaltonetworks.panos.panos_zone:
           ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
@@ -32,7 +32,7 @@
           state: present
 
       - name: add zone untrust
-        panos_zone:
+        paloaltonetworks.panos.panos_zone:
           ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
@@ -43,7 +43,7 @@
 
     - block:
       - name: remove zone trust
-        panos_zone:
+        paloaltonetworks.panos.panos_zone:
           ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
@@ -52,7 +52,7 @@
           state: absent
 
       - name: remove zone untrust
-        panos_zone:
+        paloaltonetworks.panos.panos_zone:
           ip_address: "{{ inventory_hostname }}"
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
