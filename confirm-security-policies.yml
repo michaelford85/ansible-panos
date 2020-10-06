@@ -66,6 +66,7 @@
         run_once: yes
         become: yes
         vars:
+          ansible_become_method: su
           ansible_become_user: "{{ WEBSERVER_USERNAME }}"
           ansible_become_pass: "{{ WEBSERVER_PASSWORD }}"
 
