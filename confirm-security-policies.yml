@@ -58,19 +58,19 @@
 
 
     - block:
-      # - name: Ensure ACL file does not exist
-      #   file:
-      #     path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
-      #     state: absent
-      #   delegate_to: webserver
-      #   run_once: yes
-      #   become: yes
-      #   vars:
-      #     ansible_user: "{{ WEBSERVER_USERNAME }}"
-      #     ansible_ssh_password: "{{ WEBSERVER_PASSWORD }}"
-      #     # ansible_become_method: su
-      #     ansible_become_user: "{{ WEBSERVER_USERNAME }}"
-      #     ansible_become_password: "{{ WEBSERVER_PASSWORD }}"
+      - name: Ensure ACL file does not exist
+        file:
+          path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+          state: absent
+        delegate_to: webserver
+        run_once: yes
+        become: yes
+        vars:
+          ansible_user: "{{ WEBSERVER_USERNAME }}"
+          ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+          # ansible_become_method: su
+          become_user: "{{ WEBSERVER_USERNAME }}"
+          become_password: "{{ WEBSERVER_PASSWORD }}"
 
       - name: Create ACL file
         copy:
