@@ -70,7 +70,7 @@
           ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
           # ansible_become_method: su
           become_user: "{{ WEBSERVER_USERNAME }}"
-          become_password: "{{ WEBSERVER_PASSWORD }}"
+          ansible_become_password: "{{ WEBSERVER_PASSWORD }}"
 
       - name: Create ACL file
         copy:
