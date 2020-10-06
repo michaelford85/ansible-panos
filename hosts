@@ -1,5 +1,6 @@
 [servers]
-webserver ansible_host=webserver.mford.io ansible_python_interpreter=/usr/bin/python
+webserver ansible_host=webserver.mford.io
+;ansible_python_interpreter=/usr/bin/python
 
 [control]
 ansible ansible_host=ansibletower.michaelanthonyford.com

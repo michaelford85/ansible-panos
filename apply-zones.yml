@@ -24,18 +24,20 @@
     - block:
       - name: add zone trust
         paloaltonetworks.panos.panos_zone:
-          ip_address: "{{ inventory_hostname }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           zone: trust
           mode: layer3
           state: present
 
       - name: add zone untrust
         paloaltonetworks.panos.panos_zone:
-          ip_address: "{{ inventory_hostname }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           zone: untrust
           mode: layer3
           state: present
@@ -44,18 +46,20 @@
     - block:
       - name: remove zone trust
         paloaltonetworks.panos.panos_zone:
-          ip_address: "{{ inventory_hostname }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           zone: trust
           mode: layer3
           state: absent
 
       - name: remove zone untrust
         paloaltonetworks.panos.panos_zone:
-          ip_address: "{{ inventory_hostname }}"
-          username: "{{ PAN_USERNAME }}"
-          password: "{{ PAN_PASSWORD }}"
+          provider:
+            ip_address: "{{ ansible_host }}"
+            username: "{{ PAN_USERNAME }}"
+            password: "{{ PAN_PASSWORD }}"
           zone: untrust
           mode: layer3
           state: absent
