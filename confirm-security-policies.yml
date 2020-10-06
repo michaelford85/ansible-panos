@@ -80,7 +80,7 @@
         run_once: yes
         become: yes
         vars:
-          ansible_user: "{{ WEBSERVER_USERNAME }}"
+          become_user: "{{ WEBSERVER_USERNAME }}"
           ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
 
       #TODO: account for a situation where there are NO ACLs applied
