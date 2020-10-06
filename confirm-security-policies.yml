@@ -66,8 +66,9 @@
         run_once: yes
         become: yes
         vars:
-          ansible_become_user: "{{ WEBSERVER_USERNAME }}"
-          ansible_become_pass: "{{ WEBSERVER_PASSWORD }}"
+          # ansible_become_user: "{{ WEBSERVER_USERNAME }}"
+          ansible_become_user: ec2-user
+          # ansible_become_pass: "{{ WEBSERVER_PASSWORD }}"
 
       - name: Create ACL file
         copy:
