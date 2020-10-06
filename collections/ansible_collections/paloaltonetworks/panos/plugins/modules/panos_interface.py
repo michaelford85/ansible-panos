@@ -42,6 +42,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.state
     - paloaltonetworks.panos.fragments.vsys_import
     - paloaltonetworks.panos.fragments.template_only
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     if_name:
         description:
@@ -177,16 +178,6 @@ options:
             - HORIZONTALLINE
             - Name of the vsys (if firewall) or device group (if panorama) to put this object.
         type: str
-    commit:
-        description:
-            - Commit if changed
-        type: bool
-        default: false
-    operation:
-        description:
-            - B(Removed)
-            - Use I(state) instead.
-        type: str
 '''
 
 EXAMPLES = '''
@@ -212,10 +203,6 @@ EXAMPLES = '''
 RETURN = '''
 # Default return values
 '''
-
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection, eltostr
@@ -273,9 +260,6 @@ def main():
 
             # TODO(gfreeman) - remove this in 2.12.
             vsys_dg=dict(),
-
-            # TODO(gfreeman) - remove in the next release.
-            operation=dict(),
         ),
     )
     module = AnsibleModule(
@@ -283,10 +267,6 @@ def main():
         supports_check_mode=True,
         required_one_of=helper.required_one_of,
     )
-
-    # TODO(gfreeman) - remove in the next release.
-    if module.params['operation'] is not None:
-        module.fail_json(msg='Operation has been removed; use "state"')
 
     # Get the object params.
     spec = {

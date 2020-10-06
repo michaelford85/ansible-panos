@@ -18,11 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 DOCUMENTATION = '''
 ---
 module: panos_nat_rule_facts
@@ -180,7 +175,7 @@ def main():
         device_group=True,
         rulebase=True,
         with_classic_provider_spec=True,
-        error_on_shared=True,
+        error_on_firewall_shared=True,
         required_one_of=[
             ['listing', 'rule_name', 'rule_regex', 'uuid'],
         ],

@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 DOCUMENTATION = '''
 ---
 module: panos_registered_ip_facts
@@ -117,7 +113,7 @@ def main():
     except PanDeviceError as e:
         module.fail_json(msg='Failed get_registered_ip: {0}'.format(e))
 
-    module.exit_json(changed=False, results=registered_ips)
+    module.exit_json(changed=False, ansible_module_results=registered_ips)
 
 
 if __name__ == '__main__':

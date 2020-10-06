@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'status': ['preview'],
-                    'supported_by': 'community',
-                    'version': '1.0'}
-
 DOCUMENTATION = '''
 ---
 module: panos_administrator
@@ -45,6 +41,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.transitional_provider
     - paloaltonetworks.panos.fragments.state
     - paloaltonetworks.panos.fragments.full_template_support
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     admin_username:
         description:
@@ -115,11 +112,6 @@ options:
         description:
             - The password profile for this user.
         type: str
-    commit:
-        description:
-            - Commit configuration if changed.
-        default: false
-        type: bool
 '''
 
 EXAMPLES = '''

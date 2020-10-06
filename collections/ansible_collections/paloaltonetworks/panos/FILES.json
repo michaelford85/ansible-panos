@@ -15,6 +15,34 @@
    "format": 1
   },
   {
+   "name": ".nojekyll",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+   "format": 1
+  },
+  {
+   "name": ".releaserc.json",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c0ea670c4d28fe2a2605823ce8ebf323988170cb655d02d5a394739fd68a5d4a",
+   "format": 1
+  },
+  {
+   "name": "meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta/runtime.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "48a2f61c72296aaa190a3ad670b0a5759bd047262b59b3d870e986b05878d87d",
+   "format": 1
+  },
+  {
    "name": "plugins",
    "ftype": "dir",
    "chksum_type": null,
@@ -32,581 +60,581 @@
    "name": "plugins/modules/panos_dag.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e0ff934c922d039ce70544625e1480bb14f8f3559944e2cc78dd8da1392cad7b",
+   "chksum_sha256": "c881149ebb6780de1ead60024469dd31c9cc896a4840e167ccf5bb8fbf9abbd2",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_http_server.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "c5f3c05ea39871c424521ab8c8b560bf52776ee9251b065c1e3cb45d1024f1ed",
+   "chksum_sha256": "099df67b9f72333e957591f798ae933035fb502488c08ad91efaf77e0678e8c8",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ike_crypto_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "92898c695abf7070c585bf6e56ac2cdd28fc4d72028f28bfcd9773f418aec53f",
+   "chksum_sha256": "64d1ba00070c278e2b7876bb72dd0e928a4d055ed73b41cda9f35fcec1fb4f7f",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_admpwd.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "dd4f9e69371851cee5d662fae552197fe029759a259a5fb4d46bf930690cc932",
+   "chksum_sha256": "0c68fadc96cadaed22fb3637aee3922aebbb1f6c4deb7ea5d0ca08673cd72a28",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "faa9b6b4138d3d10c668ed322e47342b806613ce749edd64a45b124b01c3b2df",
+   "chksum_sha256": "10622a2bec627ae778e58ad165d07b669287d5da14d08fb7aa3ea90d6cb434aa",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_interface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "30384a2490eaf4902266af3f9a1f6f789f8bcde6d50462b2e59b4166ab836aae",
+   "chksum_sha256": "2985d8ac96168f345681c7418d1c4f70d27a87ba8e206fcccadd02e8c9cd9763",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_import.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0bbc226a797536508697f44d3f34fd232daf97786fb66e32a3f051b934886273",
+   "chksum_sha256": "d773aa72ee38dbfa2119066a99e1affa11b2f21e2918dc662082beaadb908f90",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_commit_panorama.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "3f1578ecf4c40189f83759507e2e0cd1e3c340c76a5b00dca93ef153ab9d277e",
+   "chksum_sha256": "e509bbf229645c17b9f14685388d612af8484c23bab0ef468b66bb82d599320a",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_security_rule.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0aac50234bb6078e4541a1d20744082035fd8450edaed6129f132b68ac7ebf91",
+   "chksum_sha256": "452ef61216de9f6ead03d667fad67d85d80d450e106909a8ef37563d60a01200",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_http_profile_param.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "5b65f71ecd2437b7299cf2c97a578fb942f3f12db733c5ba082bdf51f964ca0a",
+   "chksum_sha256": "92ad264a8681b9d4d304ba1da1fd0c6a47140b5bc222dfcf99367c12fcffb705",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ipsec_tunnel.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "65da46ec33d5bbdf1b44fda5a7e834687ba79b30e7c98d370b951974c572eee6",
+   "chksum_sha256": "9c55717bad2af7fdb01db29e404da274f83fcf35b30feff36e811bde529a98a3",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_loadcfg.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "63f0ffc55ef412846d785c5707630abe535baa573faebdbfab67d837859bfd2f",
+   "chksum_sha256": "70dd338c6cd2b19c93d96c70c462d873f7c3ce86e8341368fe1dea11549b9ff0",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_zone_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2d0fc286c025e0129fcc702d9beb732a224ed6e77f6e0b8fbb0e125ba2cecd41",
+   "chksum_sha256": "97c5967e41c69a41522633d10e2304f23c07dbf654945a145a6223730812638d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_commit.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "24ea0c6a05c40f88ee5f9337459212860d75045640f50342df8bef95843d9e33",
+   "chksum_sha256": "807921d34d787cf4aebf29065e14c181ce1659cc106c7ead54203f0a71ce8259",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_redistribute.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0edddf3443c60dc6b63212d418058b5fda4d938d354249fbe9addf037c8dc3b1",
+   "chksum_sha256": "4509c1e7006b40f87f8745a0bcc951c93aef57d84580c6816899b16b4346af64",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "c62f49ba9cb15be45b3180b0cabcfb7891d14fd50bcab0bde1ee2a58ebcbf296",
+   "chksum_sha256": "76df006cefde3b54ea7898c9f8fb003ebf963dca19719b7cb99fa0adb01f8fdb",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_auth.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "278edb5dd6e54d59ab7003e3bdb28dfa88b509e0d5a50adfaeac22bd97488c0f",
+   "chksum_sha256": "7325c7afc97cbb081af86bbdebe495e936fae58fad04826bd574244a98c43706",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_commit_firewall.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "4c7a180f15d9edaee880885f7cd919f1e3e64f574c3983ae6a8081baff56209c",
+   "chksum_sha256": "0a5b86ac1544946ca8e0997a8c8c90e4cb59285e0bbf2df4c4e55ea7243d6800",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_policy_rule.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "dfbc60c76aa5e5436b11093dac4431f9ae122f18161e6e0c712ebebe1e25e5df",
+   "chksum_sha256": "98f0056464b8a3fd50f97ae99f718155adb12fa40c118a034e073c2ae99f046a",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_security_rule_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8e5f7f47a87395b895962371230cae039e0cb25ff3a151fc7cd325b89df42d32",
+   "chksum_sha256": "6936bdef3d90fe80acc7f526dbf8c53179054f6e2c16aea01974c60a90d23e0e",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_log_forwarding_profile_match_list.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "db732b1edf4845f67609917762320721f1a54e874abcd5c4587eefd0c0624784",
+   "chksum_sha256": "fedbf114bb33dec4dbd7e314052ef36661d489231dacc48ed36d1309d91460f6",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_conditional_advertisement.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "c3812c716c5d73a7f9d303a4712e29e0a7baeac6bf4632f9c9d9b17edbbdf9ba",
+   "chksum_sha256": "4ca29fe523ae006ecb8ff8a2b9acde3bb5bd1cff34eed567f85c8fed126dbb3c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_commit_push.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8f1019a4162e746913b23290b24e57a43971d88dd8906efab0f011743ddc15c4",
+   "chksum_sha256": "c22243bc034631750fc883cc71bff636295b0083eef17a6dda4a0986eef77187",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_admin.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "303aa4573f4bef417480f3531898be19c2150ff8e1d0305d6e8c721c64a69d36",
+   "chksum_sha256": "42c72287bfaeebeedf677e619b0167bd4be6127aee656f69a9a602a841ada575",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_aggregate.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e4a031514436a0f87d29ca6a1bebfdd43e362af3248e1fb79475cd11cbd1b14e",
+   "chksum_sha256": "f86575d7aa04c1cb5882f6fd97a38aed634dc31b10aaa5df5f18bd5b60f3338c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_snmp_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "94b646d4da1e3c8da2d3c49c5b88577dee3677eae5fde76f9b1348d57c2b5c27",
+   "chksum_sha256": "6aaacd5bee636ee3d3815a40346db40869e1e2b802bb6ede1201e303888de19c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_tunnel.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2e97d88fbe698a5e30fd4b02cb142d13d289e5f9a46dbcaa9896c0cc714dc508",
+   "chksum_sha256": "83106102ccd67df4b81450cd9ba6b805d0457c8549920eeb91395964093002e6",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_nat_rule.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "35fca8c71e2bc4aaa44c409b32de8cfa2657e45c8b3d1bb0b1bbc6b212bfc8a4",
+   "chksum_sha256": "537b65b9b963cf3c36897daf9c7072d2c1b0dce574b6c420d1d353dc8a98b388",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_object.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "b422a1b6afbc1c0f05ac06eb04e9c1c62ea8dd10abc75912ef61b98665243677",
+   "chksum_sha256": "9cffdd5aca0ccd5239159bb863eed6c00ab27a4d2fa1f5578a93aaa51b9cd2d4",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_registered_ip_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "6a23be8abb5d84fc87e15d0557424f28f8ece4096a9b4f7cf06618b879e212ac",
+   "chksum_sha256": "cfa470a04a8724ce7ce852ce390651b0746a92c3adfa6d9b7b2878606e2ec4a0",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_cert_gen_ssh.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "72eadaefad60008f54e9205fdc5ac347fd875055ba9d0eefb61b232e6feec6c0",
+   "chksum_sha256": "c7a5e19df4346d879aabea13290beb0052390eb9f57ea78dcd8899386905f74c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_zone.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "9181acca4cf9940e90ee96ed09f4e4642685dd62fc929be91b92293ae94b9237",
+   "chksum_sha256": "26be94080677027e95f06c90545146e29929c90d70fa7290dc75a19ef4dd95a0",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_vm_auth_key.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8bbf604e27acc909722ef111a64b01f121cb8a81a68eef33578bc84bb334838b",
+   "chksum_sha256": "25c0cbf2391a66650bf37241af8d9a0b7964bbc0ea59f36dd2e5cfea075832dc",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_query_rules.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "679784519892a6fc7bada1c2bf26fc13f514753345fc2f2406f5f6720d13ccc0",
+   "chksum_sha256": "856c56de897c5056c5a96dadf21097204ef14f6499b7f09cf004fd217628b565",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ipsec_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "c5cd9c968182aa048e77712ab7ef266bded53cdbe3ecb0b6e0f7cba709b4b91f",
+   "chksum_sha256": "d6ae0e10b3a92031dbdab4d790a9a9a377ab9d0b7f649bf1867f12dcfe8f9bfa",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_op.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "db775af199f55616ae2c1403f66bbeb79497944037b59af55ae1f47893b0521d",
+   "chksum_sha256": "84726a33d2bd21fd6db9592de1db53e3dddef4d91321e09b6075d2e47d86184c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_api_key.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "14ec7b054f1f109a6fd3207db852cf6a07fb5d111aa5c4ee591d2f7997da4eae",
+   "chksum_sha256": "5c2f788687c1266c1d687a2a038d2969cf7cf9f3a7743ebfe62e95425e123fe7",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_http_profile_header.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "ba43a3f9db77028743c3d7023a237ee7cbd97e6ff058bddabb4a50c678734c68",
+   "chksum_sha256": "feb4b93771b838b0049b656c6aaa6f915452d57d0fb2d7a02598634327fb5b1f",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_syslog_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "cb9cc5a6862b428be15869eabe79fe717638fbfac20ceed3a54abbdca455701e",
+   "chksum_sha256": "3fab9f7ff53f0923cb0bbe5823300e851e02e74bd61d889114c02fde80429118",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_pg.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8c1cc1c44cde14822c45fe53be5ec83d4ed771c34990fa5f596f9f63f8b369d8",
+   "chksum_sha256": "a5ac503883bb68254ff5bdd9dd24270b285ee031f720672b0a7e033f66d2871d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_gre_tunnel.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "397f6151763ce911e0c066c98e41d7c0e1ef90d621a116848558dfd8be1d8725",
+   "chksum_sha256": "bddb452f3f066bceba5fe3df79b9b71f6c3140df3cfe3b6734e3e4e2cd4e4e86",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_administrator.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "f97ef12fc9295c7a0ed9fca2e2d30d7e0bf4925bd17c9b7db375195bf520920b",
+   "chksum_sha256": "eae41a9988e6c5c7a4ccbca9cef01948acdcaaeb1464e3ca830e791d792adfeb",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_sag.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "97f8a87bb827f221239960cf22b73dca8d029aff3523d6d756f5e893ed75cdc3",
+   "chksum_sha256": "2b5bf251751bf05f88c4a6f59abe30baabf9068efda86e1d090607f639ec2905",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_email_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2512926dd0dfc1a8c56f6807edc37179e3c8d2cea33d36ae18cb4b9276daae69",
+   "chksum_sha256": "ff5115a168d2ee76c12670f414dfa12816428c89f6750a32c5fad21a76fc23d6",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_address_group.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e52a0a6a9999170bc4969e26c08fe74b1c3c8bcb0fac9d754d3e3801c0e3a95f",
+   "chksum_sha256": "074f20d4f412361ed589c3428763efe41e82f4c9ebbc4e3c0b60296939cf1d4c",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_snmp_v2c_server.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "955feee83cde73592570d3f96900fec5242f530ef767a06275b312ccf315af32",
+   "chksum_sha256": "d5b51d862099c04ac4b74ed98f3173a71ef8a9846b6a5c07c8a17716c11ed5fb",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_log_forwarding_profile_match_list_action.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "d29a19770eba61274b34848dcc0e4f27afd287d5c94dab19ad1b04ed5d42e927",
+   "chksum_sha256": "48532134c9dca292831d87b7f10c5582242f5c2ee40eb88dded739781976985f",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_type_cmd.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "a8ca3871e37b7cc57ec9ac9ad37d5d886683df4b2ebe565427177b5219d68a39",
+   "chksum_sha256": "4528a64499025715b4d54038de61bf0718b70f44835dd8b6ac6dda5b4a491900",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_virtual_router_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "1850a1a96fca023a372899fa8cef921dd2726808217516402fc221c7a64d3c33",
+   "chksum_sha256": "7bd6d1add69d72ba1a013f4cdbe7f12f846bef82ccccc044c87a8ef9baaa5d2b",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_tag_object.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "527c7ce84cfc24dbbd10be018eed2e810bfcda07393f458fab9d47d796bfe38e",
+   "chksum_sha256": "3d4dc2b07b208b97a1f2b65c0f8e976ed235f32fb6f8521b926081ed085c6e34",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_static_route.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "95effdce1e36ecde2cbf6cde208b38420e1290f7fa12ca55ab49594f70fb691d",
+   "chksum_sha256": "d41dd68e40640f37c319138f5cfb476b844aae133d7bcff7e4e8454a0c4b3101",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_service_object.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "fed8db5a35de8d52e38d2199f5bc678f090c8af5ecc9f5dec48fd81064ffe7e5",
+   "chksum_sha256": "203a268a647632cc16582a100014132347326f6b5f9e228d093f2d4dd8619728",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_virtual_wire.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "4763395c02786847111f36f54ab2efc9cbdfdf5faeb6de1843cc3c52191fe42a",
+   "chksum_sha256": "c4e1bb437508a90b3ca862f26d23360a93118b38b5eb1a9c6fb9fd2b069db4d4",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ike_gateway.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "d47d5327a72df5caf3f45af475d5a0cce176dd84db4fc2755e41489bb5d1b8d3",
+   "chksum_sha256": "766f41b24478cd0baa9f00bee853faddef6ae48e151cb36a5a4815edda519c11",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ipv6_address.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "b38a44720560a2a5453ac34227355e427801c1b5f0e2e2ee625f571836b2d695",
+   "chksum_sha256": "d3b9b3b53b2d41e3c3d9ea8afae7deb4594bb20df8a52bd576920b80d5eb585b",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_log_forwarding_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "64a6710bb1d0c6beba1a9126519fbc04f3e88f7f2fc8ff1f842651ee6a6ea955",
+   "chksum_sha256": "84cbf7af709623a19ba7136e944e0039d8a8bc230a2980ee6eeea20058fe03e3",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_lic.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "83605cfe09bf5d74a43e9542b96ec4c009d3586ef4d22365e486f83992430bcb",
+   "chksum_sha256": "0993e36039c83c5b8cf54d13688b2448c5072071f1bc2a9d6ea11d636dbbad4d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_http_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "11f3b118c09105d9403254d6c649d428b560377a55e79270759d5219285400ea",
+   "chksum_sha256": "192c2e690c7224bbb315d1773acbe2d6e8711ee391b65ee24a28cac5a757db8f",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_application_object.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "daf06d9f3f8d7eae79e3bc3ca2a84dd6e1ec1bfa5f7060a714337c793e406e99",
+   "chksum_sha256": "533e5d9b2638a9484344f4aec81472101eb7963dbc2b50a3272c415f9a5bfac6",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_address_object.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "58b29291abfdbab8f184009d1ce6792ea3699f7c763f50a4cb3447cc6e170218",
+   "chksum_sha256": "f03597a78193c627acfa0c0f134002f22187f30ac31d9384baa74729103af29d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_match_rule.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "cfad866f9528356bddd1b6898b031f1ee632af188c279f1a730f7e7c8c7f34c1",
+   "chksum_sha256": "8ccb0eec0dabccac2ff557e140a6db4c265b59b07c1462abcd643fa26aae28a4",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_pbf_rule.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "9dc7495b9f6f816bcebfad427722d7a6f98240fa62aba07ee24d6ea3978ce30d",
+   "chksum_sha256": "b0b91b1339e002b3ff0e2f09d6f3bbddb33fa4d1b2c3fdd0253231d2d07149d0",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_snmp_v3_server.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e1667444f3b3585d33e4b8cc99a08d7c485836a2d047826754f84461405e3a39",
+   "chksum_sha256": "303beb62ba0318146878501a7d25f15ff36fb5aeeecf7ce6771828990bd7c3a8",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ha.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "cd013c0e9cf7eb0002f99f9b4f9cb46316a66617241a9840701e62fa961cadb6",
+   "chksum_sha256": "70370e80c746d92499103cf9537ef78027abeb6f7c2a3920e24ca793c5a4b841",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_object_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "23be273dd7bd3ed1f1e05d3fd9a82df1554aee771f9384891638ac50c2d26075",
+   "chksum_sha256": "22af3728f74448ebac76bf6f5229e053a379c4e873b98f6ac844b9a0d4361591",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_registered_ip.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "4e3186539abab237ab391aaf9015c635547ba689a73233ed1c37cda8445675b8",
+   "chksum_sha256": "3f46f721ddea9c5382e46a8e59c39ee4024e7d70a0e030fdcfdf60fe96b631f8",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_vlan_interface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "3739f419e60e3f0a9873076c433d07481a3864aed41ab63632ecaec180420868",
+   "chksum_sha256": "75a8ce6ed827a434629f6e32f5d44bb3719f6828069c2f98f76d5b51ab51dd31",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_peer_group.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2fbbc7fde9498069a8a3d7f538b9567243d35ca36b7164150dd4286dc994b83a",
+   "chksum_sha256": "6d557126b7fb8909707198699d0622c637ef109d943f3fd69c44cd6973797a6f",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_ipsec_ipv4_proxyid.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "96b71ac32edfbec5a60a151c46aea71486a34f22d62a64761fe639c848b1063f",
+   "chksum_sha256": "02a25c870e93c206ba7fa4408614b2fa6d0c06c486a5c3cd5952afc6f83cbd3d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_export.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0814643e71da506f8532abe86c8d2df6c5f8263adf5374a0305a5fe8062f0b79",
+   "chksum_sha256": "d0ccebc49248f35d86d00c905c6751c69d8573b6e40cd5457b962f9e3d2fb38e",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_redistribution.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0b275570ac142df279f1d87eb03441a06dda8df826d7ac5d86937ad5d01946c4",
+   "chksum_sha256": "75da337078e12915040874a16928e6924bb15a7483b80959cf08ccd93b881007",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_management_profile.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "ceded6733bcf1e2a7c511285fea163ded8a63972a499974601eec9a7739bcdcd",
+   "chksum_sha256": "cb4c2cfbed39dbf8e61d78c8bf5c4fc8de5d4deb7f45beb161a4513933bfb593",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_aggregate_interface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "5a073ef6bd4929d8bdb5fc5e3411de040215f456c8d1b3d6de300026438e32c2",
+   "chksum_sha256": "870a60a343692e93d7fb80d1ab021b75aa6209aa3dc14a26e77ff2199697a958",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_virtual_router.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "3229d822d7935b6e8930b1d3a0c556f3b33ea4c66f49fba3565cb88d705de59a",
+   "chksum_sha256": "f7ff941f1fd331e42bd3df50c6b77149e1b4c3035a87af59e46151d43911dd19",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_syslog_server.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "fdbc8e355015fdfa847b0ebc8f7209c4834704c7d3e695a758c0215287e818f6",
+   "chksum_sha256": "ce2eb4829ebd19b32f6e83def5d7052968a8ada36852772fa3f4fb659c50a826",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_check.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "f8c5c59c8e55d6cefbb4110e955c2f7434dd5e76c591d45268b96fb11e98666a",
+   "chksum_sha256": "55280db0f59232035d566990a3f770e8a14497ac17a698c7e0b42ab917dd9ade",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_dag_tags.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "ad0b71e599677492eaee3f93f7eba57c532d8b2fa0f96512a90b7db963fab9b0",
+   "chksum_sha256": "f62fc9f39a64b8c9aeaeaaf99dfe6e8bbcbb2fd7a49d60dfa7984f3cd24a8858",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_l3_subinterface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2c2806aaf09ff1a330c6bfb79e0bebf580bfaf6d1441cf9c9408b59a83d9c5d2",
+   "chksum_sha256": "52a81980be450753730c88e4e07036ed53250674bdfc84dfadf1d76944189b9d",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_userid.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "5e57f7232bdb444662613ca2dabff5879e371dfdd68642b462e9c636654c91bf",
+   "chksum_sha256": "32ebb702266dd1385ba592275c2239aacbeab68b14dc82bc1f01dd43571cee62",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_loopback_interface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "1b485f243120e7a95c8d14fdaa37faa2dde24f5d42172f1db2da7a595d1e8e05",
+   "chksum_sha256": "b005ceba0771da5359fa276ceb85c0d7552e1b760869305270f17e3050be67f1",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_email_server.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "1d9af6183039fd1a7375ed6882d10837552a88f5845b4d2be27f72718e869aaa",
+   "chksum_sha256": "2f9d7c205a0dd9f9c094462724b6a11e93fc78e550ffb7f6b774a21a46661277",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_service_group.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "8e46000838e1951833503e379f7d0608998c705ce9a2f681692947e8a72fe39a",
+   "chksum_sha256": "d61d4ea58b3f6a6dd96ddcdad2fe33aec4224e0d5771d49d297cb51404f3d10b",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_l2_subinterface.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "0904af7a0cfef1139cabc673a46a6b593f247cc38c48555d20c2eeff85c55fdd",
+   "chksum_sha256": "15b0e629ac75145ba302dcad3be393db9d6768409066bdb3c7135d12b1c33a04",
    "format": 1
   },
   {
@@ -620,63 +648,63 @@
    "name": "plugins/modules/panos_bgp_dampening.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "aaeca6b2d86a72a462140f32fc13b5db4b7b9ee752abf78714ca5faca0e8cd3f",
+   "chksum_sha256": "cc8cebbd63484ea1c84449eb674c4f5af5f83840235425bf4803b33a3f0556e2",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_mgtconfig.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "5700a3b83cd9e16a7fc2aa00a8da6a8fccbbd1ed01cb6d6da27d31a9db0c3b08",
+   "chksum_sha256": "9f0f2f5d14306c06cc327e4e3471ea923b47ba537df5bc502170c6ccef06a997",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_policy_filter.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "74dd2377b5f2ccc0875f900de53e32676d4bc83f38a113440ecd8b151148280a",
+   "chksum_sha256": "4cbfabb0237b06bd17d6280cec942d8ace21977019a664b1d146348bc7737213",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_bgp_peer.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "609ef76ce43dea71fbdb3c31f32bec55c5729f2100d01350cb1e27fc90710010",
+   "chksum_sha256": "a83f2b7acb3ed30e2f6883b7b60d64d2b67697d64f6deb3534893965b468f8ee",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_vlan.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "b77d38403897375040374b9fc09860eb0a64a03bab896a803816d6da4f41efeb",
+   "chksum_sha256": "d10e3f403ec4439b2355cb12df07b03ae5b79174352f0afa2737dbceb4b74a7e",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_restart.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "85381c6d7aa4e2d48299020ec7aaccd25ee215abdd0859d44e283656929d0d0b",
+   "chksum_sha256": "faeee2e588d411e940a2b1543ce29eb0299499d28d9e048abccd7a28bacea764",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_custom_url_category.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "dfb4a21285116a1bd021a24e7dc1b0073e0b5e20cef4030d46596433c16194f4",
+   "chksum_sha256": "3d39581b21b40a382aab4ed7020260189cf278f45a151568eb8d7ac3677896e4",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_software.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "2eb30302f0ff4fb4b6536cfa4a522063133968b52e6e2d02a676241753453adb",
+   "chksum_sha256": "2803a1d137a440789c65b9b711fb4ca3341c542a4157b1e918e11bf6079c9ad2",
    "format": 1
   },
   {
    "name": "plugins/modules/panos_nat_rule_facts.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "9b8912cb6b8ff5fb66fac6e5bb10bb0c9dda5341b94e8a935dc025365a922ad3",
+   "chksum_sha256": "2086e7ad0dd566bbc0bd5c46853e6c952077e5ccbb91b9e09c412c3f3432f18c",
    "format": 1
   },
   {
@@ -690,7 +718,7 @@
    "name": "plugins/doc_fragments/fragments.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "67d92be3d7c8f242e38a4099e72e3a3342445a83e079bd0ac2e411af1ff79f72",
+   "chksum_sha256": "cc052074dc3814f9b4d8e93b9291331066db615bdd5294b751750abedd44e44a",
    "format": 1
   },
   {
@@ -711,7 +739,7 @@
    "name": "plugins/module_utils/panos.py",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "134182ef625de990a7b126c50c7c824ee77a79ee509965eb4eedf49d00c8fbd0",
+   "chksum_sha256": "93a19b839ca7ac6a33f771b4832af8307b129b38260f9ece3b7b579494ef3d4f",
    "format": 1
   },
   {
@@ -743,17 +771,31 @@
    "format": 1
   },
   {
-   "name": ".github/workflows/galaxy-publish.yml",
-   "ftype": "file",
-   "chksum_type": "sha256",
-   "chksum_sha256": "81328eeab9f6a6b1402d99187adc66f202133b52eaa877490006bde51d1d7f90",
-   "format": 1
-  },
-  {
    "name": ".github/workflows/ci.yml",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "ecfa640aa6105d9f0a3d62032d372e003315800c9ca381c7c506701305ad3c54",
+   "chksum_sha256": "5f5cc4f8801645d5a92dad02179069a6fc8b5c4efaf2d5734c7a6aa515365d0a",
+   "format": 1
+  },
+  {
+   "name": ".github/dependabot.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "7523afb81b20a16918b0cf201b47509efa72cd947e2e44667668b9f4ca2c6ae3",
+   "format": 1
+  },
+  {
+   "name": ".github/do-release.sh",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4fc63e22a1ac40cf82e9bffe0b6cfe045cb2ef9246633c067e59f71327325e90",
+   "format": 1
+  },
+  {
+   "name": ".github/set-version.sh",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "85c201eabfbf42cc36f0b8e73ba6fce6e50aaa92b3388ad12499dac5a6876add",
    "format": 1
   },
   {
@@ -778,6 +820,76 @@
    "format": 1
   },
   {
+   "name": "docs/source",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "docs/source/authors.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "a208bf9d244747dc020cc0d175f72a6116326a67a3b8d4216bdbfecad2df9512",
+   "format": 1
+  },
+  {
+   "name": "docs/source/modules.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "b6683e32852a017f781a6ff1ce8022adf413ab91ca09a9c3dfb5d32a2a5514e8",
+   "format": 1
+  },
+  {
+   "name": "docs/source/license.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2bc47ef97324f3f0a0da14bf5b3982c53afb1dd9fa8aee434e528d7b32252dca",
+   "format": 1
+  },
+  {
+   "name": "docs/source/index.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "bad735c553cae90c63fb4dbeb4022c21d03c22caaa76ec87a9082c1f56bfeefb",
+   "format": 1
+  },
+  {
+   "name": "docs/source/history.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2457c110dc6f8fdb5f2fdc8593049e7e394ec3fa6b2227260033de51bcd70ba4",
+   "format": 1
+  },
+  {
+   "name": "docs/source/examples.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e6e0732eb6963b5e03c6c66671a6c1ea3485460ab7100b761816c596d8bd7896",
+   "format": 1
+  },
+  {
+   "name": "docs/source/conf.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3ae3d88d0b2627b2c9da75ca4c388567067c8c255d858fa3b48327f339b6c137",
+   "format": 1
+  },
+  {
+   "name": "docs/templates",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "docs/templates/module.rst.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5bacebd01d79b40d52f15d0a726673f24c4ded2970afcd8f5296d6ff4c45ab84",
+   "format": 1
+  },
+  {
    "name": "requirements.txt",
    "ftype": "file",
    "chksum_type": "sha256",
@@ -788,7 +900,7 @@
    "name": "README.md",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e6fce9759d960e5ad4ecbfa9a1d22920bcc2abc3b0a924f78d795d4c19b9d77e",
+   "chksum_sha256": "d48810254445665355f95057e34ec1cf8413e57d21e1df37a171b6efbf0786a2",
    "format": 1
   },
   {
@@ -796,20 +908,6 @@
    "ftype": "file",
    "chksum_type": "sha256",
    "chksum_sha256": "71648bd90fdb698d483cdd752f474deff274bf3b8229dabf13045384373cedf7",
-   "format": 1
-  },
-  {
-   "name": ".vscode",
-   "ftype": "dir",
-   "chksum_type": null,
-   "chksum_sha256": null,
-   "format": 1
-  },
-  {
-   "name": ".vscode/settings.json",
-   "ftype": "file",
-   "chksum_type": "sha256",
-   "chksum_sha256": "bb6d199a5172ddce761c7b1eaa65b2f54dc6bcba514e8ebb26ab11dcbc5ca224",
    "format": 1
   },
   {
@@ -844,7 +942,7 @@
    "name": ".gitignore",
    "ftype": "file",
    "chksum_type": "sha256",
-   "chksum_sha256": "e0b39fbb41a75746d72c858558b9abfe050271bf8010852832c50a98b8956be2",
+   "chksum_sha256": "37abf8f53627e25932ed537cdc0ba552d2423c8b6f3d284742101d9fc284312e",
    "format": 1
   }
  ],

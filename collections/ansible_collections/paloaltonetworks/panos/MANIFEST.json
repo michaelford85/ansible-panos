@@ -2,7 +2,7 @@
  "collection_info": {
   "namespace": "paloaltonetworks",
   "name": "panos",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
    "Garfield Lee Freeman"
   ],
@@ -19,7 +19,7 @@
   "license_file": "LICENSE",
   "dependencies": {},
   "repository": "https://github.com/PaloAltoNetworks/pan-os-ansible",
-  "documentation": "https://ansible-pan.readthedocs.io/en/latest/",
+  "documentation": "https://paloaltonetworks.github.io/pan-os-ansible/",
   "homepage": "https://github.com/PaloAltoNetworks/pan-os-ansible",
   "issues": "https://github.com/PaloAltoNetworks/pan-os-ansible/issues"
  },
@@ -27,7 +27,7 @@
   "name": "FILES.json",
   "ftype": "file",
   "chksum_type": "sha256",
-  "chksum_sha256": "5d64c6192c3b8242f116f76fabab2b1a3931f3d67d8c3065fa8319cf9c0deb04",
+  "chksum_sha256": "0761c33b22ecfb2b68f0d3bafc250990896d5f55de1a497ba65c7d202ecd5b3a",
   "format": 1
  },
  "format": 1

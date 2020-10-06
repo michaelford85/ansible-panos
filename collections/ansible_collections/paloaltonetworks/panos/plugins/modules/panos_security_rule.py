@@ -18,11 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 DOCUMENTATION = '''
 ---
 module: panos_security_rule
@@ -48,6 +43,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.device_group
     - paloaltonetworks.panos.fragments.vsys
     - paloaltonetworks.panos.fragments.rulebase
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     rule_name:
         description:
@@ -247,16 +243,6 @@ options:
         description:
             - Exclude this rule from the listed firewalls in Panorama.
         type: bool
-    operation:
-        description:
-            - B(Removed)
-            - Use I(state) instead.
-        type: str
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -371,7 +357,7 @@ def main():
         rulebase=True,
         with_state=True,
         with_classic_provider_spec=True,
-        error_on_shared=True,
+        error_on_firewall_shared=True,
         argument_spec=dict(
             rule_name=dict(required=True),
             source_zone=dict(type='list', elements='str', default=['any']),
@@ -414,9 +400,6 @@ def main():
             commit=dict(type='bool', default=False),
 
             # TODO(gfreeman) - remove this in the next role release.
-            operation=dict(),
-
-            # TODO(gfreeman) - remove this in the next role release.
             devicegroup=dict(),
         ),
     )
@@ -425,10 +408,6 @@ def main():
         supports_check_mode=True,
         required_one_of=helper.required_one_of,
     )
-
-    # TODO(gfreeman) - removed when operation is removed.
-    if module.params['operation'] is not None:
-        module.fail_json(msg='Param "operation" is removed; use "state" instead')
 
     # TODO(gfreeman) - remove when devicegroup is removed.
     if module.params['devicegroup'] is not None:

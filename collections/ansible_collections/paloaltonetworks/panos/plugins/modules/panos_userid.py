@@ -37,11 +37,6 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.transitional_provider
     - paloaltonetworks.panos.fragments.state
 options:
-    operation:
-        description:
-            - B(Removed)
-            - Use I(state) instead.
-        type: str
     userid:
         description:
             - User UPN
@@ -66,11 +61,6 @@ RETURN = '''
 # Default return values
 '''
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection
 
@@ -91,9 +81,6 @@ def main():
         argument_spec=dict(
             userid=dict(required=True),
             register_ip=dict(required=True),
-
-            # TODO(gfreeman) - remove in the next role release.
-            operation=dict(),
         ),
     )
 
@@ -104,10 +91,6 @@ def main():
     )
 
     parent = helper.get_pandevice_parent(module)
-
-    # TODO(gfreeman) - remove in the next role release.
-    if module.params['operation'] is not None:
-        module.fail_json(msg='Param "operation" is removed; use "state" instead')
 
     func = None
     prefix = ''

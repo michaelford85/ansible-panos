@@ -18,11 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 DOCUMENTATION = '''
 ---
 module: panos_security_rule_facts
@@ -297,7 +292,7 @@ def main():
         device_group=True,
         rulebase=True,
         with_classic_provider_spec=True,
-        error_on_shared=True,
+        error_on_firewall_shared=True,
         argument_spec=dict(
             rule_name=dict(),
             all_details=dict(default=False, type='bool'),

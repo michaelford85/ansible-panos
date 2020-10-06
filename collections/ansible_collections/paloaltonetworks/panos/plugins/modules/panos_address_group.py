@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 DOCUMENTATION = '''
 ---
 module: panos_address_group
@@ -43,6 +39,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.vsys
     - paloaltonetworks.panos.fragments.device_group
     - paloaltonetworks.panos.fragments.state
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     name:
         description:
@@ -67,12 +64,6 @@ options:
             - List of tags to add to this address group.
         type: list
         elements: str
-    commit:
-        description:
-            - Commit changes after creating object.  If I(ip_address) is a Panorama device, and I(device_group) is
-              also set, perform a commit to Panorama and a commit-all to the device group.
-        default: false
-        type: bool
 '''
 
 EXAMPLES = '''
@@ -146,6 +137,14 @@ def main():
 
     # Verify libs are present, get parent object.
     parent = helper.get_pandevice_parent(module)
+
+    if module.params['state'] == 'present':
+        if (module.params['static_value'] is None and
+                module.params['dynamic_value'] is None):
+            module.fail_json(
+                msg="One of 'static_value' or 'dynamic_value' is required when "
+                "state' is 'present'"
+            )
 
     # Object params.
     spec = {

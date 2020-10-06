@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'status': ['deprecated'],
-                    'supported_by': 'community',
-                    'version': '1.0'}
-
 DOCUMENTATION = '''
 ---
 module: panos_admin
@@ -39,6 +35,8 @@ requirements:
     - pan-python can be obtained from PyPI U(https://pypi.python.org/pypi/pan-python)
 notes:
     - Checkmode is not supported.
+extends_documentation_fragment:
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     ip_address:
         description:
@@ -81,11 +79,6 @@ options:
         required: false
         type: str
         default: null
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -216,6 +209,12 @@ def main():
     )
 
     changed = admin_set(xapi, module, admin_username, admin_password, role)
+
+    if commit:
+        module.deprecate(
+            'Please use the commit modules instead of the commit option.',
+            version='3.0.0', collection_name='paloaltonetworks.panos'
+        )
 
     if changed and commit:
         xapi.commit(cmd="<commit></commit>", sync=True, interval=1)

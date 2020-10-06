@@ -59,3 +59,52 @@
 2020-09-23 12:55:26,803 p=12865 u=michaelford n=ansible | \
 2020-09-23 12:55:26,908 p=12865 u=michaelford n=ansible | |
 2020-09-23 12:55:27,012 p=12865 u=michaelford n=ansible | paloaltonetworks.panos (2.0.0) was installed successfully
+2020-10-06 14:42:43,124 p=35981 u=michaelford n=ansible | Starting galaxy collection install process
+2020-10-06 14:42:43,127 p=35981 u=michaelford n=ansible | Process install dependency map
+2020-10-06 14:42:43,128 p=35981 u=michaelford n=ansible | |
+2020-10-06 14:42:43,232 p=35981 u=michaelford n=ansible | /
+2020-10-06 14:42:43,333 p=35981 u=michaelford n=ansible | -
+2020-10-06 14:42:43,439 p=35981 u=michaelford n=ansible | \
+2020-10-06 14:42:43,543 p=35981 u=michaelford n=ansible | |
+2020-10-06 14:42:43,645 p=35981 u=michaelford n=ansible | Starting collection install process
+2020-10-06 14:42:43,646 p=35981 u=michaelford n=ansible | |
+2020-10-06 14:42:43,749 p=35981 u=michaelford n=ansible | Skipping 'paloaltonetworks.panos' as it is already installed
+2020-10-06 14:43:04,886 p=35990 u=michaelford n=ansible | Starting galaxy collection install process
+2020-10-06 14:43:04,888 p=35990 u=michaelford n=ansible | Process install dependency map
+2020-10-06 14:43:04,889 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:04,994 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:05,099 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:05,203 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:05,304 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:05,410 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:05,520 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:05,624 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:05,728 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:05,832 p=35990 u=michaelford n=ansible | Starting collection install process
+2020-10-06 14:43:05,832 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:05,935 p=35990 u=michaelford n=ansible | Installing 'paloaltonetworks.panos:2.0.1' to '/Users/michaelford/My Local Documents/github-workspace/ansible-panos/collections/ansible_collections/paloaltonetworks/panos'
+2020-10-06 14:43:05,936 p=35990 u=michaelford n=ansible | Downloading https://galaxy.ansible.com/download/paloaltonetworks-panos-2.0.1.tar.gz to /Users/michaelford/.ansible/tmp/ansible-local-35990knivgquw/tmpndjqkvvw
+2020-10-06 14:43:05,936 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:06,039 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:06,144 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:06,248 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:06,352 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:06,454 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:06,557 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:06,661 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:06,767 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:06,871 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:06,974 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:07,077 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:07,180 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:07,282 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:07,384 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:07,489 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:07,591 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:07,695 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:07,799 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:07,903 p=35990 u=michaelford n=ansible | |
+2020-10-06 14:43:08,009 p=35990 u=michaelford n=ansible | /
+2020-10-06 14:43:08,111 p=35990 u=michaelford n=ansible | -
+2020-10-06 14:43:08,215 p=35990 u=michaelford n=ansible | \
+2020-10-06 14:43:08,319 p=35990 u=michaelford n=ansible | paloaltonetworks.panos (2.0.1) was installed successfully

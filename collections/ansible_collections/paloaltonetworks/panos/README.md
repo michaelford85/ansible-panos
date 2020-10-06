@@ -9,7 +9,7 @@ factors, using the PAN-OS API.
 
 -   Free software: Apache 2.0 License
 -   Documentation:
-    <https://ansible-pan.readthedocs.io>
+    <https://paloaltonetworks.github.io/pan-os-ansible/>
 -   PANW community supported live page:
     <http://live.paloaltonetworks.com/ansible>
 -   Repo:
@@ -17,10 +17,16 @@ factors, using the PAN-OS API.
 -   Example Playbooks:
     <https://github.com/PaloAltoNetworks/ansible-playbooks>
 
+Tested Ansible Versions
+-----------------------
+
+This collection is tested with the most current Ansible 2.9 and 2.10 releases.  Ansible versions
+before 2.9.10 are **not supported**.
+
 Installation
 ------------
 
-Install this collection using the following (requires Ansible v2.9+):
+Install this collection using the Ansible Galaxy CLI:
 
 ```bash
 ansible-galaxy collection install paloaltonetworks.panos

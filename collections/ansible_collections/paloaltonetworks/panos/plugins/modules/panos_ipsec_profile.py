@@ -18,11 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 DOCUMENTATION = '''
 ---
 module: panos_ipsec_profile
@@ -42,6 +37,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.transitional_provider
     - paloaltonetworks.panos.fragments.state
     - paloaltonetworks.panos.fragments.full_template_support
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     name:
         description:
@@ -111,11 +107,6 @@ options:
         description:
             - IPSec SA lifetime in terabytes.
         type: int
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: False
 '''
 
 EXAMPLES = '''

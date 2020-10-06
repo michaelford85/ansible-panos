@@ -39,6 +39,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.vsys_import
     - paloaltonetworks.panos.fragments.template_only
     - paloaltonetworks.panos.fragments.state
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     if_name:
         description:
@@ -99,11 +100,6 @@ options:
             - HORIZONTALLINE
             - Name of the vsys (if firewall) or device group (if panorama) to put this object.
         type: str
-    commit:
-        description:
-            - Commit if changed
-        default: false
-        type: bool
 '''
 
 EXAMPLES = '''
@@ -126,10 +122,6 @@ EXAMPLES = '''
 RETURN = '''
 # Default return values
 '''
-
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection

@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['deprecated'],
-                    'supported_by': 'community'}
-
 DOCUMENTATION = '''
 ---
 module: panos_object
@@ -46,6 +42,7 @@ notes:
     - Panorama is supported.
 extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.vsys
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     ip_address:
         description:
@@ -173,11 +170,6 @@ options:
             - If undefined and ip_address is Panorama, this defaults to shared.
         type: str
         required: false
-    commit:
-        description:
-            - Commit the config change.
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''

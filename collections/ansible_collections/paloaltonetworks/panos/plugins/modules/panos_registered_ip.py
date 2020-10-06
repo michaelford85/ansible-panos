@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 DOCUMENTATION = '''
 ---
 module: panos_registered_ip
@@ -141,30 +137,41 @@ def main():
     changed = False
 
     try:
-        registered_ips = device.userid.get_registered_ip(tags=tags)
+        registered_ips = device.userid.get_registered_ip(ips, tags=tags)
 
-        if state == 'present':
-            # Check to see if IPs actually need to be registered.
-            to_add = set(ips) - set(registered_ips.keys())
-            if to_add:
-                if not module.check_mode:
-                    device.userid.register(ips, tags=tags)
-                changed = True
+        for ip in ips:
+            if state == 'present':
+                if registered_ips.get(ip):
+                    registered = set(registered_ips.get(ip))
+                else:
+                    registered = set()
 
-        elif state == 'absent':
-            # Check to see if IPs actually need to be unregistered.
-            to_remove = set(ips) & set(registered_ips.keys())
-            if to_remove:
-                if not module.check_mode:
-                    device.userid.unregister(to_remove, tags=tags)
-                changed = True
+                to_register = set(tags) - registered
 
-        results = device.userid.get_registered_ip(ips)
+                if len(to_register) > 0:
+                    if not module.check_mode:
+                        device.userid.register(ip, tags=to_register)
+                    changed = True
+
+            elif state == 'absent':
+                if registered_ips.get(ip):
+                    registered = set(registered_ips.get(ip))
+                else:
+                    registered = set()
+
+                to_unregister = registered & set(tags)
+
+                if len(to_unregister) > 0:
+                    if not module.check_mode:
+                        device.userid.unregister(ip, tags=to_unregister)
+                    changed = True
+
+        registered_ips = device.userid.get_registered_ip(ips)
 
     except PanDeviceError as e:
         module.fail_json(msg='Failed register/unregister: {0}'.format(e))
 
-    module.exit_json(changed=changed, results=results)
+    module.exit_json(changed=changed, ansible_module_results=registered_ips)
 
 
 if __name__ == '__main__':

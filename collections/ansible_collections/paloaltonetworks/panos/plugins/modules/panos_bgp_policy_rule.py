@@ -18,11 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
-
 DOCUMENTATION = '''
 ---
 module: panos_bgp_policy_rule
@@ -43,6 +38,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.transitional_provider
     - paloaltonetworks.panos.fragments.full_template_support
     - paloaltonetworks.panos.fragments.state
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     type:
         description:
@@ -191,20 +187,14 @@ options:
         type: int
     address_prefix:
         description:
-            - List of address prefix strings or dicts with "name"/"exact" keys.
-            - If a list entry is a string, then I(exact=False) for that name.
+            - List of address prefix dicts with "name"/"exact" keys.
         type: list
-        elements: str
+        elements: dict
     vr_name:
         description:
             - Name of the virtual router; it must already exist; see M(panos_virtual_router).
         type: str
         default: default
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: False
 '''
 
 EXAMPLES = '''
@@ -218,7 +208,7 @@ EXAMPLES = '''
       enable: true
       action: 'allow'
       address_prefix:
-        - '10.1.1.0/24'
+        - name: '10.1.1.0/24'
         - name: '10.1.2.0/24'
           exact: false
         - name: '10.1.3.0/24'
@@ -304,7 +294,7 @@ def setup_args():
         action_extended_community_argument=dict(type='str'),
         action_dampening=dict(type='str'),
         action_weight=dict(type='int'),
-        address_prefix=dict(type='list', elements='str'),
+        address_prefix=dict(type='list', elements='dict'),
     )
 
 
@@ -362,7 +352,6 @@ def main():
         'action_extended_community_type': module.params['action_extended_community_type'],
         'action_extended_community_argument': module.params['action_extended_community_argument'],
     }
-
     # Add the correct rule type.
     if module.params['type'] == 'import':
         spec['action_dampening'] = module.params['action_dampening']
@@ -373,15 +362,12 @@ def main():
 
     # Handle address prefixes.
     for x in module.params['address_prefix']:
-        if isinstance(x, dict):
-            if 'name' not in x:
-                module.fail_json(msg='Address prefix dict requires "name": {0}'.format(x))
-            obj.add(BgpPolicyAddressPrefix(
-                to_text(x['name'], encoding='utf-8', errors='surrogate_or_strict'),
-                None if x.get('exact') is None else module.boolean(x['exact']),
-            ))
-        else:
-            obj.add(BgpPolicyAddressPrefix(to_text(x, encoding='utf-8', errors='surrogate_or_strict')))
+        if 'name' not in x:
+            module.fail_json(msg='Address prefix dict requires "name": {0}'.format(x))
+        obj.add(BgpPolicyAddressPrefix(
+            to_text(x['name'], encoding='utf-8', errors='surrogate_or_strict'),
+            None if x.get('exact') is None else module.boolean(x['exact']),
+        ))
 
     listing = bgp.findall(obj.__class__)
     bgp.add(obj)

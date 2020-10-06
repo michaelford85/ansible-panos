@@ -37,6 +37,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.vsys
     - paloaltonetworks.panos.fragments.device_group
     - paloaltonetworks.panos.fragments.state
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     pg_name:
         description:
@@ -71,11 +72,6 @@ options:
         description:
             - name of the wildfire analysis profile
         type: str
-    commit:
-        description:
-            - commit if changed
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -91,11 +87,6 @@ EXAMPLES = '''
 RETURN = '''
 # Default return values
 '''
-
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection

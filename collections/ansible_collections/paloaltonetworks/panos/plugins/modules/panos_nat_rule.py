@@ -45,6 +45,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.device_group
     - paloaltonetworks.panos.fragments.vsys
     - paloaltonetworks.panos.fragments.rulebase
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     state:
         description:
@@ -194,11 +195,6 @@ options:
               rule.
             - If I(location=before) or I(location=after), I(existing_rule) is required.
         type: str
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -227,11 +223,6 @@ EXAMPLES = '''
 RETURN = '''
 # Default return values
 '''
-
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection, eltostr
@@ -308,7 +299,7 @@ def main():
         vsys=True,
         device_group=True,
         rulebase=True,
-        error_on_shared=True,
+        error_on_firewall_shared=True,
         argument_spec=dict(
             rule_name=dict(required=True),
             description=dict(),

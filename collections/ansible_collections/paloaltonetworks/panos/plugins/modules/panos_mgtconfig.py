@@ -34,6 +34,7 @@ notes:
     - Panorama is supported
 extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.transitional_provider
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     dns_server_primary:
         description:
@@ -83,15 +84,6 @@ options:
         description:
             - Verify the identify of the update server.
         type: bool
-    devicegroup:
-        description:
-            - B(Removed)
-        type: str
-    commit:
-        description:
-            - Commit configuration if changed.
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -109,10 +101,6 @@ EXAMPLES = '''
 RETURN = '''
 # Default return values
 '''
-
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
 
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection
@@ -149,9 +137,6 @@ def main():
             ntp_server_primary=dict(),
             ntp_server_secondary=dict(),
             commit=dict(type='bool', default=False),
-
-            # TODO(gfreeman) - remove in the next role release.
-            devicegroup=dict(),
         ),
     )
 
@@ -162,10 +147,6 @@ def main():
     )
 
     parent = helper.get_pandevice_parent(module)
-
-    # TODO(gfreeman) - remove this in the next role release.
-    if module.params['devicegroup'] is not None:
-        module.fail_json(msg='Param "devicegroup" has been removed')
 
     obj = SystemSettings()
     parent.add(obj)

@@ -18,10 +18,6 @@
 from __future__ import absolute_import, division, print_function
 __metaclass__ = type
 
-ANSIBLE_METADATA = {'metadata_version': '1.1',
-                    'status': ['preview'],
-                    'supported_by': 'community'}
-
 DOCUMENTATION = '''
 ---
 module: panos_tag_object
@@ -41,6 +37,7 @@ extends_documentation_fragment:
     - paloaltonetworks.panos.fragments.vsys
     - paloaltonetworks.panos.fragments.device_group
     - paloaltonetworks.panos.fragments.state
+    - paloaltonetworks.panos.fragments.deprecated_commit
 options:
     name:
         description:
@@ -72,13 +69,6 @@ options:
         description:
             - Comments for the tag.
         type: str
-    commit:
-        description:
-            - Commit changes after creating object.  If I(ip_address) is a Panorama device, and I(device_group) is
-              also set, perform a commit to Panorama and a commit-all to the device group.
-        required: false
-        type: bool
-        default: false
 '''
 
 EXAMPLES = '''
@@ -127,7 +117,7 @@ def main():
         with_state=True,
         argument_spec=dict(
             name=dict(type='str', required=True),
-            color=dict(type='str', choices=COLOR_NAMES),
+            color=dict(type='str', default=None, choices=COLOR_NAMES),
             comments=dict(type='str'),
             commit=dict(type='bool', default=False)
         )
@@ -143,9 +133,11 @@ def main():
 
     spec = {
         'name': module.params['name'],
-        'color': Tag.color_code(module.params['color']),
         'comments': module.params['comments']
     }
+
+    if module.params['color']:
+        spec['color'] = Tag.color_code(module.params['color'])
 
     commit = module.params['commit']
 
