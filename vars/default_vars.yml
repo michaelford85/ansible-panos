@@ -19,8 +19,8 @@ working_dir: /tmp
 ec2_region: us-east-1
 ec2_prefix: mford-panos-demo
 application: panos
-machine_type: m5.xlarge
-num_instances: 3
+machine_type: m5n.large
+num_instances: 1
 # panos_image_id: ami-0ead70c8b3aa72249 #PA-VM-AWS-9.1.0
 panos_image_id: ami-0c6ca983c02929be2 #PA-VM-AWS-10.0.1
 # panos_image_id: ami-0d952f6fcedfc9e56 #PA-VM-AWS-9.1.3
