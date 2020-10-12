@@ -110,8 +110,8 @@
         tower_verify_ssl: false
       delegate_to: localhost
       run_once: true
-      # when:
-      #   - create_key.changed
+      when:
+        - create_key.changed
       #   - tower_provision
 
     # - name: Gather Subnet Information
@@ -144,3 +144,11 @@
             volume_type: gp2
             volume_size: 60
             delete_on_termination: true
+      register: ec2_instances
+
+    - name: Wait for SSH to come up
+      delegate_to: "{{ item.public_dns_name }}"
+      wait_for_connection:
+        delay: 60
+        timeout: 320
+      loop: "{{ ec2_instances.instances }}"
