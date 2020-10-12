@@ -150,5 +150,5 @@
       delegate_to: "{{ item.public_dns_name }}"
       wait_for_connection:
         delay: 60
-        timeout: 320
+        timeout: 600
       loop: "{{ ec2_instances.instances }}"
