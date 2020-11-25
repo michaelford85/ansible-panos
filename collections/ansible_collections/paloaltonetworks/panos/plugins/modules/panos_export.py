@@ -185,6 +185,8 @@ stdout_xml:
     sample: "<dir-listing><file>/capture-rx</file><file>/capture-tx</file><file>/capture-fw</file></dir-listing>"
 '''
 
+# Force release for 9408ad5.
+
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.paloaltonetworks.panos.plugins.module_utils.panos import get_connection
 
@@ -379,7 +381,7 @@ def main():
         params = {
             'certificate-name': cert_name,
             'format': cert_format,
-            'include-keys': cert_include_keys
+            'include-key': cert_include_keys
         }
 
         if cert_include_keys == 'yes' and cert_passphrase is None:
