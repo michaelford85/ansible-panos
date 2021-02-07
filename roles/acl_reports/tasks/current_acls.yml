@@ -12,7 +12,7 @@
 - name: create current_acls report
   template:
     src: firewall_inventory.j2
-    dest: "{{ working_dir }}/acl_reports/firewall_inventory.html"
+    dest: "{{ working_dir }}/acl_reports/index.html"
 
 # - name: create current_acls report
 #   template:
