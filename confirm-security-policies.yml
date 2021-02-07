@@ -27,7 +27,7 @@
           username: "{{ PAN_USERNAME }}"
           password: "{{ PAN_PASSWORD }}"
           # vsys_id: vsys1
-        register: security_rule_output
+      register: security_rule_output
 
     # - name: Query ACL IP Rules
     #   uri:
