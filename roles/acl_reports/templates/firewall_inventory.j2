@@ -16,8 +16,8 @@
     {% for host in groups['ec2'] %}
     <tbody>
         <tr>
-            <td align='center'>{{ hostvars[host]['inventory_hostname'] }}</td>
-            <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['ec2_dns_name'] }}.html">Rules Link</a></td>
+            <td align='center'>{{ hostvars[host]['public_dns_name'] }}</td>
+            <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['public_dns_name'] }}.html">Rules Link</a></td>
         </tr>
     </tbody>
     {% endfor %}

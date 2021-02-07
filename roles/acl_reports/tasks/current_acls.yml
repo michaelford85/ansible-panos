@@ -14,7 +14,14 @@
     src: firewall_inventory.j2
     dest: "{{ working_dir }}/acl_reports/index.html"
 
-# - name: create current_acls report
-#   template:
-#     src: current_acls.j2
-#     dest: "{{ working_dir }}/acl_reports/current_acls.html"
+
+- name: create current_acls report
+  template:
+    src: current_acls.j2
+    dest: "{{ working_dir }}/acl_reports/{{ hostvars[host]['public_dns_name'] }}.html"
+  vars:
+    current_rules: "{{ security_rule_output.rule_details }}"
+  # loop: "{{security_rule_output.rule_details}}"
+  # loop_control:
+  #   label: "{{ item.description }}"
+  # when: security_rule_output.rule_details is defined

@@ -21,12 +21,12 @@
     {% for item in current_rules %}
     <tbody>
         <tr>
-            <td align='center'>{{ item.rule_name }}</td>
             <td align='center'>{{ item.description }}</td>
-            <td align='center'>{{ item.source_ip }}</td>
-            <td align='center'>{{ item.source_zone }}</td>
-            <td align='center'>{{ item.destination_ip }}</td>
-            <td align='center'>{{ item.destination_zone }}</td>
+            <td align='center'>{{ item.description }}</td>
+            <td align='center'>{{ item.source_ip[0] }}</td>
+            <td align='center'>{{ item.source_zone[0] }}</td>
+            <td align='center'>{{ item.destination_ip[0] }}</td>
+            <td align='center'>{{ item.destination_zone[0] }}</td>
             <td align='center'>{{ item.action }}</td>
         </tr>
     </tbody>

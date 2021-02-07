@@ -59,6 +59,7 @@
       include_role:
         name: acl_reports
         tasks_from: current_acls
+      when: security_rule_output.rule_details is defined
 
     - name: Ensure S3 bucket exists
       s3_bucket:
@@ -66,6 +67,7 @@
         state: "{{ s3_state }}"
         region: "{{ec2_region}}"
         force: yes
+      run_once: yes
 
     - name: Enable web hosting
       s3_website:
@@ -75,6 +77,7 @@
        suffix: "index.html"
       register: s3_site
       when: s3_state == 'present'
+      run_once: yes
 
     - name: DNS for webpage US-EAST-1
       route53:
@@ -84,6 +87,7 @@
         type: CNAME
         overwrite: yes
         value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
+      run_once: yes
 
     - name: Put webpage
       s3_sync:
@@ -96,6 +100,7 @@
         file_change_strategy: checksum
         include: "*"
       when: s3_state == 'present'
+      run_once: yes
 
 
 #     - block:
