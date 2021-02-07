@@ -89,7 +89,7 @@
       s3_sync:
         bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
         region: "{{ec2_region}}"
-        file_root: "{{ playbook_dir }}/reports/"
+        file_root: "{{ working_dir }}/acl_reports/"
         mime_map:
           .html: text/html
         permission: public-read
