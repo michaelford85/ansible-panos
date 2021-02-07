@@ -6,7 +6,7 @@
 - name: Create a new acl_reports directory
   file:
     path: "{{ working_dir }}/acl_reports"
-    state: present
+    state: directory
 
 
 - name: create current_acls report
