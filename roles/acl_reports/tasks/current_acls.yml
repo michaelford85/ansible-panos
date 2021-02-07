@@ -18,7 +18,7 @@
 - name: create current_acls report
   template:
     src: current_acls.j2
-    dest: "{{ working_dir }}/acl_reports/{{ hostvars[host]['public_dns_name'] }}.html"
+    dest: "{{ working_dir }}/acl_reports/{{ hostvars['public_dns_name'] }}.html"
   vars:
     current_rules: "{{ security_rule_output.rule_details }}"
   # loop: "{{security_rule_output.rule_details}}"
