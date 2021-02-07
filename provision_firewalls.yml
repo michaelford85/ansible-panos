@@ -1,5 +1,5 @@
 ---
-- name: Provision AWS Resources
+- name: Provision AWS PANOS Firewalls
   hosts: localhost
   gather_facts: no
   vars_files:
@@ -97,10 +97,10 @@
         mode: '0600'
       when: create_key.changed
 
-    - name: Update Ansible Tower AWS SSH Credential
+    - name: Update Ansible Tower PANOS Machine Credential
       tower_credential:
         name: AWS PANOS Instances Key
-        organization: Default
+        organization: "Security Organization"
         tower_host: "{{ tower_url }}"
         tower_username: "{{ tower_user }}"
         tower_password: "{{ tower_pass }}"
