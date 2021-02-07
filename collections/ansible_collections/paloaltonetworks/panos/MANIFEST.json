@@ -18,7 +18,7 @@
   "license": [], 
   "documentation": "https://paloaltonetworks.github.io/pan-os-ansible/", 
   "namespace": "paloaltonetworks", 
-  "version": "2.3.0", 
+  "version": "2.5.0", 
   "readme": "README.md", 
   "license_file": "LICENSE", 
   "homepage": "https://github.com/PaloAltoNetworks/pan-os-ansible"
@@ -26,7 +26,7 @@
  "file_manifest_file": {
   "format": 1, 
   "ftype": "file", 
-  "chksum_sha256": "961cc5e10f9650747be6b47f85c4279c7c08679a1a802116804e0eea4e49a8a6", 
+  "chksum_sha256": "ce7a041001d17f3241fdc220c40058d6af7e1a48842cb374c12a58e047b9180e", 
   "name": "FILES.json", 
   "chksum_type": "sha256"
  }, 

@@ -346,9 +346,9 @@ def main():
         rule_name = elm2.text.split(';')[0].split('"')[1].strip()
     else:
         msg = 'No matching {0} rule; resp = {1}'.format(
-            rtype, ET.tostring(response, enoding='utf-8'),
+            rtype, ET.tostring(response, encoding='utf-8'),
         )
-        module.exit_json(msg=msg)
+        module.exit_json(msg=msg, rule=[])
 
     '''
     Example response (newlines after newlines to appease pycodestyle line length limitations):
