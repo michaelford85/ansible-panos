@@ -41,7 +41,7 @@
           zone: untrust
           mode: layer3
           state: present
-      when: not erase|bool
+      when: zone_state == add
 
     - block:
       - name: remove zone trust
@@ -63,4 +63,4 @@
           zone: untrust
           mode: layer3
           state: absent
-      when: erase|bool
+      when: zone_state == remove
