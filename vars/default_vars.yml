@@ -21,9 +21,7 @@ ec2_prefix: mford-panos-demo
 application: panos
 machine_type: m5n.large
 num_instances: 1
-# panos_image_id: ami-0ead70c8b3aa72249 #PA-VM-AWS-9.1.0
-panos_image_id: ami-0c6ca983c02929be2 #PA-VM-AWS-10.0.1
-# panos_image_id: ami-0d952f6fcedfc9e56 #PA-VM-AWS-9.1.3
+panos_image_id: ami-0abc61a0479de46c2
 ec2_wait: yes #wait for newly created instances to reach desired state before returning
 ec2_vpc_subnet: "192.168.0.0/28"
 ec2_vpc_cidr: "192.168.0.0/24"
