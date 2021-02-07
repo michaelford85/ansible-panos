@@ -51,7 +51,7 @@
         dest: /tmp/acl_entries.yml
 
 - name: Apply ACLs to PAN Firewalls
-  hosts: panos
+  hosts: ec2
   connection: local
   gather_facts: False
   vars:
@@ -89,7 +89,7 @@
           state: present
         loop: "{{ acl_entries }}"
         ignore_errors: True
-      when: not erase|bool
+      when: policy_state == "add"
 
     - block:
       - name: Remove ACL entries
@@ -101,4 +101,4 @@
           rule_name: "{{item.rule_name}}"
           state: absent
         loop: "{{ acl_entries }}"
-      when: erase|bool
+      when: policy_state == "remove"
