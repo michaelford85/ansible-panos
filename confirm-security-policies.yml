@@ -53,13 +53,13 @@
       debug:
         msg: "{{ msg.split('\n') }}"
       vars:
-        msg: "|
+        msg: |
           The RULE NAME is {{ item.description }}
           The SOURCE IP ADDRESS is {{ item.source_ip[0] }}
           The DESTINATION IP ADDRESS is {{ item.destination_ip[0] }}
           The SOURCE ZONE is {{ item.source_zone[0] }}
           The DESTINATION ZONE is {{ item.destination_zone[0] }}
-          The ACTION is {{ item.action }}"
+          The ACTION is {{ item.action }}
       loop: "{{security_rule_output.rule_details}}"
       loop_control:
         label: "{{ item.description }}"
