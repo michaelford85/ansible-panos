@@ -83,7 +83,7 @@
         record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
         type: CNAME
         overwrite: yes
-        value: "{{webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
+        value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
 
     - name: Put webpage
       s3_sync:
