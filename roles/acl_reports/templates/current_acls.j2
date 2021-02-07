@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Rule Name</th>
+            <th>Description</th>
+            <th>Source IP Address</th>
+            <th>Source Zone</th>
+            <th>Destination IP Address</th>
+            <th>Destination Zone</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    {% for item in current_rules %}
+    <tbody>
+        <tr>
+            <td align='center'>{{ item.rule_name }}</td>
+            <td align='center'>{{ item.description }}</td>
+            <td align='center'>{{ item.source_ip }}</td>
+            <td align='center'>{{ item.source_zone }}</td>
+            <td align='center'>{{ item.destination_ip }}</td>
+            <td align='center'>{{ item.destination_zone }}</td>
+            <td align='center'>{{ item.action }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+
+</body>
+</html>

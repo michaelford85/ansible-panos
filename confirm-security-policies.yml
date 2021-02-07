@@ -11,6 +11,12 @@
   hosts: ec2
   connection: local
   gather_facts: no
+  vars:
+    firewall_inventory_webpage_name: "panos-inventory"
+    ec2_region: us-east-1
+    ec2_az: us-east-1a
+    dns_zone: "mford.io"
+    s3_state: present
   vars_files:
     - ./vars/default_vars.yml
     - ./credentials/pan_credentials.yml
@@ -48,6 +54,48 @@
       loop_control:
         label: "{{ item.description }}"
       when: security_rule_output.rule_details is defined
+
+    - name: Build Current ACLs report
+      include_role:
+        name: acl_reports
+        tasks_from: current_acls
+
+    - name: Ensure S3 bucket exists
+      s3_bucket:
+        name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+        state: "{{ s3_state }}"
+        region: "{{ec2_region}}"
+        force: yes
+
+    - name: Enable web hosting
+      s3_website:
+       name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+       state: "{{ s3_state }}"
+       region: "{{ec2_region}}"
+       suffix: "index.html"
+      register: s3_site
+      when: s3_state == 'present'
+
+    - name: DNS for webpage US-EAST-1
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{dns_zone}}"
+        record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        type: CNAME
+        overwrite: yes
+        value: "{{webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
+
+    - name: Put webpage
+      s3_sync:
+        bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        region: "{{ec2_region}}"
+        file_root: "{{ playbook_dir }}/reports/"
+        mime_map:
+          .html: text/html
+        permission: public-read
+        file_change_strategy: checksum
+        include: "*"
+      when: s3_state == 'present'
 
 
 #     - block:

@@ -1,0 +1,5 @@
+- name: create HTML report
+  template:
+    src: report.j2
+    dest: "{{playbook_dir}}/reports/index.html"
+  tags: update

@@ -1,0 +1,18 @@
+- name: Recursively remove the acl_reports directory
+  path: "{{ working_dir }}/acl_reports"
+  state: absent
+
+- name: Create a new acl_reports directory
+  path: "{{ working_dir }}/acl_reports"
+  state: present
+
+
+- name: create current_acls report
+  template:
+    src: firewall_inventory.j2
+    dest: "{{ working_dir }}/acl_reports/firewall_inventory.html"
+
+# - name: create current_acls report
+#   template:
+#     src: current_acls.j2
+#     dest: "{{ working_dir }}/acl_reports/current_acls.html"
