@@ -1,10 +1,12 @@
 - name: Recursively remove the acl_reports directory
-  path: "{{ working_dir }}/acl_reports"
-  state: absent
+  file:
+    path: "{{ working_dir }}/acl_reports"
+    state: absent
 
 - name: Create a new acl_reports directory
-  path: "{{ working_dir }}/acl_reports"
-  state: present
+  file:
+    path: "{{ working_dir }}/acl_reports"
+    state: present
 
 
 - name: create current_acls report
