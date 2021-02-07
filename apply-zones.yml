@@ -7,7 +7,7 @@
 #   set verify to disable in the virtual environment
 
 ---
-- hosts: panos
+- hosts: "tag_Name_{{ec2_prefix}}"
   connection: local
   gather_facts: no
   vars:
