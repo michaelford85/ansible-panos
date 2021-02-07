@@ -8,7 +8,7 @@
 
 ---
 - name: Confirm presence of ACLs on PAN Firewalls
-  hosts: panos
+  hosts: ec2
   connection: local
   gather_facts: no
   vars_files:
