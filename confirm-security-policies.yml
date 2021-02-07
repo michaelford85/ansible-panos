@@ -20,41 +20,50 @@
 
   tasks:
 
-    - name: Query ACL IP Rules
-      uri:
-        url: https://{{ ansible_host }}/restapi/9.0/Policies/SecurityRules?location=vsys&vsys={{ vsys }}
-        method: GET
-        user: "{{ PAN_USERNAME }}"
-        password: "{{ PAN_PASSWORD }}"
-        method: GET
-        headers:
-          Accept: "application/json"
-        force_basic_auth: yes
-        body_format: json
-        return_content: yes
-        validate_certs: False
-      register: security_rule_output
+    - name: Query ACL Policies
+      paloaltonetworks.panos.panos_match_rule:
+        provider:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+          # vsys_id: vsys1
+        register: security_rule_output
+
+    # - name: Query ACL IP Rules
+    #   uri:
+    #     url: https://{{ ansible_host }}/restapi/9.0/Policies/SecurityRules?location=vsys&vsys={{ vsys }}
+    #     method: GET
+    #     user: "{{ PAN_USERNAME }}"
+    #     password: "{{ PAN_PASSWORD }}"
+    #     method: GET
+    #     headers:
+    #       Accept: "application/json"
+    #     force_basic_auth: yes
+    #     body_format: json
+    #     return_content: yes
+    #     validate_certs: False
+    #   register: security_rule_output
 
 
     - name: Print Security Rules
       debug:
         var: security_rule_output
 
-    - name: Print Security Rule Names
-      debug:
-        msg: "{{ msg.split('\n') }}"
-      vars:
-        msg: |
-          The RULE NAME is {{ item.description }}
-          The SOURCE IP ADDRESS is {{ item.source.member[0] }}
-          The DESTINATION IP ADDRESS is {{ item.source.member[0] }}
-          The SOURCE ZONE is {{ item.from.member[0] }}
-          The DESTINATION ZONE is {{ item.to.member[0] }}
-          The ACTION is {{ item.action }}
-      loop: "{{security_rule_output.json.result.entry}}"
-      loop_control:
-        label: "{{ item.description }}"
-      when: security_rule_output.json.result.entry is defined
+    # - name: Print Security Rule Names
+    #   debug:
+    #     msg: "{{ msg.split('\n') }}"
+    #   vars:
+    #     msg: |
+    #       The RULE NAME is {{ item.description }}
+    #       The SOURCE IP ADDRESS is {{ item.source.member[0] }}
+    #       The DESTINATION IP ADDRESS is {{ item.source.member[0] }}
+    #       The SOURCE ZONE is {{ item.from.member[0] }}
+    #       The DESTINATION ZONE is {{ item.to.member[0] }}
+    #       The ACTION is {{ item.action }}
+    #   loop: "{{security_rule_output.json.result.entry}}"
+    #   loop_control:
+    #     label: "{{ item.description }}"
+    #   when: security_rule_output.json.result.entry is defined
 
 
 #     - block:
