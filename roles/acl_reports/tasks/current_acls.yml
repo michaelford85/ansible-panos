@@ -9,13 +9,14 @@
     state: directory
 
 
-- name: create current_acls report
+- name: create firewall inventory report
   template:
     src: firewall_inventory.j2
     dest: "{{ working_dir }}/acl_reports/index.html"
+  run_once: yes
 
 
-- name: create current_acls report
+- name: create firewall rules report
   template:
     src: current_acls.j2
     dest: "{{ working_dir }}/acl_reports/{{ hostvars[inventory_hostname]['tags']['hostname'] }}.html"
