@@ -17,7 +17,7 @@
     <tbody>
         <tr>
             <td align='center'>{{ hostvars[host]['public_dns_name'] }}</td>
-            <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['public_dns_name'] }}.html">Rules Link</a></td>
+            <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['tags.hostname'] }}.html">Rules Link</a></td>
         </tr>
     </tbody>
     {% endfor %}
