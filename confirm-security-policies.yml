@@ -79,7 +79,7 @@
       when: s3_state == 'present'
       run_once: yes
 
-    - name: DNS for webpage US-EAST-1
+    - name: DNS for firewall inventory page
       route53:
         state: "{{ s3_state }}"
         zone: "{{dns_zone}}"
@@ -88,6 +88,15 @@
         overwrite: yes
         value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
       run_once: yes
+
+    - name: DNS for firewall rules
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{dns_zone}}"
+        record: "{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.{{dns_zone}}"
+        type: CNAME
+        overwrite: yes
+        value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.html"
 
     - name: Put webpage
       s3_sync:
