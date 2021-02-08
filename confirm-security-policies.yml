@@ -59,7 +59,7 @@
       include_role:
         name: acl_reports
         tasks_from: current_acls
-      when: security_rule_output.rule_details is defined
+      # when: security_rule_output.rule_details is defined
 
     - name: Ensure S3 bucket exists
       s3_bucket:
