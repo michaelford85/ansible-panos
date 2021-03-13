@@ -1,8 +1,0 @@
----
-# Run test once in 'shared'.
-- import_tasks: '../firewall/test_panos_address_object.yml'
-
-# Run test again in device group.
-- import_tasks: '../firewall/test_panos_address_object.yml'
-  vars:
-    device_group: 'Test-DG'
