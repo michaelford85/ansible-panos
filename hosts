@@ -6,9 +6,9 @@ webserver ansible_host=webserver.mford.io
 ansible ansible_host=ansibletower.michaelanthonyford.com
 
 [panos]
-firewall1 ansible_host=3.229.120.103
-firewall2 ansible_host=35.175.181.55
-;firewall3 ansible_host=3.85.166.246
+firewall1 ansible_host=34.207.163.116
+firewall2 ansible_host=54.227.232.10
+firewall3 ansible_host=34.207.192.1
 
 
 [panos:vars]
