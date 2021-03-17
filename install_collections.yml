@@ -1,0 +1,14 @@
+# https://github.com/ansible/awx/blob/devel/awx/playbooks/project_update.yml
+---
+- name: Install Collections from Galaxy Servers
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    - name: fetch galaxy collections from collections/requirements.(yml/yaml)
+      command: >
+            ansible-galaxy collection install -r collections/requirements.yml
+            --api-key {{ the_galaxy_key}} -s {{ the_galaxy_url }}
+      no_log: true
