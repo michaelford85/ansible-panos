@@ -84,6 +84,7 @@
       community.aws.ec2_vpc_route_table:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
+        lookup: id
         route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
         # subnets:
         #   - "{{ create_subnet.subnet.id }}"
