@@ -61,7 +61,7 @@
 
     # Create Internet Gateway and attach it to VPC.  This allows instances on this VPC to reach the Internet
     - name: "Create VPC Internet Gateway for {{ ec2_prefix }}-vpc"
-      amazon.aws.ec2_vpc_igw:
+      community.aws.ec2_vpc_igw:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
         tags:
@@ -71,7 +71,7 @@
 
     # This task adds a route to the internet from the subnet through the IGW
     - name: Create a Default Route for the Subnet
-      amazon.aws.ec2_vpc_route_table:
+      community.aws.ec2_vpc_route_table:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
         subnets:
