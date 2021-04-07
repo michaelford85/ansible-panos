@@ -14,7 +14,7 @@
 
    # VPC or Virtual Private Cloud.  The instance will be tied to a subnet that belongs to this particular VPC
     - name: "Create AWS VPC {{ ec2_prefix }}-vpc"
-      ec2_vpc_net:
+      amazon.aws.ec2_vpc_net:
         region: "{{ ec2_region }}"
         name: "{{ ec2_prefix }}-vpc"
         cidr_block: "{{ ec2_vpc_cidr }}"
@@ -25,7 +25,7 @@
 
     # If a secruity group is not created, instances will be tied to the Default secruity grouop that allows all traffic (non-secure)
     - name: "Create EC2 Security Group {{ec2_prefix }}-sg"
-      ec2_group:
+      amazon.aws.ec2_group:
         region: "{{ ec2_region }}"
         name: "{{ ec2_prefix }}-sg"
         description: "Application VPC for {{ ec2_prefix }}"
@@ -45,7 +45,7 @@
 
     # This task is subdiving up the 192.168.0.0/24 and getting a smaller chunk, a /28
     - name: "Create Subnet for {{ ec2_prefix }}-vpc"
-      ec2_vpc_subnet:
+      amazon.aws.ec2_vpc_subnet:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
         map_public: yes
@@ -61,7 +61,7 @@
 
     # Create Internet Gateway and attach it to VPC.  This allows instances on this VPC to reach the Internet
     - name: "Create VPC Internet Gateway for {{ ec2_prefix }}-vpc"
-      ec2_vpc_igw:
+      amazon.aws.ec2_vpc_igw:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
         tags:
@@ -71,7 +71,7 @@
 
     # This task adds a route to the internet from the subnet through the IGW
     - name: Create a Default Route for the Subnet
-      ec2_vpc_route_table:
+      amazon.aws.ec2_vpc_route_table:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
         subnets:
@@ -84,7 +84,7 @@
           Name: "{{ ec2_prefix }}-route-table"
 
     - name: Create AWS SSH Key Pair
-      ec2_key:
+      amazon.aws.ec2_key:
         region: "{{ ec2_region }}"
         name: "{{ ec2_prefix }}-key"
       register: create_key
@@ -126,7 +126,7 @@
     #     var: subnet_info
 
     - name: "Create EC2 instances for panos"
-      ec2:
+      amazon.aws.ec2:
         assign_public_ip: true
         key_name: "{{ ec2_prefix }}-key"
         group: "{{ ec2_prefix }}-sg"
