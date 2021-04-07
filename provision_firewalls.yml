@@ -79,20 +79,20 @@
     - debug:
         var: vpc_route_tables
 
-    # # This task adds a route to the internet from the subnet through the IGW
-    # - name: Create a Default Route for the Subnet in the Main Route Table
-    #   community.aws.ec2_vpc_route_table:
-    #     region: "{{ ec2_region }}"
-    #     vpc_id: "{{ create_vpc.vpc.id }}"
-    #     route_table_id: "{{ vpc_route_tables[0].id }}"
-    #     # subnets:
-    #     #   - "{{ create_subnet.subnet.id }}"
-    #     routes:
-    #       - dest: 0.0.0.0/0
-    #         gateway_id: "{{ igw.gateway_id }}"
-    #     tags:
-    #       demo: panos
-    #       Name: "{{ ec2_prefix }}-route-table"
+    # This task adds a route to the internet from the subnet through the IGW
+    - name: Create a Default Route for the Subnet in the Main Route Table
+      community.aws.ec2_vpc_route_table:
+        region: "{{ ec2_region }}"
+        vpc_id: "{{ create_vpc.vpc.id }}"
+        route_table_id: "{{ vpc_route_tables.route_tables[0].id }}"
+        # subnets:
+        #   - "{{ create_subnet.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ igw.gateway_id }}"
+        tags:
+          demo: panos
+          Name: "{{ ec2_prefix }}-route-table"
 
     # - name: Create AWS SSH Key Pair
     #   amazon.aws.ec2_key:
