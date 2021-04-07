@@ -16,10 +16,10 @@ tower_url: ansibletower.mford.io
 tower_provision: no
 
 working_dir: /tmp
-ec2_region: us-east-1
+ec2_region: us-east-2
 ec2_prefix: mford-panos-demo
 application: panos
-machine_type: m5n.large
+machine_type: c4.xlarge
 num_instances: 1
 panos_image_id: ami-0abc61a0479de46c2
 ec2_wait: yes #wait for newly created instances to reach desired state before returning
