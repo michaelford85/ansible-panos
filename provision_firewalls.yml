@@ -76,8 +76,8 @@
           vpc-id: "{{ create_vpc.vpc.id }}"
       register: vpc_route_tables
 
-    debug:
-      var: vpc_route_tables
+    - debug:
+        var: vpc_route_tables
 
     # # This task adds a route to the internet from the subnet through the IGW
     # - name: Create a Default Route for the Subnet in the Main Route Table
