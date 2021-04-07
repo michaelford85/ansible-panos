@@ -83,75 +83,75 @@
           demo: panos
           Name: "{{ ec2_prefix }}-route-table"
 
-    - name: Create AWS SSH Key Pair
-      amazon.aws.ec2_key:
-        region: "{{ ec2_region }}"
-        name: "{{ ec2_prefix }}-key"
-      register: create_key
-
-    # This is just saving off the private key, this can only be done 1 time on the first creation of the key, pair
-    - name: Save Private Key Locally
-      copy:
-        content: "{{ create_key.key.private_key }}"
-        dest: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
-        mode: '0600'
-      when: create_key.changed
-
-    - name: Update Ansible Tower PANOS Machine Credential
-      tower_credential:
-        name: AWS PANOS Instances Key
-        organization: "Security Organization"
-        tower_host: "{{ tower_url }}"
-        tower_username: "{{ tower_user }}"
-        tower_password: "{{ tower_pass }}"
-        kind: ssh
-        username: admin
-        ssh_key_data: "{{ create_key.key.private_key }}"
-        tower_verify_ssl: false
-      delegate_to: localhost
-      run_once: true
-      when:
-        - create_key.changed
-      #   - tower_provision
-
-    # - name: Gather Subnet Information
-    #   ec2_vpc_subnet_info:
+    # - name: Create AWS SSH Key Pair
+    #   amazon.aws.ec2_key:
     #     region: "{{ ec2_region }}"
-    #     filters:
-    #       "tag:application": "{{ application }}"
-    #       "tag:provisioner": "mford"
-    #   register: subnet_info
-
-    # - debug:
-    #     var: subnet_info
-
-    - name: "Create EC2 instances for panos"
-      amazon.aws.ec2:
-        assign_public_ip: true
-        key_name: "{{ ec2_prefix }}-key"
-        group: "{{ ec2_prefix }}-sg"
-        instance_type: "{{ machine_type }}"
-        image: "{{ panos_image_id }}"
-        region: "{{ ec2_region }}"
-        count: "{{ num_instances }}"
-        wait: "{{ ec2_wait }}"
-        vpc_subnet_id: "{{ create_subnet.subnet.id }}"
-        instance_tags:
-          Name: panos-demo
-          demo: panos
-        volumes:
-          - device_name: /dev/xvda
-            volume_type: gp2
-            volume_size: 60
-            delete_on_termination: true
-      register: ec2_instances
-
-    - name: Wait for SSH to come up
-      # delegate_to: "{{ item.public_dns_name }}"
-      wait_for:
-        host: "{{ item.public_dns_name }}"
-        delay: 60
-        sleep: 10
-        timeout: 600
-        port: 22
-      loop: "{{ ec2_instances.instances }}"
+    #     name: "{{ ec2_prefix }}-key"
+    #   register: create_key
+    #
+    # # This is just saving off the private key, this can only be done 1 time on the first creation of the key, pair
+    # - name: Save Private Key Locally
+    #   copy:
+    #     content: "{{ create_key.key.private_key }}"
+    #     dest: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
+    #     mode: '0600'
+    #   when: create_key.changed
+    #
+    # - name: Update Ansible Tower PANOS Machine Credential
+    #   tower_credential:
+    #     name: AWS PANOS Instances Key
+    #     organization: "Security Organization"
+    #     tower_host: "{{ tower_url }}"
+    #     tower_username: "{{ tower_user }}"
+    #     tower_password: "{{ tower_pass }}"
+    #     kind: ssh
+    #     username: admin
+    #     ssh_key_data: "{{ create_key.key.private_key }}"
+    #     tower_verify_ssl: false
+    #   delegate_to: localhost
+    #   run_once: true
+    #   when:
+    #     - create_key.changed
+    #   #   - tower_provision
+    #
+    # # - name: Gather Subnet Information
+    # #   ec2_vpc_subnet_info:
+    # #     region: "{{ ec2_region }}"
+    # #     filters:
+    # #       "tag:application": "{{ application }}"
+    # #       "tag:provisioner": "mford"
+    # #   register: subnet_info
+    #
+    # # - debug:
+    # #     var: subnet_info
+    #
+    # - name: "Create EC2 instances for panos"
+    #   amazon.aws.ec2:
+    #     assign_public_ip: true
+    #     key_name: "{{ ec2_prefix }}-key"
+    #     group: "{{ ec2_prefix }}-sg"
+    #     instance_type: "{{ machine_type }}"
+    #     image: "{{ panos_image_id }}"
+    #     region: "{{ ec2_region }}"
+    #     count: "{{ num_instances }}"
+    #     wait: "{{ ec2_wait }}"
+    #     vpc_subnet_id: "{{ create_subnet.subnet.id }}"
+    #     instance_tags:
+    #       Name: panos-demo
+    #       demo: panos
+    #     volumes:
+    #       - device_name: /dev/xvda
+    #         volume_type: gp2
+    #         volume_size: 60
+    #         delete_on_termination: true
+    #   register: ec2_instances
+    #
+    # - name: Wait for SSH to come up
+    #   # delegate_to: "{{ item.public_dns_name }}"
+    #   wait_for:
+    #     host: "{{ item.public_dns_name }}"
+    #     delay: 60
+    #     sleep: 10
+    #     timeout: 600
+    #     port: 22
+    #   loop: "{{ ec2_instances.instances }}"
