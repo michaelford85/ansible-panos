@@ -69,13 +69,21 @@
           demo: panos
       register: igw
 
+    - name: Retrieve the Main Route Table
+      ec2_vpc_route_table_info:
+        region: "{{ ec2_region }}"
+        filters:
+          vpc-id: "{{ create_vpc.vpc.id }}"
+      register: vpc_route_tables
+
     # This task adds a route to the internet from the subnet through the IGW
-    - name: Create a Default Route for the Subnet
+    - name: Create a Default Route for the Subnet in the Main Route Table
       community.aws.ec2_vpc_route_table:
         region: "{{ ec2_region }}"
         vpc_id: "{{ create_vpc.vpc.id }}"
-        subnets:
-          - "{{ create_subnet.subnet.id }}"
+        route_table_id: "{{ vpc_route_tables[0].id }}"
+        # subnets:
+        #   - "{{ create_subnet.subnet.id }}"
         routes:
           - dest: 0.0.0.0/0
             gateway_id: "{{ igw.gateway_id }}"
