@@ -93,7 +93,7 @@
             gateway_id: "{{ igw.gateway_id }}"
         tags:
           demo: panos
-          # Name: "{{ ec2_prefix }}-route-table"
+          Name: "{{ ec2_prefix }}-route-table"
 
     # - name: Create AWS SSH Key Pair
     #   amazon.aws.ec2_key:
