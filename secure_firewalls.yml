@@ -1,6 +1,6 @@
 ---
-- name: Provision AWS Resources
-  hosts: aws_ec2
+- name: Configure PANOS admin password
+  hosts: panos
   gather_facts: no
   vars_files:
     - ./vars/default_vars.yml
