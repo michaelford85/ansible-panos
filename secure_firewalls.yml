@@ -19,7 +19,7 @@
 
     - name: Configure admin password
       paloaltonetworks.panos.panos_admpwd:
-        ip_address: "{{ inventory_hostname }}"
+        ip_address: "{{ ansible_host }}"
         username: "admin"
         key_filename: "{{ working_dir }}/{{ ec2_prefix }}-key-private.pem"
         newpassword: "{{ PAN_PASSWORD }}"
