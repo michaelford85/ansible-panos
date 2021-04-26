@@ -13,7 +13,7 @@
             <th>Current ACLs</th>
         </tr>
     </thead>
-    {% for host in groups['ec2'] %}
+    {% for host in groups['panos'] %}
     <tbody>
         <tr>
             <td align='center'>{{ hostvars[host]['tags']['hostname'] }}</td>
