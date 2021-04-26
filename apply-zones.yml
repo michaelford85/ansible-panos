@@ -7,7 +7,7 @@
 #   set verify to disable in the virtual environment
 
 ---
-- hosts: ec2
+- hosts: panos
   connection: local
   gather_facts: no
   vars:
