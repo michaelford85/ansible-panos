@@ -51,7 +51,7 @@
         dest: /tmp/acl_entries.yml
 
 - name: Apply ACLs to PAN Firewalls
-  hosts: ec2
+  hosts: panos
   connection: local
   gather_facts: False
   vars:
