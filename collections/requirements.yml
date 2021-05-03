@@ -6,3 +6,5 @@ collections:
     version: 1.4.1
   - name: community.aws
     version: 1.4.0
+  - name: servicenow.itsm
+    version: 1.0.0
