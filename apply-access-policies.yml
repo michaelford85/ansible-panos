@@ -102,3 +102,8 @@
           state: absent
         loop: "{{ acl_entries }}"
       when: policy_state == "remove"
+
+    - set_stats:
+        data:
+          expose_to_cloud_redhat_com_snow_cr_number: "{{ snow_cr_number }}"
+      when: snow_cr_number is defined
