@@ -1,0 +1,33 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    erase: false
+  vars_files:
+    - ./credentials/servicenow_credentials.yml
+
+  # roles:
+  #   - role: paloaltonetworks.paloaltonetworks
+
+  tasks:
+
+    - name: Create a change request in ServiceNow
+      servicenow.itsm.change_request:
+        state: new
+        type: standard
+        short_description: "Apply Palo Alto Networks Access Policies"
+        requested_by: admin
+      delegate_to: localhost
+      register: request
+
+    - debug:
+        var: request
