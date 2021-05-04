@@ -10,7 +10,7 @@ WEBSERVER_USERNAME: "{{ vaulted_webserver_username }}"
 WEBSERVER_PASSWORD: "{{ vaulted_webserver_password }}"
 SN_USERNAME: "{{ vaulted_servicenow_username }}"
 SN_PASSWORD: "{{ vaulted_servicenow_password }}"
-SN_INSTANCE: dev59224
+SN_INSTANCE: dev71868
 tower_url: tower.mford.io
 # tower_url: tower.mford.io
 tower_provision: no
