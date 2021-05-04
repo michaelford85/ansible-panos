@@ -35,4 +35,4 @@
       register: request
 
     - debug:
-        var: request
+        var: request.record.number
