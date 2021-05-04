@@ -36,3 +36,7 @@
 
     - debug:
         var: request.record.number
+
+    - set_stats:
+      data:
+        expose_to_cloud_redhat_com_snow_cr_number: "{{ request.record.number }}"
