@@ -15,6 +15,7 @@
   vars_files:
     - ./vars/default_vars.yml
     - ./credentials/servicenow_credentials.yml
+    - ./credentials/gmail_creds.yml
 
   # roles:
   #   - role: paloaltonetworks.paloaltonetworks
@@ -34,9 +35,19 @@
       delegate_to: localhost
       register: request
 
-    - debug:
-        var: request.record.number
+    # - debug:
+    #     var: request.record.number
 
-    - set_stats:
-        data:
-          expose_to_cloud_redhat_com_snow_cr_number: "{{ request.record.number }}"
+
+    - name: Sending an email requesting approval
+      mail:
+        host: smtp.gmail.com
+        port: 587
+        username: "{{ gmail_username }}"
+        password: "{{ gmail_password }}"
+        to:
+        - "Michael Ford <{{ approver_email }}>"
+        - "{{ secondary_approver }}"
+        subject: "New ServiceNow Change Request {{ request.record.number }}"
+        body: "You have a new Change Request. Please click on this URL to view: https://{{ SNOW_INSTANCE }}.service-now.com/nav_to.do?uri=change_request.do?sysparm_query=number={{ new_change_request.record.number }}"
+      delegate_to: localhost
