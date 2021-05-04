@@ -106,8 +106,10 @@
     - debug:
         var: snow_cr_number
       when: snow_cr_number is defined
+      run_once: yes
 
     - set_stats:
         data:
           expose_to_cloud_redhat_com_snow_cr_number: "{{ snow_cr_number }}"
       when: snow_cr_number is defined
+      run_once: yes
