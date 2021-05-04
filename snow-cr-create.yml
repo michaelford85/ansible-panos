@@ -13,6 +13,7 @@
   vars:
     erase: false
   vars_files:
+    - ./vars/default_vars.yml
     - ./credentials/servicenow_credentials.yml
 
   # roles:
@@ -26,6 +27,10 @@
         type: standard
         short_description: "Apply Palo Alto Networks Access Policies"
         requested_by: admin
+        instance:
+          host: "https://{{ SN_INSTANCE }}.service-now.com"
+          username: "{{ SN_USERNAME }}"
+          password: "{{ SN_PASSWORD }}"
       delegate_to: localhost
       register: request
 
