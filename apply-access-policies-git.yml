@@ -32,24 +32,29 @@
         repo: 'https://github.com/michaelford85/acl-data.git'
         dest: /tmp/acl-data
 
-#     - name: Check to see if acl_entries.yml exists
-#       stat:
-#         # path: "{{ playbook_dir }}/vars/acl_entries.yml"
-#         path: /tmp/acl_entries.yml
-#       register: acl_entries_output
+    - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+      include_vars:
+        file: /tmp/acl-data/global/acl_entries_to_apply.csv
+        name: stuff
 
-#     - name: Delete acl_entries.yml if it already exists
-#       file:
-#         # path: "{{ playbook_dir }}/vars/acl_entries.yml"
-#         path: /tmp/acl_entries.yml
-#         state: absent
-#       when: acl_entries_output.stat.exists == True
+    - name: Check to see if acl_entries.yml exists
+      stat:
+        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        path: /tmp/acl_entries.yml
+      register: acl_entries_output
 
-#     - name: Create acl_entries.yml file from template
-#       template:
-#         src: "{{ playbook_dir }}/templates/acl_entries.j2"
-#         # dest: "{{ playbook_dir }}/vars/acl_entries.yml"
-#         dest: /tmp/acl_entries.yml
+    - name: Delete acl_entries.yml if it already exists
+      file:
+        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
+        path: /tmp/acl_entries.yml
+        state: absent
+      when: acl_entries_output.stat.exists == True
+
+    - name: Create acl_entries.yml file from template
+      template:
+        src: "{{ playbook_dir }}/templates/acl_entries.j2"
+        # dest: "{{ playbook_dir }}/vars/acl_entries.yml"
+        dest: /tmp/acl_entries.yml
 
 # - name: Apply ACLs to PAN Firewalls
 #   hosts: panos
