@@ -23,6 +23,10 @@
 - name: Set up ACL entries
   hosts: localhost
   gather_facts: False
+  vars:
+    csvfile: "{{ lookup('file', '/tmp/acl-data/global/acl_entries_to_apply.csv') }}"
+  vars_files:
+    - "{{ playbook_dir }}/vars/default_vars.yml"
   
 
   tasks:
@@ -32,20 +36,13 @@
         repo: 'https://github.com/michaelford85/acl-data.git'
         dest: /tmp/acl-data
 
-    - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
-      include_vars:
-        file: /tmp/acl-data/global/acl_entries_to_apply.csv
-        name: stuff
-
     - name: Check to see if acl_entries.yml exists
       stat:
-        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
         path: /tmp/acl_entries.yml
       register: acl_entries_output
 
     - name: Delete acl_entries.yml if it already exists
       file:
-        # path: "{{ playbook_dir }}/vars/acl_entries.yml"
         path: /tmp/acl_entries.yml
         state: absent
       when: acl_entries_output.stat.exists == True
