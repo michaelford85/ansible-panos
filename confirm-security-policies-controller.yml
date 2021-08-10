@@ -1,0 +1,205 @@
+# REQUIREMENTS
+# pip install pan-python
+# pip install pandevice
+# pip install xmltodict
+# ansible-galaxy install paloaltonetworks.paloaltonetworks
+# https://www.bountysource.com/issues/59738537-certificate-verify-failed
+#   set verify to disable in the virtual environment
+
+---
+- name: Confirm presence of ACLs on PAN Firewalls
+  hosts: panos
+  connection: local
+  gather_facts: no
+  vars:
+    firewall_inventory_webpage_name: "panos-inventory"
+    ec2_region: us-east-1
+    ec2_az: us-east-1a
+    dns_zone: "mford.io"
+    s3_state: present
+  vars_files:
+    - ./vars/default_vars.yml
+    - ./credentials/pan_credentials.yml
+    - ./credentials/webserver_credentials.yml
+
+  tasks:
+
+    - name: Query ACL Policies
+      paloaltonetworks.panos.panos_security_rule_facts:
+        provider:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ PAN_USERNAME }}"
+          password: "{{ PAN_PASSWORD }}"
+        details: true
+      register: security_rule_output
+
+    # - name: Print Security Rules
+    #   debug:
+    #     var: security_rule_output
+
+    - name: Print Security Rule Names
+      debug:
+        msg: "{{ msg.split('\n') }}"
+      vars:
+        msg: |
+          The RULE NAME is {{ item.description }}
+          The SOURCE IP ADDRESS is {{ item.source_ip[0] }}
+          The DESTINATION IP ADDRESS is {{ item.destination_ip[0] }}
+          The SOURCE ZONE is {{ item.source_zone[0] }}
+          The DESTINATION ZONE is {{ item.destination_zone[0] }}
+          The ACTION is {{ item.action }}
+      loop: "{{security_rule_output.rule_details}}"
+      loop_control:
+        label: "{{ item.description }}"
+      when: security_rule_output.rule_details is defined
+
+    - name: Build Current ACLs report
+      include_role:
+        name: acl_reports
+        tasks_from: current_acls
+      when: security_rule_output.rule_details is defined
+    
+    - name: Ensure S3 bucket exists
+      s3_bucket:
+        name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+        state: "{{ s3_state }}"
+        region: "{{ec2_region}}"
+        force: yes
+      run_once: yes
+    
+    - name: Enable web hosting
+      s3_website:
+       name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+       state: "{{ s3_state }}"
+       region: "{{ec2_region}}"
+       suffix: "index.html"
+      register: s3_site
+      when: s3_state == 'present'
+      run_once: yes
+    
+    - name: DNS for firewall inventory page
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{dns_zone}}"
+        record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        type: CNAME
+        overwrite: yes
+        value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
+      run_once: yes
+    
+    # - name: DNS for firewall rules
+    #   route53:
+    #     state: "{{ s3_state }}"
+    #     zone: "{{dns_zone}}"
+    #     record: "{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.{{dns_zone}}"
+    #     type: CNAME
+    #     overwrite: yes
+    #     value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.html"
+    
+    - name: Put webpage
+      s3_sync:
+        bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        region: "{{ec2_region}}"
+        file_root: "{{ working_dir }}/acl_reports/"
+        mime_map:
+          .html: text/html
+        permission: public-read
+        file_change_strategy: checksum
+        include: "*"
+      when: s3_state == 'present'
+      run_once: yes
+
+
+#     - block:
+#       - name: Ensure ACL file does not exist
+#         file:
+#           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+#           state: absent
+#         delegate_to: webserver
+#         run_once: yes
+#         become: yes
+#         vars:
+#           ansible_user: "{{ WEBSERVER_USERNAME }}"
+#           ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+#           # ansible_become_method: su
+#           become_user: "{{ WEBSERVER_USERNAME }}"
+#           ansible_become_password: "{{ WEBSERVER_PASSWORD }}"
+#
+#       - name: Create ACL file
+#         copy:
+#           dest: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+#           content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
+#         delegate_to: webserver
+#         run_once: yes
+#         become: yes
+#         vars:
+#           become_user: "{{ WEBSERVER_USERNAME }}"
+#           ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+#
+#       #TODO: account for a situation where there are NO ACLs applied
+#       #security_rule_output.json.result.entry does not exist in this case
+#       - name: Insert new ACL entry at the end of the file.
+#         lineinfile:
+#           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+#           line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
+#         loop: "{{security_rule_output.json.result.entry}}"
+#         when: security_rule_output.json.result.entry is defined
+#       delegate_to: webserver
+#       become: yes
+#       vars:
+#         ansible_user: "{{ WEBSERVER_USERNAME }}"
+#         ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+#
+#
+#
+# - name: Generate current ACL entries HTML
+#   hosts: panos
+#   gather_facts: no
+#   vars_files:
+#     - ./vars/default_vars.yml
+#     - ./credentials/webserver_credentials.yml
+#
+#   tasks:
+#
+#
+#     # - name: Print webserver hostname
+#     #   debug:
+#     #     var: "{{hostvars['webserver']['ansible_user']}}"
+#
+#     - block:
+#       - name: Read users from CSV file and return a dictionary
+#         read_csv:
+#           path: "/home/ec2-user/current_acls/{{ inventory_hostname }}.csv"
+#         register: rules
+#
+#       - name: Ensure there is no firewall inventory HTML file
+#         file:
+#           path: "/var/www/html/firewall_inventory.html"
+#           state: absent
+#         run_once: yes
+#
+#       - name: Ensure there are no firewall rules HTML files
+#         file:
+#           path: "/var/www/html/{{ inventory_hostname }}.html"
+#           state: absent
+#
+#       - name: Create new firewall inventory HTML file
+#         template:
+#           src: "{{ playbook_dir }}/templates/firewall_inventory.j2"
+#           dest: "/var/www/html/firewall_inventory.html"
+#
+#       - name: Create new firewall rules HTML files
+#         template:
+#           src: "{{ playbook_dir }}/templates/current_acl_entries.j2"
+#           dest: "/var/www/html/{{ inventory_hostname }}.html"
+#       delegate_to: webserver
+#       become: yes
+#       vars:
+#         current_rules: "{{ rules.list }}"
+#         ansible_user: "{{ WEBSERVER_USERNAME }}"
+#         ansible_ssh_pass: "{{ WEBSERVER_PASSWORD }}"
+#
+#     - name: Tell operator where to see current ACLs
+#       debug:
+#         msg: "Operator: in order to see the current ACLs, go to http://{{ webserver_fqdn }}/firewall_inventory.html"
+#       run_once: yes
