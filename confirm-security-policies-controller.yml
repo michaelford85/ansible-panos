@@ -68,7 +68,7 @@
       delegate_to: localhost
 
     - name: Read rules from CSV file and return a dictionary
-      read_csv:
+      community.general.read_csv:
         path: "/tmp/{{ inventory_hostname }}.csv"
       register: rules
 
