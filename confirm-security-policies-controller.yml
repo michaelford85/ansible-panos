@@ -58,13 +58,14 @@
         content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
       delegate_to: localhost
 
-    # - name: Insert new ACL entry at the end of the file.
-    #   ansible.builtin.lineinfile:
-    #     path: "/tmp/{{ inventory_hostname }}.csv"
-    #     line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
-    #   loop: "{{security_rule_output.json.result.entry}}"
-    #   when: security_rule_output.json.result.entry is defined
-    #   delegate_to: localhost
+    - name: Insert new ACL entry at the end of the file.
+      ansible.builtin.lineinfile:
+        path: "/tmp/{{ inventory_hostname }}.csv"
+        line: "{{item.rule_name}},{{item.rule_name}},{{item.source_ip[0]}},{{item.destination_ip[0]}},{{item.source_zone[0]}},{{item.destination_zone[0]}},{{item.action}}"
+      # loop: "{{security_rule_output.json.result.entry}}"
+      loop: "{{security_rule_output.rule_details}}"
+      when: security_rule_output.rule_details is defined
+      delegate_to: localhost
 
     # - name: Read rules from CSV file and return a dictionary
     #   community.general.read_csv:
