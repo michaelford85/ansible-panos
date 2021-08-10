@@ -90,10 +90,10 @@
       route53:
         state: "{{ s3_state }}"
         zone: "{{dns_zone}}"
-        record: "{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.{{dns_zone}}"
+        record: "{{hostvars[inventory_hostname]['tags']['Name']|lower}}.{{dns_zone}}"
         type: CNAME
         overwrite: yes
-        value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.html"
+        value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html"
     
     - name: Put webpage
       s3_sync:
