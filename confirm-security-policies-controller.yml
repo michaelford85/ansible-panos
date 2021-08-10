@@ -13,7 +13,7 @@
   gather_facts: no
   vars:
     firewall_inventory_webpage_name: "panos-inventory"
-    ec2_region: us-east-2
+    ec2_region: us-east-1
     dns_zone: "mford.io"
     s3_state: present
   vars_files:
@@ -37,7 +37,7 @@
     #     var: security_rule_output
 
     - name: Print Security Rule Names
-      debug:
+      ansible.builtin.debug:
         msg: "{{ msg.split('\n') }}"
       vars:
         msg: |
@@ -52,11 +52,33 @@
         label: "{{ item.description }}"
       when: security_rule_output.rule_details is defined
 
+    - name: Create ACL file
+      ansible.builtin.copy:
+        dest: "/tmp/{{ inventory_hostname }}.csv"
+        content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Insert new ACL entry at the end of the file.
+      ansible.builtin.lineinfile:
+        path: "/tmp/{{ inventory_hostname }}.csv"
+        line: "{{item.description}},{{item.description}},{{item.source.member[0]}},{{item.source.member[0]}},['{{item.from.member[0]}}'],['{{item.to.member[0]}}'],{{item.action}}"
+      loop: "{{security_rule_output.json.result.entry}}"
+      when: security_rule_output.json.result.entry is defined
+      delegate_to: localhost
+
+    - name: Read rules from CSV file and return a dictionary
+      read_csv:
+        path: "/tmp/{{ inventory_hostname }}.csv"
+      register: rules
+
     - name: Build Current ACLs report
       include_role:
         name: acl_reports
         tasks_from: current_acls
       when: security_rule_output.rule_details is defined
+      vars:
+        current_rules: "{{ rules.list }}"
     
     - name: Ensure S3 bucket exists
       s3_bucket:
