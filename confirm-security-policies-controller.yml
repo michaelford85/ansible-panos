@@ -62,73 +62,72 @@
       ansible.builtin.lineinfile:
         path: "/tmp/{{ inventory_hostname }}.csv"
         line: "{{item.rule_name}},{{item.rule_name}},{{item.source_ip[0]}},{{item.destination_ip[0]}},{{item.source_zone[0]}},{{item.destination_zone[0]}},{{item.action}}"
-      # loop: "{{security_rule_output.json.result.entry}}"
       loop: "{{security_rule_output.rule_details}}"
       when: security_rule_output.rule_details is defined
       delegate_to: localhost
 
-    # - name: Read rules from CSV file and return a dictionary
-    #   community.general.read_csv:
-    #     path: "/tmp/{{ inventory_hostname }}.csv"
-    #   register: rules
+    - name: Read rules from CSV file and return a dictionary
+      community.general.read_csv:
+        path: "/tmp/{{ inventory_hostname }}.csv"
+      register: rules
 
-    # - name: Build Current ACLs report
-    #   include_role:
-    #     name: acl_reports
-    #     tasks_from: current_acls
-    #   when: security_rule_output.rule_details is defined
-    #   vars:
-    #     current_rules: "{{ rules.list }}"
+    - name: Build Current ACLs report
+      include_role:
+        name: acl_reports
+        tasks_from: current_acls
+      when: security_rule_output.rule_details is defined
+      vars:
+        current_rules: "{{ rules.list }}"
     
-    # - name: Ensure S3 bucket exists
-    #   s3_bucket:
-    #     name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
-    #     state: "{{ s3_state }}"
-    #     region: "{{ec2_region}}"
-    #     force: yes
-    #   run_once: yes
+    - name: Ensure S3 bucket exists
+      s3_bucket:
+        name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+        state: "{{ s3_state }}"
+        region: "{{ec2_region}}"
+        force: yes
+      run_once: yes
     
-    # - name: Enable web hosting
-    #   s3_website:
-    #    name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
-    #    state: "{{ s3_state }}"
-    #    region: "{{ec2_region}}"
-    #    suffix: "index.html"
-    #   register: s3_site
-    #   when: s3_state == 'present'
-    #   run_once: yes
+    - name: Enable web hosting
+      s3_website:
+       name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
+       state: "{{ s3_state }}"
+       region: "{{ec2_region}}"
+       suffix: "index.html"
+      register: s3_site
+      when: s3_state == 'present'
+      run_once: yes
     
-    # - name: DNS for firewall inventory page
-    #   route53:
-    #     state: "{{ s3_state }}"
-    #     zone: "{{dns_zone}}"
-    #     record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
-    #     type: CNAME
-    #     overwrite: yes
-    #     value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
-    #   run_once: yes
+    - name: DNS for firewall inventory page
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{dns_zone}}"
+        record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        type: CNAME
+        overwrite: yes
+        value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-{{ec2_region}}.amazonaws.com"
+      run_once: yes
     
-    # - name: DNS for firewall rules
-    #   route53:
-    #     state: "{{ s3_state }}"
-    #     zone: "{{dns_zone}}"
-    #     record: "{{hostvars[inventory_hostname]['tags']['Name']|lower}}.{{dns_zone}}"
-    #     type: CNAME
-    #     overwrite: yes
-    #     value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html"
+    - name: DNS for firewall rules
+      route53:
+        state: "{{ s3_state }}"
+        zone: "{{dns_zone}}"
+        record: "{{hostvars[inventory_hostname]['tags']['Name']|lower}}.{{dns_zone}}"
+        type: CNAME
+        overwrite: yes
+        value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html"
     
-    # - name: Put webpage
-    #   s3_sync:
-    #     bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
-    #     region: "{{ec2_region}}"
-    #     file_root: "{{ working_dir }}/acl_reports/"
-    #     mime_map:
-    #       .html: text/html
-    #     permission: public-read
-    #     file_change_strategy: checksum
-    #     include: "*"
-    #   when: s3_state == 'present'
-    #   run_once: yes
+    - name: Put webpage
+      s3_sync:
+        bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+        region: "{{ec2_region}}"
+        file_root: "{{ working_dir }}/acl_reports/"
+        mime_map:
+          .html: text/html
+        permission: public-read
+        file_change_strategy: checksum
+        include: "*"
+      when: s3_state == 'present'
+      run_once: yes
 
 
 #     - block:
