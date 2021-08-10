@@ -57,7 +57,6 @@
         dest: "/tmp/{{ inventory_hostname }}.csv"
         content: "rule_name,description,source_ip,destination_ip,source_zone,destination_zone,action"
       delegate_to: localhost
-      run_once: yes
 
     - name: Insert new ACL entry at the end of the file.
       ansible.builtin.lineinfile:
