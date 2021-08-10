@@ -1,0 +1,15 @@
+---
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+  - us-east-2
+filters:
+  tag:demo: panos
+  instance-state-name:
+  - running
+groups:
+  panos: true
+compose:
+  ansible_host: public_ip_address
+hostnames:
+  - tag:Name
