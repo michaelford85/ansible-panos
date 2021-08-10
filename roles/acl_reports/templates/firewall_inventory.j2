@@ -17,9 +17,7 @@
     <tbody>
         <tr>
             <td align='center'>{{ hostvars[inventory_hostname]['tags']['Name'] }}</td>
-            <!-- <td align='center'><a href="http://{{ webserver_fqdn}}/{{ hostvars[host]['tags']['Name'] }}.html">Rules Link</a></td> -->
             <td align='center'><a href="https://s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html">Rules Link</a></td>
-            <!-- "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['hostname']|lower}}.html" -->
         </tr>
     </tbody>
     {% endfor %}
