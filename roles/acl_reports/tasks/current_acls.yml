@@ -22,7 +22,7 @@
     dest: "{{ working_dir }}/acl_reports/{{ hostvars[inventory_hostname]['tags']['Name'] }}.html"
   vars:
     current_rules: "{{ security_rule_output.rule_details }}"
-  # loop: "{{security_rule_output.rule_details}}"
-  # loop_control:
-  #   label: "{{ item.description }}"
-  # when: security_rule_output.rule_details is defined
+  loop: "{{security_rule_output.rule_details}}"
+  loop_control:
+    label: "{{ item.description }}"
+  when: security_rule_output.rule_details is defined
