@@ -101,15 +101,28 @@
       when: s3_state == 'present'
       run_once: yes
     
+    # - name: DNS for firewall inventory page
+    #   community.aws.route53:
+    #     state: "{{ s3_state }}"
+    #     zone: "{{dns_zone}}"
+    #     record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
+    #     type: CNAME
+    #     ttl: 60
+    #     overwrite: yes
+    #     value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/index.html"
+    #   run_once: yes
+
     - name: DNS for firewall inventory page
       community.aws.route53:
         state: "{{ s3_state }}"
         zone: "{{dns_zone}}"
         record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
-        type: CNAME
-        ttl: 60
+        type: A
+        alias: yes
+        validate_certs: no
         overwrite: yes
-        value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/index.html"
+        # value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/index.html"
+        value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-us-east-1.amazonaws.com"
       run_once: yes
     
     - name: DNS for firewall rules
