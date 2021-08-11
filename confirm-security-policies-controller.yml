@@ -84,7 +84,7 @@
         current_rules: "{{ rules.list }}"
     
     - name: Ensure S3 bucket exists
-      community.aws.s3_bucket:
+      amazon.aws.s3_bucket:
         name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
         state: "{{ s3_state }}"
         region: "{{ec2_region}}"
