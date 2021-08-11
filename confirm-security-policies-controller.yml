@@ -123,7 +123,7 @@
         overwrite: yes
         alias_hosted_zone_id: Z3AQBSTGFYJSTF
         # value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/index.html"
-        value: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}.s3-website-us-east-1.amazonaws.com"
+        value: "s3-website-us-east-1.amazonaws.com"
       run_once: yes
     
     - name: DNS for firewall rules
