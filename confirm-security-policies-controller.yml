@@ -33,7 +33,7 @@
       register: security_rule_output
 
     - name: Print Security Rules
-      debug:
+      ansible.builtin.debug:
         var: security_rule_output
 
     - name: Print Security Rule Names
@@ -72,11 +72,11 @@
       register: rules
 
     - name: Show the contents of the rules output
-      debug:
+      ansible.builtin.debug:
         var: rules
 
     - name: Build Current ACLs report
-      include_role:
+      ansible.builtin.include_role:
         name: acl_reports
         tasks_from: current_acls
       when: security_rule_output.rule_details is defined
@@ -84,7 +84,7 @@
         current_rules: "{{ rules.list }}"
     
     - name: Ensure S3 bucket exists
-      s3_bucket:
+      community.aws.s3_bucket:
         name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
         state: "{{ s3_state }}"
         region: "{{ec2_region}}"
@@ -92,7 +92,7 @@
       run_once: yes
     
     - name: Enable web hosting
-      s3_website:
+      community.aws.s3_website:
        name: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone|lower}}"
        state: "{{ s3_state }}"
        region: "{{ec2_region}}"
@@ -102,27 +102,29 @@
       run_once: yes
     
     - name: DNS for firewall inventory page
-      route53:
+      community.aws.route53:
         state: "{{ s3_state }}"
         zone: "{{dns_zone}}"
         record: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
         type: CNAME
+        ttl: 60
         overwrite: yes
         value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/index.html"
       run_once: yes
     
     - name: DNS for firewall rules
-      route53:
+      community.aws.route53:
         state: "{{ s3_state }}"
         zone: "{{dns_zone}}"
         record: "{{hostvars[inventory_hostname]['tags']['Name']|lower}}.{{dns_zone}}"
         type: CNAME
+        ttl: 60
         overwrite: yes
         value: "s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html"
         
     
     - name: Put webpage
-      s3_sync:
+      community.aws.s3_sync:
         bucket: "{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}"
         region: "{{ec2_region}}"
         file_root: "{{ working_dir }}/acl_reports/"
