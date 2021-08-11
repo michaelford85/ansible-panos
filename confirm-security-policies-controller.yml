@@ -71,6 +71,10 @@
         path: "/tmp/{{ inventory_hostname }}.csv"
       register: rules
 
+    - name: Show the contents of the rules output
+      debug:
+        var: rules
+
     - name: Build Current ACLs report
       include_role:
         name: acl_reports
