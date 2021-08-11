@@ -16,8 +16,8 @@
     {% for host in groups['panos'] %}
     <tbody>
         <tr>
-            <td align='center'>{{ hostvars[inventory_hostname]['tags']['Name'] }}</td>
-            <td align='center'><a href="https://s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[inventory_hostname]['tags']['Name']|lower}}.html">Rules Link</a></td>
+            <td align='center'>{{ hostvars[host]['tags']['Name'] }}</td>
+            <td align='center'><a href="https://s3.amazonaws.com/{{firewall_inventory_webpage_name|lower}}.{{dns_zone}}/{{hostvars[host]['tags']['Name']|lower}}.html">Rules Link</a></td>
         </tr>
     </tbody>
     {% endfor %}
