@@ -31,6 +31,15 @@
     - ansible.builtin.debug:
         var: gitlog
 
+    - ansible.builtin.set_fact:
+        myvalue: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
+      vars:
+        regexp: 'value=^([\w\-]+)'
+   
+    - ansible.builtin.debug:
+        var: myvalue
+    
+
 
 #     - name: Check to see if acl_entries.yml exists
 #       stat:
