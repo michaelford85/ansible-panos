@@ -23,7 +23,9 @@
         dest: /tmp/acl-data
 
     - name: Access Previous Rules
-      ansible.builtin.command: git log --oneline
+      ansible.builtin.command: 
+        chdir: /tmp/acl-data
+        cmd: git log --oneline
       register: gitlog
 
     - ansible.builtin.debug:
