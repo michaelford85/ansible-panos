@@ -89,7 +89,7 @@
 #       include_vars:
 #         file: /tmp/acl_entries.yml
 #       run_once: yes
-
+ 
 #     - block:
 #       - name: Add an ACL entry
 #         paloaltonetworks.panos.panos_security_rule:
