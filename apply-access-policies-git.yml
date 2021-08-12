@@ -64,9 +64,8 @@
       when: acl_entries_output.stat.exists == True
 
     - name: Include acl csv file
-      ansible.builtin.include_vars:
-        file: /tmp/acl-data/global/acl_entries_to_apply.csv
-        name: csvfile
+      ansible.builtin.set_fact:
+        csvfile: "{{ lookup('file', '/tmp/acl-data/global/acl_entries_to_apply.csv') }}"
 
     - name: Create acl_entries.yml file from template
       template:
