@@ -22,67 +22,75 @@
         repo: 'https://github.com/michaelford85/acl-data.git'
         dest: /tmp/acl-data
 
-    - name: Check to see if acl_entries.yml exists
-      stat:
-        path: /tmp/acl_entries.yml
-      register: acl_entries_output
+    - name: Access Previous Rules
+      ansible.builtin.command: git log --oneline
+      register: gitlog
 
-    - name: Delete acl_entries.yml if it already exists
-      file:
-        path: /tmp/acl_entries.yml
-        state: absent
-      when: acl_entries_output.stat.exists == True
+    - ansible.builtin.debug
+        var: gitlog
 
-    - name: Create acl_entries.yml file from template
-      template:
-        src: "{{ playbook_dir }}/templates/acl_entries.j2"
-        dest: /tmp/acl_entries.yml
 
-- name: Apply ACLs to PAN Firewalls
-  hosts: panos
-  connection: local
-  gather_facts: False
-  vars:
-    erase: false
-  vars_files:
-    - "{{ playbook_dir }}/vars/default_vars.yml"
-    - "{{ playbook_dir }}/credentials/pan_credentials.yml"
-    - "{{ playbook_dir }}/credentials/servicenow_credentials.yml"
+#     - name: Check to see if acl_entries.yml exists
+#       stat:
+#         path: /tmp/acl_entries.yml
+#       register: acl_entries_output
 
-  tasks:
+#     - name: Delete acl_entries.yml if it already exists
+#       file:
+#         path: /tmp/acl_entries.yml
+#         state: absent
+#       when: acl_entries_output.stat.exists == True
 
-    - name: Load acl_entries variable into the playbook
-      include_vars:
-        file: /tmp/acl_entries.yml
-      run_once: yes
+#     - name: Create acl_entries.yml file from template
+#       template:
+#         src: "{{ playbook_dir }}/templates/acl_entries.j2"
+#         dest: /tmp/acl_entries.yml
 
-    - block:
-      - name: Add an ACL entry
-        paloaltonetworks.panos.panos_security_rule:
-          provider:
-            ip_address: "{{ ansible_host }}"
-            username: "{{ PAN_USERNAME }}"
-            password: "{{ PAN_PASSWORD }}"
-          rule_name: "{{item.rule_name}}"
-          description: "{{item.rule_name}}"
-          source_ip: "{{item.source_ip}}"
-          destination_ip: "{{ item.destination_ip }}"
-          source_zone: "['{{item.source_zone}}']"
-          destination_zone: "['{{item.destination_zone}}']"
-          action: "{{ item.action}}"
-          state: present
-        loop: "{{ acl_entries }}"
-        ignore_errors: True
-      when: policy_state == "add"
+# - name: Apply ACLs to PAN Firewalls
+#   hosts: panos
+#   connection: local
+#   gather_facts: False
+#   vars:
+#     erase: false
+#   vars_files:
+#     - "{{ playbook_dir }}/vars/default_vars.yml"
+#     - "{{ playbook_dir }}/credentials/pan_credentials.yml"
+#     - "{{ playbook_dir }}/credentials/servicenow_credentials.yml"
 
-    - block:
-      - name: Remove ACL entries
-        paloaltonetworks.panos.panos_security_rule:
-          provider:
-            ip_address: "{{ ansible_host }}"
-            username: "{{ PAN_USERNAME }}"
-            password: "{{ PAN_PASSWORD }}"
-          rule_name: "{{item.rule_name}}"
-          state: absent
-        loop: "{{ acl_entries }}"
-      when: policy_state == "remove"
+#   tasks:
+
+#     - name: Load acl_entries variable into the playbook
+#       include_vars:
+#         file: /tmp/acl_entries.yml
+#       run_once: yes
+
+#     - block:
+#       - name: Add an ACL entry
+#         paloaltonetworks.panos.panos_security_rule:
+#           provider:
+#             ip_address: "{{ ansible_host }}"
+#             username: "{{ PAN_USERNAME }}"
+#             password: "{{ PAN_PASSWORD }}"
+#           rule_name: "{{item.rule_name}}"
+#           description: "{{item.rule_name}}"
+#           source_ip: "{{item.source_ip}}"
+#           destination_ip: "{{ item.destination_ip }}"
+#           source_zone: "['{{item.source_zone}}']"
+#           destination_zone: "['{{item.destination_zone}}']"
+#           action: "{{ item.action}}"
+#           state: present
+#         loop: "{{ acl_entries }}"
+#         ignore_errors: True
+#       when: policy_state == "add"
+
+#     - block:
+#       - name: Remove ACL entries
+#         paloaltonetworks.panos.panos_security_rule:
+#           provider:
+#             ip_address: "{{ ansible_host }}"
+#             username: "{{ PAN_USERNAME }}"
+#             password: "{{ PAN_PASSWORD }}"
+#           rule_name: "{{item.rule_name}}"
+#           state: absent
+#         loop: "{{ acl_entries }}"
+#       when: policy_state == "remove"
