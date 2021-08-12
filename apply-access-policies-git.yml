@@ -20,6 +20,12 @@
     - ansible.builtin.debug:
         msg: "The Policy State is {{ policy_state }}"
 
+
+    - name: Recursively ACL Data Repository
+      file:
+        path: /tmp/acl-data
+        state: absent
+
     - name: Clone ACL Data Repository
       ansible.builtin.git:
         repo: 'https://github.com/michaelford85/acl-data.git'
