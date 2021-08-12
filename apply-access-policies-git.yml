@@ -36,12 +36,18 @@
         var: gitlog
       when: policy_state == "update"
 
+    # - ansible.builtin.set_fact:
+    #     previous_acls: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
+    #   vars:
+    #     regexp: '^([\w\-]+)'
+    #   when: policy_state == "update"
+  
     - ansible.builtin.set_fact:
-        previous_acls: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
+        previous_acls: "{{ gitlog.stdout_lines[1] | regex_search(regexp) }}"
       vars:
         regexp: '^([\w\-]+)'
       when: policy_state == "update"
-  
+      
     - ansible.builtin.debug:
         var: previous_acls
       when: policy_state == "update"
