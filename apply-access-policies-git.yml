@@ -10,12 +10,15 @@
 - name: Set up ACL entries
   hosts: localhost
   gather_facts: False
-  vars:
-    csvfile: "{{ lookup('file', '/tmp/acl-data/global/acl_entries_to_apply.csv') }}"
+  # vars:
+  #   csvfile: "{{ lookup('file', '/tmp/acl-data/global/acl_entries_to_apply.csv') }}"
   vars_files:
     - "{{ playbook_dir }}/vars/default_vars.yml"
 
   tasks:
+    
+    - ansible.builtin.debug:
+        msg: "The Policy State is {{ policy_state }}"
 
     - name: Clone ACL Data Repository
       ansible.builtin.git:
@@ -27,35 +30,47 @@
         chdir: /tmp/acl-data
         cmd: git log --oneline
       register: gitlog
+      when: policy_state == "update"
 
     - ansible.builtin.debug:
         var: gitlog
+      when: policy_state == "update"
 
     - ansible.builtin.set_fact:
-        myvalue: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
+        previous_acls: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
       vars:
         regexp: '^([\w\-]+)'
-   
+      when: policy_state == "update"
+  
     - ansible.builtin.debug:
-        var: myvalue
-    
+        var: previous_acls
+      when: policy_state == "update"
 
+    - name: Access Previous Rules
+      ansible.builtin.command: 
+        chdir: /tmp/acl-data
+        cmd: "git checkout {{previous_acls}}"
+      when: policy_state == "update"
 
-#     - name: Check to see if acl_entries.yml exists
-#       stat:
-#         path: /tmp/acl_entries.yml
-#       register: acl_entries_output
+    - name: Check to see if acl_entries.yml exists
+      stat:
+        path: /tmp/acl_entries.yml
+      register: acl_entries_output
 
-#     - name: Delete acl_entries.yml if it already exists
-#       file:
-#         path: /tmp/acl_entries.yml
-#         state: absent
-#       when: acl_entries_output.stat.exists == True
+    - name: Delete acl_entries.yml if it already exists
+      file:
+        path: /tmp/acl_entries.yml
+        state: absent
+      when: acl_entries_output.stat.exists == True
 
-#     - name: Create acl_entries.yml file from template
-#       template:
-#         src: "{{ playbook_dir }}/templates/acl_entries.j2"
-#         dest: /tmp/acl_entries.yml
+    - name: Include acl csv file
+      ansible.builtin.include_vars:
+        file: /tmp/acl-data/global/acl_entries_to_apply.csv
+        
+    - name: Create acl_entries.yml file from template
+      template:
+        src: "{{ playbook_dir }}/templates/acl_entries.j2"
+        dest: /tmp/acl_entries.yml 
 
 # - name: Apply ACLs to PAN Firewalls
 #   hosts: panos
@@ -104,4 +119,6 @@
 #           rule_name: "{{item.rule_name}}"
 #           state: absent
 #         loop: "{{ acl_entries }}"
-#       when: policy_state == "remove"
+#       when: 
+#         - policy_state == "remove"
+#         - policy_state == "update"
