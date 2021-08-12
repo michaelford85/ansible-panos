@@ -25,4 +25,4 @@
   loop: "{{security_rule_output.rule_details}}"
   loop_control:
     label: "{{ item.rule_name }}"
-  when: security_rule_output.rule_details is defined
+  # when: security_rule_output.rule_details is defined
