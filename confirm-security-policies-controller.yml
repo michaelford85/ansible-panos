@@ -80,7 +80,7 @@
       ansible.builtin.include_role:
         name: acl_reports
         tasks_from: current_acls
-      when: security_rule_output.rule_details is defined
+      # when: security_rule_output.rule_details is defined
       vars:
         current_rules: "{{ rules.list }}"
     
