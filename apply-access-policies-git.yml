@@ -34,7 +34,7 @@
     - ansible.builtin.set_fact:
         myvalue: "{{ gitlog.stdout_lines[1] | regex_search(regexp,'\\1') }}"
       vars:
-        regexp: 'value=^([\w\-]+)'
+        regexp: '^([\w\-]+)'
    
     - ansible.builtin.debug:
         var: myvalue
