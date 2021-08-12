@@ -129,6 +129,4 @@
           rule_name: "{{item.rule_name}}"
           state: absent
         loop: "{{ acl_entries }}"
-      when: 
-        - policy_state == "remove"
-        - policy_state == "update"
+      when: (policy_state == "remove") or (policy_state == "update")
