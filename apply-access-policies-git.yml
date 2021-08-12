@@ -55,7 +55,7 @@
     - name: Access Previous Rules
       ansible.builtin.command: 
         chdir: /tmp/acl-data
-        cmd: "git checkout {{ previous_acls[0] | string }}"
+        cmd: "git checkout {{ previous_acls }}"
       when: policy_state == "update"
 
     - name: Check to see if acl_entries.yml exists
